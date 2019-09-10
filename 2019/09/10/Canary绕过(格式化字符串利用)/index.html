@@ -6,11 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>Canary绕过(格式化字符串利用) | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Canary绕过(格式化字符串利用)漏洞代码:123456789101112131415161718192021#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unistd.h&amp;gt;#include &amp;lt;string.h&amp;gt;void  getshell(void) &amp;#123;   system(&quot;/bin/sh&quot;);&amp;#125;void  init() &amp;#1">
+<meta name="keywords" content="pwn,格式化字符串">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="Canary绕过(格式化字符串利用)">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/Canary绕过(格式化字符串利用)/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="Canary绕过(格式化字符串利用)漏洞代码:123456789101112131415161718192021#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unistd.h&amp;gt;#include &amp;lt;string.h&amp;gt;void  getshell(void) &amp;#123;   system(&quot;/bin/sh&quot;);&amp;#125;void  init() &amp;#1">
@@ -22,9 +23,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Canary绕过(格式化字符串利用)/b7b8e1c128f9b8f531aef4de99ec0186.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Canary绕过(格式化字符串利用)/f06e293b9d77341a1e5af0033b7df246.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Canary绕过(格式化字符串利用)/75dbb4fe9594be97c4d081af6151fe72.png">
-<meta property="og:updated_time" content="2019-09-10T09:27:48.768Z">
+<meta property="og:updated_time" content="2019-09-10T10:06:27.147Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="Canary绕过(格式化字符串利用)">
 <meta name="twitter:description" content="Canary绕过(格式化字符串利用)漏洞代码:123456789101112131415161718192021#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unistd.h&amp;gt;#include &amp;lt;string.h&amp;gt;void  getshell(void) &amp;#123;   system(&quot;/bin/sh&quot;);&amp;#125;void  init() &amp;#1">
 <meta name="twitter:image" content="http://yoursite.com/2019/09/10/Canary绕过(格式化字符串利用)/183de8fcd52b9b29d4fd53fa7fd67590.png">
   
@@ -161,9 +162,24 @@
             <article id="post-Canary绕过(格式化字符串利用)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Canary绕过(格式化字符串利用)
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/Canary绕过(格式化字符串利用)/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Canary绕过-格式化字符串利用"><a href="#Canary绕过-格式化字符串利用" class="headerlink" title="Canary绕过(格式化字符串利用)"></a><strong>Canary绕过(格式化字符串利用)</strong></h3><h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码:"></a><strong>漏洞代码:</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">getshell</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   setbuf(<span class="built_in">stdin</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stdout</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stderr</span>,  <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span>  i;</span><br><span class="line">   init();</span><br><span class="line">   <span class="keyword">char</span>  buf[<span class="number">100</span>];</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span>  i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">"%s"</span>,&amp;buf);</span><br><span class="line">      <span class="built_in">printf</span>(buf);  <span class="comment">//vul</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span>  <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h3 id="Canary绕过-格式化字符串利用"><a href="#Canary绕过-格式化字符串利用" class="headerlink" title="Canary绕过(格式化字符串利用)"></a>Canary绕过(格式化字符串利用)</h3><h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码:"></a><strong>漏洞代码:</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">getshell</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   setbuf(<span class="built_in">stdin</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stdout</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stderr</span>,  <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span>  i;</span><br><span class="line">   init();</span><br><span class="line">   <span class="keyword">char</span>  buf[<span class="number">100</span>];</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span>  i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">"%s"</span>,&amp;buf);</span><br><span class="line">      <span class="built_in">printf</span>(buf);  <span class="comment">//vul</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span>  <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a><strong>原理：</strong></h3><p>利用格式化字符串漏洞泄露出canary的值，利用main函数的ret拿到shell</p>
 <h3 id="具体实现："><a href="#具体实现：" class="headerlink" title="具体实现："></a><strong>具体实现：</strong></h3><h4 id="找到canary的位置："><a href="#找到canary的位置：" class="headerlink" title="找到canary的位置："></a><strong>找到canary的位置：</strong></h4><p><img src="/2019/09/10/Canary绕过(格式化字符串利用)/183de8fcd52b9b29d4fd53fa7fd67590.png" alt><br>在进入main函数后将canary的值储存在$ebp - 0xc的地方<img src="/2019/09/10/Canary绕过(格式化字符串利用)/1f9ac97d03e5f8da123832a1faca2f84.png" alt></p>
@@ -213,6 +229,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn,格式化字符串</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -277,18 +304,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/简单栈溢出/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Pythonpexpect/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Pythonpexpect
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/ROP之ret2dlresolve/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/Pwnable.tw.start/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Pwnable.tw.start</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -412,6 +439,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

@@ -6,11 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>ROP之ret2dlresolve | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="ROP之ret2dlresolve首先以一个程序看起，了解其真正的延迟加载过程  这里call 了read函数，由于是第一次调用，所以需要从libc中查找出对应函数，来研究下它具体的过程是如何的。 si步入，其进入了read的plt表，并且将要跳转，由图可知，他其实就是跳转到其下一条语句并且会push一个0  继续si，跑完push 0x0,栈被推进了一个新值，这个值是十分有用的，后续将会讲解其具">
+<meta name="keywords" content="pwn,ROP,ret2dlresolve">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="ROP之ret2dlresolve">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="ROP之ret2dlresolve首先以一个程序看起，了解其真正的延迟加载过程  这里call 了read函数，由于是第一次调用，所以需要从libc中查找出对应函数，来研究下它具体的过程是如何的。 si步入，其进入了read的plt表，并且将要跳转，由图可知，他其实就是跳转到其下一条语句并且会push一个0  继续si，跑完push 0x0,栈被推进了一个新值，这个值是十分有用的，后续将会讲解其具">
@@ -29,9 +30,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/9be1027e9561ec754d0ee361253a03c7.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/46eb463baaaac47c3480c3512614ed5c.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/ce99ad2676dfec4137d5effb0c921e68.png">
-<meta property="og:updated_time" content="2019-09-10T09:46:01.803Z">
+<meta property="og:updated_time" content="2019-09-10T10:10:42.637Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="ROP之ret2dlresolve">
 <meta name="twitter:description" content="ROP之ret2dlresolve首先以一个程序看起，了解其真正的延迟加载过程  这里call 了read函数，由于是第一次调用，所以需要从libc中查找出对应函数，来研究下它具体的过程是如何的。 si步入，其进入了read的plt表，并且将要跳转，由图可知，他其实就是跳转到其下一条语句并且会push一个0  继续si，跑完push 0x0,栈被推进了一个新值，这个值是十分有用的，后续将会讲解其具">
 <meta name="twitter:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/e80712df161361a0b45af9cbcc49dc21.png">
   
@@ -168,9 +169,24 @@
             <article id="post-ROP之ret2dlresolve" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ROP之ret2dlresolve
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/ROP之ret2dlresolve/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a><strong>ROP之ret2dlresolve</strong></h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
+        <h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a>ROP之ret2dlresolve</h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
 <p><img src="/2019/09/10/ROP之ret2dlresolve/e80712df161361a0b45af9cbcc49dc21.png" alt="1.png"></p>
 <p>这里call 了read函数，由于是第一次调用，所以需要从libc中查找出对应函数，来研究下它具体的过程是如何的。</p>
 <p>si步入，其进入了read的plt表，并且将要跳转，由图可知，他其实就是跳转到其下一条语句并且会push一个0</p>
@@ -224,6 +240,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">pwn,ROP,ret2dlresolve</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -288,18 +315,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Canary绕过(格式化字符串利用)/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          ROP (Return-oriented programming ) 返回导向编程
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/GIT游戏/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/简单栈溢出/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">简单栈溢出</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -423,6 +450,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

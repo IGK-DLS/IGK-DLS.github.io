@@ -6,11 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>Pwnable.tw.start | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Pwnable.tw.start拿到题目32位，小端，静态编译，保护全关 运行一下输入超长字符串，程序Crash掉 拖入IDAstart函数里，先write出“Let’s start the CTF:”,之后输入。因为对write和read对栈的影响不太熟悉,所以gdb调试一下。第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。edx存放字符串长度，ebx存放fd。">
+<meta name="keywords" content="pwn,栈,溢出">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="Pwnable.tw.start">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/Pwnable.tw.start/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="Pwnable.tw.start拿到题目32位，小端，静态编译，保护全关 运行一下输入超长字符串，程序Crash掉 拖入IDAstart函数里，先write出“Let’s start the CTF:”,之后输入。因为对write和read对栈的影响不太熟悉,所以gdb调试一下。第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。edx存放字符串长度，ebx存放fd。">
@@ -25,9 +26,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Pwnable.tw.start/77973a48820fee86086be01a0ea6ba9f.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Pwnable.tw.start/a932583c9a566cb25c62ffa7ec11f282.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Pwnable.tw.start/4c55e1f5766990deff0c14d19bc2528d.png">
-<meta property="og:updated_time" content="2019-09-10T09:29:05.639Z">
+<meta property="og:updated_time" content="2019-09-10T10:07:12.478Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="Pwnable.tw.start">
 <meta name="twitter:description" content="Pwnable.tw.start拿到题目32位，小端，静态编译，保护全关 运行一下输入超长字符串，程序Crash掉 拖入IDAstart函数里，先write出“Let’s start the CTF:”,之后输入。因为对write和read对栈的影响不太熟悉,所以gdb调试一下。第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。edx存放字符串长度，ebx存放fd。">
 <meta name="twitter:image" content="http://yoursite.com/2019/09/10/Pwnable.tw.start/42f00637996ec6ee010976e734bb4f3e.png">
   
@@ -164,9 +165,24 @@
             <article id="post-Pwnable.tw.start" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pwnable.tw.start
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/Pwnable.tw.start/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Pwnable-tw-start"><a href="#Pwnable-tw-start" class="headerlink" title="Pwnable.tw.start"></a><strong>Pwnable.tw.start</strong></h3><h4 id="拿到题目"><a href="#拿到题目" class="headerlink" title="拿到题目"></a><strong>拿到题目</strong></h4><p>32位，小端，静态编译，保护全关<br><img src="/2019/09/10/Pwnable.tw.start/42f00637996ec6ee010976e734bb4f3e.png" alt></p>
+        <h3 id="Pwnable-tw-start"><a href="#Pwnable-tw-start" class="headerlink" title="Pwnable.tw.start"></a>Pwnable.tw.start</h3><h4 id="拿到题目"><a href="#拿到题目" class="headerlink" title="拿到题目"></a><strong>拿到题目</strong></h4><p>32位，小端，静态编译，保护全关<br><img src="/2019/09/10/Pwnable.tw.start/42f00637996ec6ee010976e734bb4f3e.png" alt></p>
 <h4 id="运行一下"><a href="#运行一下" class="headerlink" title="运行一下"></a><strong>运行一下</strong></h4><p>输入超长字符串，程序Crash掉<br><img src="/2019/09/10/Pwnable.tw.start/9e8d630428e96afb7333aa69a7847980.png" alt></p>
 <h4 id="拖入IDA"><a href="#拖入IDA" class="headerlink" title="拖入IDA"></a><strong>拖入IDA</strong></h4><p><img src="/2019/09/10/Pwnable.tw.start/0adf2605788cc8aceeb99dd3c410b539.png" alt><br>start函数里，先write出“Let’s start the CTF:”,之后输入。<br>因为对write和read对栈的影响不太熟悉,所以gdb调试一下。<br>第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。edx存放字符串长度，ebx存放fd。<br><img src="/2019/09/10/Pwnable.tw.start/947c25798c9158f4a7533ff905f441fb.png" alt><br>第二次int 80h后，从ecx拿到字符串的地址，并在此写值。<br><img src="/2019/09/10/Pwnable.tw.start/8f1c0aa058a5b5bf1d2cd1c39b6e7e9c.png" alt></p>
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a><strong>思路</strong></h4><p>控制ret，指到我需要的地方，但是栈指针不知道，所以想办法先泄露出栈上的一个指针。注意到start在运行时，先push了esp和exit的地址，在ret后，之前push进去的esp就成了现在esp的值，那么可以利用write拿到之前push的esp，这样，我们就拿到了一个栈上的指针。</p>
@@ -214,6 +230,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn,栈,溢出</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -278,18 +305,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Canary绕过(格式化字符串利用)/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Canary绕过(格式化字符串利用)
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/简单栈溢出/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/Python binascii模块/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python binascii模块</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -413,6 +440,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

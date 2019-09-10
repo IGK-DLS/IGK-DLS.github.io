@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>Python网络编程 | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Python网络编程客户端1.创建一个基于TCP连接的Socket12345678910111213141516171819# -*- coding: utf-8 -*-import  socket  #导入socket库#创建一个sockets  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）#AF_INET指定使用IPv4协议，如果要用更">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="Python网络编程">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/Python网络编程/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="Python网络编程客户端1.创建一个基于TCP连接的Socket12345678910111213141516171819# -*- coding: utf-8 -*-import  socket  #导入socket库#创建一个sockets  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）#AF_INET指定使用IPv4协议，如果要用更">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-10T09:38:13.157Z">
+<meta property="og:updated_time" content="2019-09-10T10:08:04.673Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="Python网络编程">
 <meta name="twitter:description" content="Python网络编程客户端1.创建一个基于TCP连接的Socket12345678910111213141516171819# -*- coding: utf-8 -*-import  socket  #导入socket库#创建一个sockets  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）#AF_INET指定使用IPv4协议，如果要用更">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
@@ -153,9 +154,24 @@
             <article id="post-Python网络编程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python网络编程
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/Python网络编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Python网络编程"><a href="#Python网络编程" class="headerlink" title="Python网络编程"></a><strong>Python网络编程</strong></h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket"><a href="#1-创建一个基于TCP连接的Socket" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket  <span class="comment">#导入socket库</span></span><br><span class="line"><span class="comment">#创建一个socket</span></span><br><span class="line"></span><br><span class="line">s  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）<span class="comment">#AF_INET指定使用IPv4协议，如果要用更先进的IPv6，就指定为AF_INET6。SOCK_STREAM指定使用面向流的TCP协议</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line"><span class="comment">#设置端口</span></span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#客户端建立连接需要主动，所以是主动connect</span></span><br><span class="line">s.connect((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"><span class="comment">#连接成功后发送数据</span></span><br><span class="line">s.send(<span class="string">'Hello,I\'m Client!'</span>)</span><br><span class="line"><span class="comment">#接受服务端发来的数据</span></span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)  <span class="comment">#设置最大值为1024个字节，超出部分放入缓冲区</span></span><br><span class="line"><span class="comment">#关闭连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+        <h3 id="Python网络编程"><a href="#Python网络编程" class="headerlink" title="Python网络编程"></a>Python网络编程</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket"><a href="#1-创建一个基于TCP连接的Socket" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket  <span class="comment">#导入socket库</span></span><br><span class="line"><span class="comment">#创建一个socket</span></span><br><span class="line"></span><br><span class="line">s  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）<span class="comment">#AF_INET指定使用IPv4协议，如果要用更先进的IPv6，就指定为AF_INET6。SOCK_STREAM指定使用面向流的TCP协议</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line"><span class="comment">#设置端口</span></span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#客户端建立连接需要主动，所以是主动connect</span></span><br><span class="line">s.connect((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"><span class="comment">#连接成功后发送数据</span></span><br><span class="line">s.send(<span class="string">'Hello,I\'m Client!'</span>)</span><br><span class="line"><span class="comment">#接受服务端发来的数据</span></span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)  <span class="comment">#设置最大值为1024个字节，超出部分放入缓冲区</span></span><br><span class="line"><span class="comment">#关闭连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
 
 <h5 id="2-UDP编程"><a href="#2-UDP编程" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)<span class="comment">#创建Socket时，SOCK_DGRAM指定了这个Socket的类型是UDP</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#s.sendto需要发送的数据与给谁发</span></span><br><span class="line">s.sendto(<span class="string">b'Client'</span>,(host,port))</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
 
@@ -203,6 +219,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -271,14 +298,14 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Python字符串开头b r u含义
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/PythonPIL简单编程/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ROP (Return-oriented programming ) 返回导向编程</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -402,6 +429,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

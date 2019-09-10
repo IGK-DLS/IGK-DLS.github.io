@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>Python binascii模块 | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Python binascii模块在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便。 1234567891011121314151617181920import  binasciidef  main():    s  =  &apos;hello&apos;    print  s    b  =  binascii.b2a_hex(s)    print  b">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="Python binascii模块">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/Python binascii模块/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="Python binascii模块在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便。 1234567891011121314151617181920import  binasciidef  main():    s  =  &apos;hello&apos;    print  s    b  =  binascii.b2a_hex(s)    print  b">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-10T09:35:05.890Z">
+<meta property="og:updated_time" content="2019-09-10T10:07:40.944Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="Python binascii模块">
 <meta name="twitter:description" content="Python binascii模块在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便。 1234567891011121314151617181920import  binasciidef  main():    s  =  &apos;hello&apos;    print  s    b  =  binascii.b2a_hex(s)    print  b">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
@@ -153,9 +154,24 @@
             <article id="post-Python binascii模块" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python binascii模块
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/Python binascii模块/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Python-binascii模块"><a href="#Python-binascii模块" class="headerlink" title="Python binascii模块"></a><strong>Python binascii模块</strong></h3><p>在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便。</p>
+        <h3 id="Python-binascii模块"><a href="#Python-binascii模块" class="headerlink" title="Python binascii模块"></a>Python binascii模块</h3><p>在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  binascii</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  <span class="string">'hello'</span></span><br><span class="line">    <span class="keyword">print</span>  s</span><br><span class="line">    b  =  binascii.b2a_hex(s)</span><br><span class="line">    <span class="keyword">print</span>  b</span><br><span class="line">    <span class="keyword">print</span>  type(b)</span><br><span class="line">    c  =  binascii.a2b_hex(b)</span><br><span class="line">    <span class="keyword">print</span>  c</span><br><span class="line">    <span class="keyword">print</span>  type(c)</span><br><span class="line">    b  =  binascii.hexlify(s)</span><br><span class="line">    <span class="keyword">print</span>  b</span><br><span class="line">    <span class="keyword">print</span>  type(b)</span><br><span class="line">    c  =  binascii.unhexlify(b)</span><br><span class="line">    <span class="keyword">print</span>  c</span><br><span class="line">    <span class="keyword">print</span>  type(c)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
 <p>运行结果如下：<br>![](Python binascii模块/f940a338ac1bfab180ef9a9f86c15db9.png)<br>注意：<br>a2b:  ascii to binascii？NO！是binascii to ascii，即如果要将十六进制数转化为字符串,用a2b<br>b2a: ascii to binascii，即如果要将字符串转化为十六进制数，用b2a</p>
@@ -193,6 +209,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -257,18 +284,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Python z3-solver/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Pwnable.tw.start/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Pwnable.tw.start
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/PythonHash/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/Python z3-solver/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python z3-solver</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -392,6 +419,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

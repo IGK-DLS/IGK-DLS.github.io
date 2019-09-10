@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>ROP (Return-oriented programming ) 返回导向编程 | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="ROP (Return-oriented programming ) 返回导向编程以实验吧 ropbaby为例：![](ROP (Return-oriented programming ) 返回导向编程/d514bf7df4e170521042293fdc69e3d7.png)简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。![](RO">
+<meta name="keywords" content="pwn,ROP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="ROP (Return-oriented programming ) 返回导向编程">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="ROP (Return-oriented programming ) 返回导向编程以实验吧 ropbaby为例：![](ROP (Return-oriented programming ) 返回导向编程/d514bf7df4e170521042293fdc69e3d7.png)简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。![](RO">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-10T09:45:45.064Z">
+<meta property="og:updated_time" content="2019-09-10T10:10:15.137Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="ROP (Return-oriented programming ) 返回导向编程">
 <meta name="twitter:description" content="ROP (Return-oriented programming ) 返回导向编程以实验吧 ropbaby为例：![](ROP (Return-oriented programming ) 返回导向编程/d514bf7df4e170521042293fdc69e3d7.png)简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。![](RO">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
@@ -153,9 +154,24 @@
             <article id="post-ROP (Return-oriented programming ) 返回导向编程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ROP (Return-oriented programming ) 返回导向编程
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="ROP-Return-oriented-programming-返回导向编程"><a href="#ROP-Return-oriented-programming-返回导向编程" class="headerlink" title="ROP (Return-oriented programming ) 返回导向编程"></a><strong>ROP (Return-oriented programming ) 返回导向编程</strong></h3><p>以<strong>实验吧 ropbaby</strong>为例：<br>![](ROP (Return-oriented programming ) 返回导向编程/d514bf7df4e170521042293fdc69e3d7.png)<br>简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。<br>![](ROP (Return-oriented programming ) 返回导向编程/79671673cb3dbdc18b17630713a6fa10.png)</p>
+        <h3 id="ROP-Return-oriented-programming-返回导向编程"><a href="#ROP-Return-oriented-programming-返回导向编程" class="headerlink" title="ROP (Return-oriented programming ) 返回导向编程"></a>ROP (Return-oriented programming ) 返回导向编程</h3><p>以<strong>实验吧 ropbaby</strong>为例：<br>![](ROP (Return-oriented programming ) 返回导向编程/d514bf7df4e170521042293fdc69e3d7.png)<br>简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。<br>![](ROP (Return-oriented programming ) 返回导向编程/79671673cb3dbdc18b17630713a6fa10.png)</p>
 <p>那么<strong>利用思路</strong>就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(addr_ret)+p64(‘/bin/sh’)+p64(‘addr_system’)</p>
 <p>在memcpy完想要ret时，会ret到addr_ret的地址，然后将’/bin/sh’pop出来当作参数，在下一个ret时，ret到addr_system这里，因为已经布局好了其参数’/bin/sh’，所以相当于执行system(‘/bin/sh’)，拿到shell.</p>
 <p>首先<strong>寻找溢出点</strong>：<br>![](ROP (Return-oriented programming ) 返回导向编程/ee6566df7256098be4ab03686b8a9c8a.png)<br>经过验证,将nptr复制给savedregs时会发生溢出。<br>接着<strong>查找可控字段，计算偏移量</strong>。<br>![](ROP (Return-oriented programming ) 返回导向编程/bc4a38b47b5fb2858aa7c89ae1d80697.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/c8dbb3b018a921c371b140115253b52f.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/09c4d08f7fb7e50ef331935c777cf403.png)<br>偏移量为8<br>验证如下：<br>![](ROP (Return-oriented programming ) 返回导向编程/d9ce806250e3ab925ac3fbba9336c63a.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/2f1da7027901200e157d3edb9908815f.png)<br><strong>寻找libc中’/bin/sh’的偏移量</strong>(在32位机器上可以找到，我也不知道为什么64位不行)<br>![](ROP (Return-oriented programming ) 返回导向编程/5a73527385c79cd9bcbd0bc832ebaa92.png)<br>offset_binsh = 0x18cd17<br>接着需要<strong>查找所有的 ret</strong>，使用ROPgadget(32位可以，64不知道为什么不行)<br>![](ROP (Return-oriented programming ) 返回导向编程/b476dafead58d72a02f5a03b4ad48d63.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/d7c675fffc61a43ce0238648eb20d885.png)</p>
@@ -199,6 +215,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pwn,ROP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -263,18 +290,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Pythonpwn使用方法/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Python网络编程/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Python网络编程
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/Pwnable.tw.start/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/ROP之ret2dlresolve/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ROP之ret2dlresolve</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -398,6 +425,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

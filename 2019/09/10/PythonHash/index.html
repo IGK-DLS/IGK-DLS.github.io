@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>PythonHash | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="PythonHash以实验吧 密码学 ROT-13变身了为例： 先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx} 123456789101112131415161718192021222324import  hashlib,sys#38e4c352809e150186920aac37190cbcarr">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="PythonHash">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/PythonHash/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="PythonHash以实验吧 密码学 ROT-13变身了为例： 先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx} 123456789101112131415161718192021222324import  hashlib,sys#38e4c352809e150186920aac37190cbcarr">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-10T09:41:40.814Z">
+<meta property="og:updated_time" content="2019-09-10T10:08:28.440Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="PythonHash">
 <meta name="twitter:description" content="PythonHash以实验吧 密码学 ROT-13变身了为例： 先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx} 123456789101112131415161718192021222324import  hashlib,sys#38e4c352809e150186920aac37190cbcarr">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
@@ -153,9 +154,24 @@
             <article id="post-PythonHash" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PythonHash
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/PythonHash/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="PythonHash"><a href="#PythonHash" class="headerlink" title="PythonHash"></a><strong>PythonHash</strong></h3><p>以<strong>实验吧 密码学 ROT-13变身了</strong>为例：</p>
+        <h3 id="PythonHash"><a href="#PythonHash" class="headerlink" title="PythonHash"></a>PythonHash</h3><p>以<strong>实验吧 密码学 ROT-13变身了</strong>为例：</p>
 <p>先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx}</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  hashlib,sys</span><br><span class="line"><span class="comment">#38e4c352809e150186920aac37190cbc</span></span><br><span class="line"></span><br><span class="line">arr  =  <span class="string">'flag&#123;www_shiyanbar_com_is_very_good_'</span></span><br><span class="line">count  =  <span class="number">0</span></span><br><span class="line"><span class="keyword">print</span>  <span class="string">'Run.'</span>,</span><br><span class="line"></span><br><span class="line">dict  =  <span class="string">'!"#$%&amp;\'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz&#123;|&#125;~]'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>  a  <span class="keyword">in</span>  dict:</span><br><span class="line">    <span class="keyword">for</span>  b  <span class="keyword">in</span>  dict:</span><br><span class="line">        <span class="keyword">for</span>  c  <span class="keyword">in</span>  dict:</span><br><span class="line">            <span class="keyword">for</span>  d  <span class="keyword">in</span>  dict:</span><br><span class="line">                count  +=  <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span>  count  %  <span class="number">1000000</span>  ==  <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">print</span>  <span class="string">'.'</span>,</span><br><span class="line"></span><br><span class="line">                md5  =  hashlib.md5((arr+a+b+c+d+<span class="string">'&#125;'</span>).encode(<span class="string">'utf-8'</span>)).hexdigest()<span class="comment">#hashlib.md5(str.encode('utf-8')).hexdigest()</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>  md5  ==  <span class="string">'38e4c352809e150186920aac37190cbc'</span>:</span><br><span class="line">                    <span class="keyword">print</span>  <span class="string">'\n[*] '</span>,</span><br><span class="line">                    <span class="keyword">print</span>  md5,</span><br><span class="line">                    <span class="keyword">print</span>  arr+a+b+c+d+<span class="string">'&#125;'</span></span><br><span class="line">                    sys.exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 
@@ -196,6 +212,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -260,18 +287,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Python binascii模块/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Python 邮件编程/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Python 邮件编程
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/Python 邮件编程/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/PythonPIL简单编程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">PythonPIL简单编程</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -395,6 +422,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

