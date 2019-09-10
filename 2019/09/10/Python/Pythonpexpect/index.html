@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 怪咖的小屋</title>
+  <title>怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Pythonpexpect Pythonpexpect可以与程序进行交互 #pexpect 的使用说来说去，就是围绕3个关键命令做操作： #1. 首先用 spawn 来执行一个程序 #2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的 #3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序利用实验吧逆向里的tlc作为样本： -">
+<meta property="og:type" content="article">
 <meta property="og:title" content="怪咖的小屋">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/10/Python/Pythonpexpect/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
+<meta property="og:description" content="Pythonpexpect Pythonpexpect可以与程序进行交互 #pexpect 的使用说来说去，就是围绕3个关键命令做操作： #1. 首先用 spawn 来执行一个程序 #2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的 #3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序利用实验吧逆向里的tlc作为样本： -">
 <meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-09-10T08:58:12.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:description" content="Pythonpexpect Pythonpexpect可以与程序进行交互 #pexpect 的使用说来说去，就是围绕3个关键命令做操作： #1. 首先用 spawn 来执行一个程序 #2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的 #3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序利用实验吧逆向里的tlc作为样本： -">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -146,235 +150,170 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Python/Pythonpexpect" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Pythonpexpect</p>
+<h3 id="Pythonpexpect"><a href="#Pythonpexpect" class="headerlink" title="Pythonpexpect"></a><strong>Pythonpexpect</strong></h3><p><strong>可以与程序进行交互</strong></p>
+<p>#pexpect 的使用说来说去，就是围绕3个关键命令做操作：</p>
+<p>#1. 首先用 spawn 来执行一个程序</p>
+<p>#2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的</p>
+<p>#3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序<br>利用实验吧逆向里的tlc作为样本：</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>import  base64<br>import  pexpect  #导入pexpect库</p>
+<p>dic=[]</p>
+<p>def  rot(string):  #rot13实现<br>    a=’’<br>    for  i  in  string:<br>        if((ord(i)&gt;=78  and  ord(i)&lt;=90)  or  (ord(i)&gt;=110  and  ord(i)&lt;=122)):<br>            i=chr(ord(i)-13)<br>        else:</p>
+<pre><code>        if  ((ord(i)&gt;=65  and  ord(i)&lt;78)  or  (ord(i)&gt;=97  and  ord(i)&lt;110)):
+
+            i=chr(ord(i)+13)
+    a  +=i
+return  a</code></pre><p>def  findNum(num,a):  #递归找寻符合条件的数字<br>    if  a&gt;=10:<br>        return<br>    for  i  in  range  (0,10,1):<br>        if  (num<em>10+i)%(a+1)==0:<br>            s=str(num)<br>            if  s  not  in  dic:<br>                dic.append(s)<br>            findNum(num</em>10+i,a+1)</p>
+<p>def  main():<br>    findNum(0,0)<br>    print  ‘[<em>] findNum is complete!’<br>    count=0<br>    fout=open(“tlcout.txt”,”w”)  #创建一个新的”tlcout.tct”<br>    for  s  in  dic:<br>        s=base64.b64encode(s)<br>        print  ‘[</em>] base64 is:’+s<br>        s=rot(s)<br>        print  ‘[<em>] rot13 is:’+s<br>        process=pexpect.spawn(‘./tlc’)  #用spawn执行’./tlc’<br>        process.expect(‘Please input key: ‘)  #等待程序直到输出’Please input key: ‘<br>        process.sendline(s)  #向程序发送一行数据：s(自动加回车换行)<br>        process.expect(‘\n’)  #等待程序输出回车换行(‘回车\n换行’)<br>        out=process.read()  #读取程序的输出结果<br>        print  ‘[</em>] out is:’+out<br>        if  ‘Text is:’  in  out:<br>            fout.write(s+’\n’+out[9:]+’\n’)  #文件写操作<br>            print  ‘[<em>] fout.write is:’+s+’\n[</em>] and:’+out[8:]<br>        if  count==200:<br>            print  ‘[*] Now is\n%d\n’%count<br>        count+=1<br>    fout.close()  #文件关闭</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()</p>
+<p>#ZmtkAwH0AmV5</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Reverse/输入表重建工具ImportREC/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.709Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/Python/Pythonpexpect/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python网络编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.693Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python字符串开头b r u含义/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2019/09/10/Python/Python字符串开头b r u含义/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/10/Python/Python z3-solver/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Pythonpexpect/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.660Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python z3-solver/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.643Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.627Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonPIL简单编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.609Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.592Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.575Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PWN/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.559Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -398,8 +337,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 怪咖的小屋</title>
+  <title>怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Python 邮件编程 Python 邮件编程#coding: utf-8import  smtplibfrom  email.mime.text  import  MIMETextfrom  email.header  import  Headerfrom  email.mime.multipart  import  MIMEMultipart 邮件smtp服务器host  =  “smtp.q">
+<meta property="og:type" content="article">
 <meta property="og:title" content="怪咖的小屋">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/10/Python/Python 邮件编程/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
+<meta property="og:description" content="Python 邮件编程 Python 邮件编程#coding: utf-8import  smtplibfrom  email.mime.text  import  MIMETextfrom  email.header  import  Headerfrom  email.mime.multipart  import  MIMEMultipart 邮件smtp服务器host  =  “smtp.q">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/Python/Python%20邮件编程/_resources/c49ccdee083d384653faa8cdec824f61.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/Python/Python%20邮件编程/_resources/d6e62c7ca1858b27e077ea617a621e54.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/Python/Python%20邮件编程/_resources/e5b834ba43103962b14a41c0b4d79bc3.png">
+<meta property="og:updated_time" content="2019-09-10T08:58:12.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:description" content="Python 邮件编程 Python 邮件编程#coding: utf-8import  smtplibfrom  email.mime.text  import  MIMETextfrom  email.header  import  Headerfrom  email.mime.multipart  import  MIMEMultipart 邮件smtp服务器host  =  “smtp.q">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/10/Python/Python%20邮件编程/_resources/c49ccdee083d384653faa8cdec824f61.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -146,235 +154,171 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Python/Python 邮件编程" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python 邮件编程</p>
+<h3 id="Python-邮件编程"><a href="#Python-邮件编程" class="headerlink" title="Python 邮件编程"></a><strong>Python 邮件编程</strong></h3><p>#coding: utf-8<br>import  smtplib<br>from  email.mime.text  import  MIMEText<br>from  email.header  import  Header<br>from  email.mime.multipart  import  MIMEMultipart</p>
+<h1 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h1><h1 id="smtp服务器"><a href="#smtp服务器" class="headerlink" title="smtp服务器"></a>smtp服务器</h1><p>host  =  “<a href="http://smtp.qq.com/" target="_blank" rel="noopener">smtp.qq.com</a>“<br>sender  =  “<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“</p>
+<p>receivers  = [“<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“,”<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“,”<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“,”<a href="mailto:1669630940@qq.com" target="_blank" rel="noopener">xxxxxxx@qq.com</a>“]</p>
+<h1 id="密码，非邮箱密码"><a href="#密码，非邮箱密码" class="headerlink" title="密码，非邮箱密码"></a>密码，非邮箱密码</h1><p>password  =  “xxxxxxxxxxxxxxxx”</p>
+<h1 id="带附件的邮件实例"><a href="#带附件的邮件实例" class="headerlink" title="带附件的邮件实例"></a>带附件的邮件实例</h1><p>message  =  MIMEMultipart()</p>
+<h1 id="不带附件的邮件实例"><a href="#不带附件的邮件实例" class="headerlink" title="不带附件的邮件实例"></a>不带附件的邮件实例</h1><h1 id="message-MIMEText-msg-’html’-’utf-8’"><a href="#message-MIMEText-msg-’html’-’utf-8’" class="headerlink" title="message = MIMEText(msg,’html’,’utf-8’)"></a>message = MIMEText(msg,’html’,’utf-8’)</h1><p>#msg = “””</p>
+<p>#</p><p>电子邮件内容</p><p></p>
+<p>#</p><p><a href="[http://www.baidu.com](http://www.baidu.com/)">百度搜索</a></p><p></p>
+<p>#”””</p>
+<h1 id="另一种写法"><a href="#另一种写法" class="headerlink" title="另一种写法"></a>另一种写法</h1><p>message.attach(MIMEText(‘</p><p>电子邮件内容</p><p><a href="[http://www.baidu.com](http://www.baidu.com/)">百度搜索</a></p>‘,’html’,’utf-8’))<p></p>
+<h1 id="message-attach-MIMEText-‘电子邮件内容百度搜索‘-’plain’-’utf-8’"><a href="#message-attach-MIMEText-‘电子邮件内容百度搜索‘-’plain’-’utf-8’" class="headerlink" title="message.attach(MIMEText(‘电子邮件内容百度搜索‘,’plain’,’utf-8’))"></a>message.attach(MIMEText(‘<p>电子邮件内容</p><p><a href="[http://www.baidu.com](http://www.baidu.com/)">百度搜索</a></p>‘,’plain’,’utf-8’))</h1><h1 id="两个附件"><a href="#两个附件" class="headerlink" title="两个附件"></a>两个附件</h1><p>attr1  =  MIMEText(open(‘1.jpg’,’rb’).read(),’base64’,’utf-8’)<br>attr1[“Content-Type”] =  “application/octet-stream”<br>attr1[“Content-Disposition”] =  “attachment; filename=’1.jpg’”</p>
+<p>attr2  =  MIMEText(open(‘2.jpg’,’rb’).read(),’base64’,’utf-8’)<br>attr2[“Content-Type”] =  “application/octet-stream”<br>attr2[“Content-Disposition”] =  “attachment; filename=’2.jpg’”</p>
+<p>message[‘From’] =  Header(“测试”,’utf-8’)<br>message[‘To’] =  Header(“测试”,”utf-8”)<br>message.attach(attr1)<br>message.attach(attr2)</p>
+<p>subject  =  ‘测试’<br>message[‘Subject’] =  Header(subject,”utf-8”)</p>
+<p>try:<br>    # 465为下述图片中smtp服务器使用SSL的端口号，587不对<br>    smtpObj  =  smtplib.SMTP_SSL(host,465)<br>    smtpObj.login(sender,password)<br>    smtpObj.sendmail(sender,receivers,message.as_string())<br>    print  ‘发送成功’</p>
+<p>except  Exception  as  e:<br>    print  e<br><img src="/2019/09/10/Python/Python 邮件编程/_resources/c49ccdee083d384653faa8cdec824f61.png" alt="1564044086968.png"><br><img src="/2019/09/10/Python/Python 邮件编程/_resources/d6e62c7ca1858b27e077ea617a621e54.png" alt="1564044557919.png"></p>
+<p>测试结果如下：<br><img src="/2019/09/10/Python/Python 邮件编程/_resources/e5b834ba43103962b14a41c0b4d79bc3.png" alt></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Reverse/输入表重建工具ImportREC/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.709Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/Python/Python 邮件编程/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python网络编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.693Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python字符串开头b r u含义/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2019/09/10/Python/PythonHash/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/10/PWN/格式化字符串漏洞利用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Pythonpexpect/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.660Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python z3-solver/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.643Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.627Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonPIL简单编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.609Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.592Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.575Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PWN/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.559Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -398,8 +342,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

