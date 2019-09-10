@@ -155,27 +155,41 @@
     <article id="post-ROP之ret2dlresolve" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/ROP之ret2dlresolve/">ROP之ret2dlresolve</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/ROP之ret2dlresolve/" class="archive-article-date">
+  	<time datetime="2019-09-10T08:25:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>ROP之ret2dlresolve</p>
-<h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a><strong>ROP之ret2dlresolve</strong></h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
-<p><img src="../_resources/e80712df161361a0b45af9cbcc49dc21.png" alt="1.png"></p>
+        <h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a><strong>ROP之ret2dlresolve</strong></h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
+<p><img src="/2019/09/10/ROP之ret2dlresolve/e80712df161361a0b45af9cbcc49dc21.png" alt="1.png"></p>
 <p>这里call 了read函数，由于是第一次调用，所以需要从libc中查找出对应函数，来研究下它具体的过程是如何的。</p>
 <p>si步入，其进入了read的plt表，并且将要跳转，由图可知，他其实就是跳转到其下一条语句并且会push一个0</p>
-<p><img src="../_resources/b2427b3908110ba5da04514b7d702997.png" alt="2.png"></p>
+<p><img src="/2019/09/10/ROP之ret2dlresolve/b2427b3908110ba5da04514b7d702997.png" alt="2.png"></p>
 <p>继续si，跑完push 0x0,栈被推进了一个新值，这个值是十分有用的，后续将会讲解其具体作用。接下来，它将会跳转到0x80482d0，这个位置是plt[0]的位置，来看一下。</p>
-<p><img src="../_resources/958b6916d55e05b8855ae237f1d90081.png" alt="3.png"><br>从IDA中查看一下plt[0]的位置<br><img src="../_resources/5f193d8487bed71f6d0056df98f164c6.png" alt="4.png"><br>再通过objdump查看一下</p>
-<p><img src="../_resources/198dc0f4bc3ccbdfc3dd7756c7c0106b.png" alt="5.png"><br>完全一致。</p>
+<p><img src="/2019/09/10/ROP之ret2dlresolve/958b6916d55e05b8855ae237f1d90081.png" alt="3.png"><br>从IDA中查看一下plt[0]的位置<br><img src="/2019/09/10/ROP之ret2dlresolve/5f193d8487bed71f6d0056df98f164c6.png" alt="4.png"><br>再通过objdump查看一下</p>
+<p><img src="/2019/09/10/ROP之ret2dlresolve/198dc0f4bc3ccbdfc3dd7756c7c0106b.png" alt="5.png"><br>完全一致。</p>
 <p>它跳到这里是要为了什么呢，继续往下看。在这里，它push进去了一个值，这个值是一个十分重要的数据结构的指针，名为linkmap，这个结构里面存储了许多关于libc的信息。</p>
-<p><img src="../_resources/94770742f9b8585430a5aa3bfe6cf6e1.png" alt="6.png"><br><img src="../_resources/a1f557dfe5b438dab95938a211703572.png" alt="7.png"></p>
+<p><img src="/2019/09/10/ROP之ret2dlresolve/94770742f9b8585430a5aa3bfe6cf6e1.png" alt="6.png"><br><img src="/2019/09/10/ROP之ret2dlresolve/a1f557dfe5b438dab95938a211703572.png" alt="7.png"></p>
 <p>图中，栈被推进了一个新值，这个便是linkmap的指针，其中存储了许许多多关于libc的信息，这个结构也是十分重要的，我们在本次学习中并不需要掌握linkmap的具体结构。在图中我们可以看到，再下来这个jmp 将会跳至0xf7fead80执行，这说明我们的程序已经传递完了其该传递的参数，libc会根据其参数获取read函数的真正地址。我们现在已知的参数就只有两个，一个为0，一个为linkmap的指针，这两个参数怎么找到read函数的地址，请继续往下看。</p>
 <p>由于ida与objdump所查找的地址信息一致，所以我是用ida查找地址，更加快捷，当然objdump也可以。</p>
 <p>先看0能使我们找到什么信息。</p>
 <p>程序会 先到.rel.plt(JMPREL) 中去取下标为0的数据</p>
-<p><img src="../_resources/410813013ec54a87704c1a3b5a9dbe2d.png" alt="8.png"><br>其中的数据为下图，从ida中也可以很快的看出来<br><img src="../_resources/a7e7521ad7d1d0056cf9fb4fc7925c4a.png" alt="9.png"><br><img src="../_resources/83005ad35170acb24f08bcf74a467e58.png" alt="10.png"><br>后面的0x107的作用如下：</p>
-<p>在实际运算中，0x107会被右移8位得到0x1，0x1会被作为下标，在.dynsym(SYMTAB)中查找对应的值，.dynsym的地址如下：<br><img src="../_resources/e1e582f5e2fd5bbcbf2d53176dacdda5.png" alt="11.png"><br><img src="../_resources/9be1027e9561ec754d0ee361253a03c7.png" alt="12.png"><br>它会根据gdb中显示的0x1a（即IDA中的 offset aRead - offset byte_804821C 值）继续寻找。</p>
+<p><img src="/2019/09/10/ROP之ret2dlresolve/410813013ec54a87704c1a3b5a9dbe2d.png" alt="8.png"><br>其中的数据为下图，从ida中也可以很快的看出来<br><img src="/2019/09/10/ROP之ret2dlresolve/a7e7521ad7d1d0056cf9fb4fc7925c4a.png" alt="9.png"><br><img src="/2019/09/10/ROP之ret2dlresolve/83005ad35170acb24f08bcf74a467e58.png" alt="10.png"><br>后面的0x107的作用如下：</p>
+<p>在实际运算中，0x107会被右移8位得到0x1，0x1会被作为下标，在.dynsym(SYMTAB)中查找对应的值，.dynsym的地址如下：<br><img src="/2019/09/10/ROP之ret2dlresolve/e1e582f5e2fd5bbcbf2d53176dacdda5.png" alt="11.png"><br><img src="/2019/09/10/ROP之ret2dlresolve/9be1027e9561ec754d0ee361253a03c7.png" alt="12.png"><br>它会根据gdb中显示的0x1a（即IDA中的 offset aRead - offset byte_804821C 值）继续寻找。</p>
 <p>接下来会将0x1a带入.dynstr(STRTAB)中查找，这次并不是作为下标带入，而是直接用.dynstr的地址 + 0x1a</p>
-<p><img src="../_resources/46eb463baaaac47c3480c3512614ed5c.png" alt="13.png"><br><img src="../_resources/ce99ad2676dfec4137d5effb0c921e68.png" alt="14.png"><br>这样便拿到了字符串“read”，libc便知道要查找read的地址。libc从哪来，linkmap便是用来查找它的。</p>
+<p><img src="/2019/09/10/ROP之ret2dlresolve/46eb463baaaac47c3480c3512614ed5c.png" alt="13.png"><br><img src="/2019/09/10/ROP之ret2dlresolve/ce99ad2676dfec4137d5effb0c921e68.png" alt="14.png"><br>这样便拿到了字符串“read”，libc便知道要查找read的地址。libc从哪来，linkmap便是用来查找它的。</p>
 <p>libc具体的查找策略先不谈，具体是通过Hash实现的，感兴趣的可以自行研究。</p>
 <p>接下来就是攻击方法了，通过上面的跟踪，我们知道其实就是根据call read时栈里先被push进去的0，查找出来最终的字符串“read”,libc只是拿着字符串read去查找地址。那么我们可以通过控制最先push进去的0，写成一个可控的值，使其与.rel.plt结合查找出来的地址可控，并且该地址存储的值也可控，那么我们就可以继续控制0x107,使其与.dynsym查找出来的地址里存储的值可控，进而控制0x1a，使其与.dynstr相加后得到的地址存储的字符串可控，进而获取到真正的system地址。</p>
 
@@ -186,6 +200,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">rop,pwn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -386,6 +411,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">rop,pwn</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
