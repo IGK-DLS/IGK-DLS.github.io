@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | 怪咖的小屋</title>
+  <title>怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="PythonHash以实验吧 密码学 ROT-13变身了为例： 先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx} 123456789101112131415161718192021222324import  hashlib,sys#38e4c352809e150186920aac37190cbcarr">
+<meta property="og:type" content="article">
 <meta property="og:title" content="怪咖的小屋">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/10/PythonHash/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
+<meta property="og:description" content="PythonHash以实验吧 密码学 ROT-13变身了为例： 先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx} 123456789101112131415161718192021222324import  hashlib,sys#38e4c352809e150186920aac37190cbcarr">
 <meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-09-10T09:41:40.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:description" content="PythonHash以实验吧 密码学 ROT-13变身了为例： 先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx} 123456789101112131415161718192021222324import  hashlib,sys#38e4c352809e150186920aac37190cbcarr">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -146,235 +150,160 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-PythonHash" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="PythonHash"><a href="#PythonHash" class="headerlink" title="PythonHash"></a><strong>PythonHash</strong></h3><p>以<strong>实验吧 密码学 ROT-13变身了</strong>为例：</p>
+<p>先rot13(ord(‘F’) - 83 = 13)下，拿到 flag{www_shiyanbar_com_is_very_good_xxxx}</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  hashlib,sys</span><br><span class="line"><span class="comment">#38e4c352809e150186920aac37190cbc</span></span><br><span class="line"></span><br><span class="line">arr  =  <span class="string">'flag&#123;www_shiyanbar_com_is_very_good_'</span></span><br><span class="line">count  =  <span class="number">0</span></span><br><span class="line"><span class="keyword">print</span>  <span class="string">'Run.'</span>,</span><br><span class="line"></span><br><span class="line">dict  =  <span class="string">'!"#$%&amp;\'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz&#123;|&#125;~]'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>  a  <span class="keyword">in</span>  dict:</span><br><span class="line">    <span class="keyword">for</span>  b  <span class="keyword">in</span>  dict:</span><br><span class="line">        <span class="keyword">for</span>  c  <span class="keyword">in</span>  dict:</span><br><span class="line">            <span class="keyword">for</span>  d  <span class="keyword">in</span>  dict:</span><br><span class="line">                count  +=  <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span>  count  %  <span class="number">1000000</span>  ==  <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">print</span>  <span class="string">'.'</span>,</span><br><span class="line"></span><br><span class="line">                md5  =  hashlib.md5((arr+a+b+c+d+<span class="string">'&#125;'</span>).encode(<span class="string">'utf-8'</span>)).hexdigest()<span class="comment">#hashlib.md5(str.encode('utf-8')).hexdigest()</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>  md5  ==  <span class="string">'38e4c352809e150186920aac37190cbc'</span>:</span><br><span class="line">                    <span class="keyword">print</span>  <span class="string">'\n[*] '</span>,</span><br><span class="line">                    <span class="keyword">print</span>  md5,</span><br><span class="line">                    <span class="keyword">print</span>  arr+a+b+c+d+<span class="string">'&#125;'</span></span><br><span class="line">                    sys.exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://www.iloveflag.com:8002/index.php'</span></span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">response = s.get(url)</span><br><span class="line">head = response.headers</span><br><span class="line"><span class="keyword">print</span> head</span><br><span class="line">password = head[<span class="string">'password'</span>].split(<span class="string">':'</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> password</span><br><span class="line">password1 = password</span><br><span class="line">cont = <span class="number">1540110000</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">    md = hashlib.md5()</span><br><span class="line">    md.update(str(cont).encode())</span><br><span class="line">    <span class="comment">#print str(cont),md.hexdigest()</span></span><br><span class="line">    <span class="keyword">if</span> (md.hexdigest() <span class="keyword">in</span> password):</span><br><span class="line">        <span class="keyword">print</span> str(cont),</span><br><span class="line">        password1 = str(cont)</span><br><span class="line">        print(md.hexdigest())</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    cont = cont + <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'end'</span></span><br><span class="line"></span><br><span class="line">md = hashlib.md5()</span><br><span class="line">md.update(str(int(password1) + <span class="number">1</span>).encode())</span><br><span class="line"><span class="keyword">print</span> int(password1)+<span class="number">1</span>,md.hexdigest()</span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line">postdata = &#123;<span class="string">'password'</span>:str(int(password1) + <span class="number">1</span>),<span class="string">'submit_password'</span>:<span class="string">''</span>&#125;</span><br><span class="line">result = s.post(url=url,data = postdata)</span><br><span class="line">head = result.headers</span><br><span class="line"><span class="keyword">print</span> head,result.text</span><br></pre></td></tr></table></figure>
+
+<p># </p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/输入表重建工具ImportREC/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:22:16.817Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/PythonHash/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python字符串开头b r u含义/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.846Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python网络编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.835Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2019/09/10/Python binascii模块/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/10/Python 邮件编程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PythonPIL简单编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.823Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Pythonpexpect/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.811Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python z3-solver/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.799Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.764Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:17:48.582Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:16:43.709Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:12:48.107Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -398,8 +327,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

