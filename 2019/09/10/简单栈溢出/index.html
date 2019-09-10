@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/简单栈溢出/cf05965825972578816647552cdc2851.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/简单栈溢出/78421ec1a7f37ffb413a989314d3463f.png">
-<meta property="og:updated_time" content="2019-09-10T10:05:49.117Z">
+<meta property="og:updated_time" content="2019-09-10T10:26:52.831Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单栈溢出">
 <meta name="twitter:description" content="简单栈溢出ISG2018 可能是最简单的一道栈溢出的题目…（但愚蠢的我没有注意到那个handler函数….）溢出点不在他让你overflow的地方，在handler函数里在这里v1没有限制输入，利用v1覆盖v2shell,直接得shell偏移量为 0x110 - 0x108 = 8那么构造payload为 ‘a’ * 8 +’/bin/sh’脚本如下： 1234567891011121314151">
@@ -217,7 +217,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn,栈,溢出</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">栈</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">溢出</a>
         		</li>
       		
 		</ul>
@@ -287,11 +295,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Python网络编程/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/格式化字符串漏洞利用/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Python网络编程
+          格式化字符串漏洞利用
         
       </div>
     </a>
@@ -424,7 +432,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+                <a href="javascript:void(0)" class="js-tag color4">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">溢出</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -432,23 +452,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+                <a href="javascript:void(0)" class="js-tag color4">ROP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+                <a href="javascript:void(0)" class="js-tag color4">ret2dlresolve</a>
               </li>
              
               <li class="article-tag-list-item">

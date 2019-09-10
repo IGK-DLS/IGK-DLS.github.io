@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Pwnable.tw.start/77973a48820fee86086be01a0ea6ba9f.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Pwnable.tw.start/a932583c9a566cb25c62ffa7ec11f282.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/10/Pwnable.tw.start/4c55e1f5766990deff0c14d19bc2528d.png">
-<meta property="og:updated_time" content="2019-09-10T10:07:12.478Z">
+<meta property="og:updated_time" content="2019-09-10T10:27:06.896Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pwnable.tw.start">
 <meta name="twitter:description" content="Pwnable.tw.start拿到题目32位，小端，静态编译，保护全关 运行一下输入超长字符串，程序Crash掉 拖入IDAstart函数里，先write出“Let’s start the CTF:”,之后输入。因为对write和read对栈的影响不太熟悉,所以gdb调试一下。第一次int 80h后，栈并没有pop出值，并且是从ecx中拿到存放字符串的地址。edx存放字符串长度，ebx存放fd。">
@@ -235,7 +235,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn,栈,溢出</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">栈</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">溢出</a>
         		</li>
       		
 		</ul>
@@ -305,18 +313,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Canary绕过(格式化字符串利用)/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/PythonPIL简单编程/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Canary绕过(格式化字符串利用)
+          PythonPIL简单编程
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/Python 邮件编程/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Python 邮件编程</div>
+    <a href="/2019/09/10/Pythonpwn使用方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Pythonpwn使用方法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -442,7 +450,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+                <a href="javascript:void(0)" class="js-tag color4">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">溢出</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -450,23 +470,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+                <a href="javascript:void(0)" class="js-tag color4">ROP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+                <a href="javascript:void(0)" class="js-tag color4">ret2dlresolve</a>
               </li>
              
               <li class="article-tag-list-item">

