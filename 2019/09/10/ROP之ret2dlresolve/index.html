@@ -5,36 +5,36 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="dns-prefetch" href="http://yoursite.com">
+  <link rel="dns-prefetch" href="http://igk-dls.github.io">
   <title>ROP之ret2dlresolve | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="ROP之ret2dlresolve首先以一个程序看起，了解其真正的延迟加载过程">
 <meta name="keywords" content="pwn,ROP,ret2dlresolve">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ROP之ret2dlresolve">
-<meta property="og:url" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/index.html">
+<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="ROP之ret2dlresolve首先以一个程序看起，了解其真正的延迟加载过程">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/e80712df161361a0b45af9cbcc49dc21.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/b2427b3908110ba5da04514b7d702997.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/958b6916d55e05b8855ae237f1d90081.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/5f193d8487bed71f6d0056df98f164c6.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/198dc0f4bc3ccbdfc3dd7756c7c0106b.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/94770742f9b8585430a5aa3bfe6cf6e1.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/a1f557dfe5b438dab95938a211703572.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/410813013ec54a87704c1a3b5a9dbe2d.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/a7e7521ad7d1d0056cf9fb4fc7925c4a.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/83005ad35170acb24f08bcf74a467e58.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/e1e582f5e2fd5bbcbf2d53176dacdda5.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/9be1027e9561ec754d0ee361253a03c7.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/46eb463baaaac47c3480c3512614ed5c.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/ce99ad2676dfec4137d5effb0c921e68.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/e80712df161361a0b45af9cbcc49dc21.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/b2427b3908110ba5da04514b7d702997.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/958b6916d55e05b8855ae237f1d90081.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/5f193d8487bed71f6d0056df98f164c6.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/198dc0f4bc3ccbdfc3dd7756c7c0106b.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/94770742f9b8585430a5aa3bfe6cf6e1.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/a1f557dfe5b438dab95938a211703572.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/410813013ec54a87704c1a3b5a9dbe2d.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/a7e7521ad7d1d0056cf9fb4fc7925c4a.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/83005ad35170acb24f08bcf74a467e58.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/e1e582f5e2fd5bbcbf2d53176dacdda5.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/9be1027e9561ec754d0ee361253a03c7.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/46eb463baaaac47c3480c3512614ed5c.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/ce99ad2676dfec4137d5effb0c921e68.png">
 <meta property="og:updated_time" content="2019-09-10T11:03:01.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ROP之ret2dlresolve">
 <meta name="twitter:description" content="ROP之ret2dlresolve首先以一个程序看起，了解其真正的延迟加载过程">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/10/ROP之ret2dlresolve/e80712df161361a0b45af9cbcc49dc21.png">
+<meta name="twitter:image" content="http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/e80712df161361a0b45af9cbcc49dc21.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -216,7 +216,7 @@
                 
                 <br>
                 <strong>本文链接：</strong>
-                http://yoursite.com/2019/09/10/ROP之ret2dlresolve/
+                http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/
                 <br>
                 <strong>版权声明：</strong>
                 本作品采用
@@ -329,7 +329,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/10/ROP之ret2dlresolve/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/ROP之ret2dlresolve/" alt="微信分享二维码">
     </div>
 </div>
 
