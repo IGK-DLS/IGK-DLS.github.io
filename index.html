@@ -821,20 +821,20 @@
 
 
   
-    <article id="post-Pythonpexpect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python字符串开头b r u含义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Pythonpexpect/">Pythonpexpect</a>
+      <a class="article-title" href="/2019/09/10/Python字符串开头b r u含义/">Python字符串开头b r u含义</a>
     </h1>
   
 
         
         
-<a href="/2019/09/10/Pythonpexpect/" class="archive-article-date">
+<a href="/2019/09/10/Python字符串开头b r u含义/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -842,14 +842,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Pythonpexpect"><a href="#Pythonpexpect" class="headerlink" title="Pythonpexpect"></a>Pythonpexpect</h3><p><strong>可以与程序进行交互</strong></p>
-<p>#pexpect 的使用说来说去，就是围绕3个关键命令做操作：</p>
-<p>#1. 首先用 spawn 来执行一个程序</p>
-<p>#2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的</p>
-<p>#3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序</p>
-        
-          <a class="article-more-a" href="/2019/09/10/Pythonpexpect/#more">more >></a>
-        
+        <h3 id="Python字符串开头b-r-u含义"><a href="#Python字符串开头b-r-u含义" class="headerlink" title="Python字符串开头b r u含义"></a>Python字符串开头b r u含义</h3><h4 id="字符串开头b-r-u各含义："><a href="#字符串开头b-r-u各含义：" class="headerlink" title="字符串开头b r u各含义："></a><strong>字符串开头b r u各含义：</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">b'input\n'</span>  <span class="comment"># bytes字节符，打印以b开头。</span></span><br><span class="line"><span class="string">b'input\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">r'input\n'</span>  <span class="comment"># 非转义原生字符，经处理'\n'变成了'\'和'n'。也就是\n表示的是两个字符，而不是换行。</span></span><br><span class="line"><span class="string">'input\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">u'input\n'</span>  <span class="comment"># unicode编码字符，python3默认字符串编码方式。</span></span><br><span class="line"><span class="string">'input\n'</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="str与bytes转换："><a href="#str与bytes转换：" class="headerlink" title="str与bytes转换："></a><strong>str与bytes转换：</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在python3环境下运行</span></span><br><span class="line"></span><br><span class="line">a=<span class="string">'input'</span></span><br><span class="line"><span class="keyword">print</span>  (a)</span><br><span class="line"><span class="keyword">print</span>  (type(a))</span><br><span class="line"></span><br><span class="line">b=<span class="string">b'input'</span></span><br><span class="line"><span class="keyword">print</span>  (b)</span><br><span class="line"><span class="keyword">print</span>  (type(b))</span><br><span class="line"></span><br><span class="line">c=<span class="string">u'input'</span></span><br><span class="line"><span class="keyword">print</span>  (c)</span><br><span class="line"><span class="keyword">print</span>  ((type)(c))</span><br><span class="line"></span><br><span class="line"><span class="comment">#str与bytes转换：</span></span><br><span class="line">d=<span class="string">'€20'</span>.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (d,type(d))</span><br><span class="line">e=<span class="string">b'\xe2\x82\xac20'</span>.decode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (e,type(e))</span><br><span class="line"></span><br><span class="line"><span class="comment">#str转bytes:</span></span><br><span class="line">f=<span class="string">'123'</span></span><br><span class="line"><span class="keyword">print</span>  (f,type(f))</span><br><span class="line">g=bytes(f,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (g,type(g))</span><br><span class="line"><span class="keyword">print</span>  (str.encode(f),type(str.encode(f)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#bytes转str:</span></span><br><span class="line">h=<span class="string">b'123'</span></span><br><span class="line"><span class="keyword">print</span>  (h,type(h))</span><br><span class="line">i=str(h,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (i,type(i))</span><br><span class="line"><span class="keyword">print</span>  (bytes.decode(h),type(bytes.decode(h)))</span><br></pre></td></tr></table></figure>
+
+
       
 	  
             
@@ -876,7 +873,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Pythonpexpect/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Python字符串开头b r u含义/">展开全文 >></a>
         </p>
       
 
