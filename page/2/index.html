@@ -146,20 +146,20 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-格式化字符串漏洞利用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python字符串开头b r u含义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/格式化字符串漏洞利用/">格式化字符串漏洞利用</a>
+      <a class="article-title" href="/2019/09/10/Python字符串开头b r u含义/">Python字符串开头b r u含义</a>
     </h1>
   
 
         
         
-<a href="/2019/09/10/格式化字符串漏洞利用/" class="archive-article-date">
+<a href="/2019/09/10/Python字符串开头b r u含义/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -167,14 +167,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="格式化字符串漏洞利用"><a href="#格式化字符串漏洞利用" class="headerlink" title="格式化字符串漏洞利用"></a><strong>格式化字符串漏洞利用</strong></h3><p>以<strong>实验吧 printf</strong>为例：<br><strong>漏洞利用思路</strong>：</p>
-<ol>
-<li>注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址</li>
-<li>将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’</li></ol>
-        
-          <a class="article-more-a" href="/2019/09/10/格式化字符串漏洞利用/#more">more >></a>
-        
+        <h3 id="Python字符串开头b-r-u含义"><a href="#Python字符串开头b-r-u含义" class="headerlink" title="Python字符串开头b r u含义"></a>Python字符串开头b r u含义</h3><h4 id="字符串开头b-r-u各含义："><a href="#字符串开头b-r-u各含义：" class="headerlink" title="字符串开头b r u各含义："></a><strong>字符串开头b r u各含义：</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">b'input\n'</span>  <span class="comment"># bytes字节符，打印以b开头。</span></span><br><span class="line"><span class="string">b'input\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">r'input\n'</span>  <span class="comment"># 非转义原生字符，经处理'\n'变成了'\'和'n'。也就是\n表示的是两个字符，而不是换行。</span></span><br><span class="line"><span class="string">'input\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">u'input\n'</span>  <span class="comment"># unicode编码字符，python3默认字符串编码方式。</span></span><br><span class="line"><span class="string">'input\n'</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="str与bytes转换："><a href="#str与bytes转换：" class="headerlink" title="str与bytes转换："></a><strong>str与bytes转换：</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在python3环境下运行</span></span><br><span class="line"></span><br><span class="line">a=<span class="string">'input'</span></span><br><span class="line"><span class="keyword">print</span>  (a)</span><br><span class="line"><span class="keyword">print</span>  (type(a))</span><br><span class="line"></span><br><span class="line">b=<span class="string">b'input'</span></span><br><span class="line"><span class="keyword">print</span>  (b)</span><br><span class="line"><span class="keyword">print</span>  (type(b))</span><br><span class="line"></span><br><span class="line">c=<span class="string">u'input'</span></span><br><span class="line"><span class="keyword">print</span>  (c)</span><br><span class="line"><span class="keyword">print</span>  ((type)(c))</span><br><span class="line"></span><br><span class="line"><span class="comment">#str与bytes转换：</span></span><br><span class="line">d=<span class="string">'€20'</span>.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (d,type(d))</span><br><span class="line">e=<span class="string">b'\xe2\x82\xac20'</span>.decode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (e,type(e))</span><br><span class="line"></span><br><span class="line"><span class="comment">#str转bytes:</span></span><br><span class="line">f=<span class="string">'123'</span></span><br><span class="line"><span class="keyword">print</span>  (f,type(f))</span><br><span class="line">g=bytes(f,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (g,type(g))</span><br><span class="line"><span class="keyword">print</span>  (str.encode(f),type(str.encode(f)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#bytes转str:</span></span><br><span class="line">h=<span class="string">b'123'</span></span><br><span class="line"><span class="keyword">print</span>  (h,type(h))</span><br><span class="line">i=str(h,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (i,type(i))</span><br><span class="line"><span class="keyword">print</span>  (bytes.decode(h),type(bytes.decode(h)))</span><br></pre></td></tr></table></figure>
+
+
       
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
 
       
     </div>
@@ -186,11 +188,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">格式化字符串</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
@@ -200,7 +198,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/格式化字符串漏洞利用/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Python字符串开头b r u含义/">展开全文 >></a>
         </p>
       
 
@@ -230,20 +228,20 @@
 
 
   
-    <article id="post-Python字符串开头b r u含义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python网络编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Python字符串开头b r u含义/">Python字符串开头b r u含义</a>
+      <a class="article-title" href="/2019/09/10/Python网络编程/">Python网络编程</a>
     </h1>
   
 
         
         
-<a href="/2019/09/10/Python字符串开头b r u含义/" class="archive-article-date">
+<a href="/2019/09/10/Python网络编程/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -251,12 +249,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Python字符串开头b-r-u含义"><a href="#Python字符串开头b-r-u含义" class="headerlink" title="Python字符串开头b r u含义"></a>Python字符串开头b r u含义</h3><h4 id="字符串开头b-r-u各含义："><a href="#字符串开头b-r-u各含义：" class="headerlink" title="字符串开头b r u各含义："></a><strong>字符串开头b r u各含义：</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">b'input\n'</span>  <span class="comment"># bytes字节符，打印以b开头。</span></span><br><span class="line"><span class="string">b'input\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">r'input\n'</span>  <span class="comment"># 非转义原生字符，经处理'\n'变成了'\'和'n'。也就是\n表示的是两个字符，而不是换行。</span></span><br><span class="line"><span class="string">'input\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> <span class="string">u'input\n'</span>  <span class="comment"># unicode编码字符，python3默认字符串编码方式。</span></span><br><span class="line"><span class="string">'input\n'</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="str与bytes转换："><a href="#str与bytes转换：" class="headerlink" title="str与bytes转换："></a><strong>str与bytes转换：</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在python3环境下运行</span></span><br><span class="line"></span><br><span class="line">a=<span class="string">'input'</span></span><br><span class="line"><span class="keyword">print</span>  (a)</span><br><span class="line"><span class="keyword">print</span>  (type(a))</span><br><span class="line"></span><br><span class="line">b=<span class="string">b'input'</span></span><br><span class="line"><span class="keyword">print</span>  (b)</span><br><span class="line"><span class="keyword">print</span>  (type(b))</span><br><span class="line"></span><br><span class="line">c=<span class="string">u'input'</span></span><br><span class="line"><span class="keyword">print</span>  (c)</span><br><span class="line"><span class="keyword">print</span>  ((type)(c))</span><br><span class="line"></span><br><span class="line"><span class="comment">#str与bytes转换：</span></span><br><span class="line">d=<span class="string">'€20'</span>.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (d,type(d))</span><br><span class="line">e=<span class="string">b'\xe2\x82\xac20'</span>.decode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (e,type(e))</span><br><span class="line"></span><br><span class="line"><span class="comment">#str转bytes:</span></span><br><span class="line">f=<span class="string">'123'</span></span><br><span class="line"><span class="keyword">print</span>  (f,type(f))</span><br><span class="line">g=bytes(f,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (g,type(g))</span><br><span class="line"><span class="keyword">print</span>  (str.encode(f),type(str.encode(f)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#bytes转str:</span></span><br><span class="line">h=<span class="string">b'123'</span></span><br><span class="line"><span class="keyword">print</span>  (h,type(h))</span><br><span class="line">i=str(h,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">print</span>  (i,type(i))</span><br><span class="line"><span class="keyword">print</span>  (bytes.decode(h),type(bytes.decode(h)))</span><br></pre></td></tr></table></figure>
-
-
+        <h3 id="Python网络编程"><a href="#Python网络编程" class="headerlink" title="Python网络编程"></a>Python网络编程</h3><p>使用python来模拟网络编程，小白级入门。</p>
+        
+          <a class="article-more-a" href="/2019/09/10/Python网络编程/#more">more >></a>
+        
       
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
 
       
     </div>
@@ -278,7 +279,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Python字符串开头b r u含义/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Python网络编程/">展开全文 >></a>
         </p>
       
 
@@ -334,6 +335,10 @@
           <a class="article-more-a" href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/#more">more >></a>
         
       
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
 
       
     </div>
@@ -389,20 +394,20 @@
 
 
   
-    <article id="post-Pwnable.tw.start" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-ROP之ret2dlresolve" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Pwnable.tw.start/">Pwnable.tw.start</a>
+      <a class="article-title" href="/2019/09/10/ROP之ret2dlresolve/">ROP之ret2dlresolve</a>
     </h1>
   
 
         
         
-<a href="/2019/09/10/Pwnable.tw.start/" class="archive-article-date">
+<a href="/2019/09/10/ROP之ret2dlresolve/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -410,12 +415,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Pwnable-tw-start"><a href="#Pwnable-tw-start" class="headerlink" title="Pwnable.tw.start"></a>Pwnable.tw.start</h3><h4 id="拿到题目"><a href="#拿到题目" class="headerlink" title="拿到题目"></a><strong>拿到题目</strong></h4><p>32位，小端，静态编译，保护全关<br><img src="/2019/09/10/Pwnable.tw.start/42f00637996ec6ee010976e734bb4f3e.png" alt></p>
-<h4 id="运行一下"><a href="#运行一下" class="headerlink" title="运行一下"></a><strong>运行一下</strong></h4><p>输入超长字符串，程序Crash掉</p>
+        <h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a>ROP之ret2dlresolve</h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
         
-          <a class="article-more-a" href="/2019/09/10/Pwnable.tw.start/#more">more >></a>
+          <a class="article-more-a" href="/2019/09/10/ROP之ret2dlresolve/#more">more >></a>
         
       
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
 
       
     </div>
@@ -431,11 +439,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">栈</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ROP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">溢出</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ret2dlresolve</a>
         		</li>
       		
 		</ul>
@@ -445,7 +453,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Pwnable.tw.start/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/ROP之ret2dlresolve/">展开全文 >></a>
         </p>
       
 
@@ -475,20 +483,20 @@
 
 
   
-    <article id="post-输入表重建工具ImportREC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-格式化字符串漏洞利用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/输入表重建工具ImportREC/">输入表重建工具ImportREC</a>
+      <a class="article-title" href="/2019/09/10/格式化字符串漏洞利用/">格式化字符串漏洞利用</a>
     </h1>
   
 
         
         
-<a href="/2019/09/10/输入表重建工具ImportREC/" class="archive-article-date">
+<a href="/2019/09/10/格式化字符串漏洞利用/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -496,11 +504,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="输入表重建工具ImportREC"><a href="#输入表重建工具ImportREC" class="headerlink" title="输入表重建工具ImportREC"></a>输入表重建工具ImportREC</h3><p>　　  Import REConstructor可以从杂乱的IAT中重建一个新的Import表（例如加壳软件等），它可以重建Import表的描述符、IAT和所有的ASCII函数名。用它配合手动脱壳，可以脱UPX、CDilla1、PECompact、PKLite32、Shrinker、ASPack, ASProtect等壳。该工具位于：光盘\tools\PE tools\Rebuilders\Import REConstructor。</p>
+        <h3 id="格式化字符串漏洞利用"><a href="#格式化字符串漏洞利用" class="headerlink" title="格式化字符串漏洞利用"></a><strong>格式化字符串漏洞利用</strong></h3><p>以<strong>实验吧 printf</strong>为例：<br><strong>漏洞利用思路</strong>：</p>
+<ol>
+<li>注意到在get_file中存在格式化字符串漏洞，利用其泄露出真实的puts地址，从而计算得到真实的system地址</li>
+<li>将puts的got表覆盖成真实的system地址，并将其参数布局成 ‘/bin/sh’</li></ol>
         
-          <a class="article-more-a" href="/2019/09/10/输入表重建工具ImportREC/#more">more >></a>
+          <a class="article-more-a" href="/2019/09/10/格式化字符串漏洞利用/#more">more >></a>
         
       
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
 
       
     </div>
@@ -512,7 +527,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">re</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">格式化字符串</a>
         		</li>
       		
 		</ul>
@@ -522,7 +541,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/输入表重建工具ImportREC/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/格式化字符串漏洞利用/">展开全文 >></a>
         </p>
       
 
@@ -578,6 +597,10 @@
           <a class="article-more-a" href="/2019/09/10/简单栈溢出/#more">more >></a>
         
       
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
 
       
     </div>
@@ -637,20 +660,20 @@
 
 
   
-    <article id="post-Pythonpexpect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-输入表重建工具ImportREC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Pythonpexpect/">Pythonpexpect</a>
+      <a class="article-title" href="/2019/09/10/输入表重建工具ImportREC/">输入表重建工具ImportREC</a>
     </h1>
   
 
         
         
-<a href="/2019/09/10/Pythonpexpect/" class="archive-article-date">
+<a href="/2019/09/10/输入表重建工具ImportREC/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -658,15 +681,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Pythonpexpect"><a href="#Pythonpexpect" class="headerlink" title="Pythonpexpect"></a>Pythonpexpect</h3><p><strong>可以与程序进行交互</strong></p>
-<p>#pexpect 的使用说来说去，就是围绕3个关键命令做操作：</p>
-<p>#1. 首先用 spawn 来执行一个程序</p>
-<p>#2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的</p>
-<p>#3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序</p>
+        <h3 id="输入表重建工具ImportREC"><a href="#输入表重建工具ImportREC" class="headerlink" title="输入表重建工具ImportREC"></a>输入表重建工具ImportREC</h3><p>　　  Import REConstructor可以从杂乱的IAT中重建一个新的Import表（例如加壳软件等），它可以重建Import表的描述符、IAT和所有的ASCII函数名。用它配合手动脱壳，可以脱UPX、CDilla1、PECompact、PKLite32、Shrinker、ASPack, ASProtect等壳。该工具位于：光盘\tools\PE tools\Rebuilders\Import REConstructor。</p>
         
-          <a class="article-more-a" href="/2019/09/10/Pythonpexpect/#more">more >></a>
+          <a class="article-more-a" href="/2019/09/10/输入表重建工具ImportREC/#more">more >></a>
         
       
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
 
       
     </div>
@@ -678,7 +701,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">re</a>
         		</li>
       		
 		</ul>
@@ -688,7 +711,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Pythonpexpect/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/输入表重建工具ImportREC/">展开全文 >></a>
         </p>
       
 
@@ -718,20 +741,20 @@
 
 
   
-    <article id="post-ROP之ret2dlresolve" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Pythonpwn使用方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/ROP之ret2dlresolve/">ROP之ret2dlresolve</a>
+      <a class="article-title" href="/2019/09/10/Pythonpwn使用方法/">Pythonpwn使用方法</a>
     </h1>
   
 
         
         
-<a href="/2019/09/10/ROP之ret2dlresolve/" class="archive-article-date">
+<a href="/2019/09/10/Pythonpwn使用方法/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -739,11 +762,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="ROP之ret2dlresolve"><a href="#ROP之ret2dlresolve" class="headerlink" title="ROP之ret2dlresolve"></a>ROP之ret2dlresolve</h3><p>首先以一个程序看起，了解其真正的延迟加载过程</p>
+        <h3 id="Pythonpwn使用方法"><a href="#Pythonpwn使用方法" class="headerlink" title="Pythonpwn使用方法"></a>Pythonpwn使用方法</h3><p>了解一下pwntools的一些常见用法。</p>
         
-          <a class="article-more-a" href="/2019/09/10/ROP之ret2dlresolve/#more">more >></a>
+          <a class="article-more-a" href="/2019/09/10/Pythonpwn使用方法/#more">more >></a>
         
       
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
 
       
     </div>
@@ -759,11 +786,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ROP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ret2dlresolve</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
@@ -773,7 +796,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/ROP之ret2dlresolve/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Pythonpwn使用方法/">展开全文 >></a>
         </p>
       
 
@@ -945,6 +968,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -954,14 +985,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ret2dlresolve</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">栈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">溢出</a>
               </li>
              
               <li class="article-tag-list-item">

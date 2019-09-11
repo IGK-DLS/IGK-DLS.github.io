@@ -207,12 +207,7 @@
 <p>接下来就是攻击方法了，通过上面的跟踪，我们知道其实就是根据call read时栈里先被push进去的0，查找出来最终的字符串“read”,libc只是拿着字符串read去查找地址。那么我们可以通过控制最先push进去的0，写成一个可控的值，使其与.rel.plt结合查找出来的地址可控，并且该地址存储的值也可控，那么我们就可以继续控制0x107,使其与.dynsym查找出来的地址里存储的值可控，进而控制0x1a，使其与.dynstr相加后得到的地址存储的字符串可控，进而获取到真正的system地址。</p>
 
       
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            
+	  
             
               <div class="declare">
                 <strong>本文作者：</strong>
@@ -233,6 +228,11 @@
                 
               </div>
             
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
             <span class="tooltip-item">
               赏
             </span>
@@ -343,15 +343,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Pythonpexpect/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Pythonpexpect
+          ROP (Return-oriented programming ) 返回导向编程
         
       </div>
     </a>
   
+  
+    <a href="/2019/09/10/格式化字符串漏洞利用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">格式化字符串漏洞利用</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -520,6 +525,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -529,14 +542,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ret2dlresolve</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">栈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">溢出</a>
               </li>
              
               <li class="article-tag-list-item">
