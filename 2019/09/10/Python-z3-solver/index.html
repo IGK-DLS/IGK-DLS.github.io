@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://igk-dls.github.io">
-  <title>Pythonpexpect | 怪咖的小屋</title>
+  <title>Python z3-solver | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Pythonpexpect可以与程序进行交互 #pexpect 的使用说来说去，就是围绕3个关键命令做操作： #1. 首先用 spawn 来执行一个程序 #2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的 #3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序">
+  <meta name="description" content="Python z3-solverZ3Py的使用方式比较简单，  定义未知量 添加约束条件">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pythonpexpect">
-<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/Pythonpexpect/index.html">
+<meta property="og:title" content="Python z3-solver">
+<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/Python-z3-solver/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
-<meta property="og:description" content="Pythonpexpect可以与程序进行交互 #pexpect 的使用说来说去，就是围绕3个关键命令做操作： #1. 首先用 spawn 来执行一个程序 #2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的 #3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序">
+<meta property="og:description" content="Python z3-solverZ3Py的使用方式比较简单，  定义未知量 添加约束条件">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-10T11:01:08.983Z">
+<meta property="og:updated_time" content="2019-09-12T10:52:01.218Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pythonpexpect">
-<meta name="twitter:description" content="Pythonpexpect可以与程序进行交互 #pexpect 的使用说来说去，就是围绕3个关键命令做操作： #1. 首先用 spawn 来执行一个程序 #2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的 #3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序">
+<meta name="twitter:title" content="Python z3-solver">
+<meta name="twitter:description" content="Python z3-solverZ3Py的使用方式比较简单，  定义未知量 添加约束条件">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -149,20 +149,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Pythonpexpect" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Python-z3-solver" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Pythonpexpect
+      Python z3-solver
     </h1>
   
 
         
                 <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
-<a href="/2019/09/10/Pythonpexpect/" class="archive-article-date">
+<a href="/2019/09/10/Python-z3-solver/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -170,12 +170,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Pythonpexpect"><a href="#Pythonpexpect" class="headerlink" title="Pythonpexpect"></a>Pythonpexpect</h3><p><strong>可以与程序进行交互</strong></p>
-<p>#pexpect 的使用说来说去，就是围绕3个关键命令做操作：</p>
-<p>#1. 首先用 spawn 来执行一个程序</p>
-<p>#2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的</p>
-<p>#3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序<a id="more"></a><br>利用实验吧逆向里的tlc作为样本：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  base64</span><br><span class="line"><span class="keyword">import</span>  pexpect  <span class="comment">#导入pexpect库</span></span><br><span class="line"></span><br><span class="line">dic=[]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">rot</span><span class="params">(string)</span>:</span>  <span class="comment">#rot13实现</span></span><br><span class="line">    a=<span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  string:</span><br><span class="line">        <span class="keyword">if</span>((ord(i)&gt;=<span class="number">78</span>  <span class="keyword">and</span>  ord(i)&lt;=<span class="number">90</span>)  <span class="keyword">or</span>  (ord(i)&gt;=<span class="number">110</span>  <span class="keyword">and</span>  ord(i)&lt;=<span class="number">122</span>)):</span><br><span class="line">            i=chr(ord(i)<span class="number">-13</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>  ((ord(i)&gt;=<span class="number">65</span>  <span class="keyword">and</span>  ord(i)&lt;<span class="number">78</span>)  <span class="keyword">or</span>  (ord(i)&gt;=<span class="number">97</span>  <span class="keyword">and</span>  ord(i)&lt;<span class="number">110</span>)):</span><br><span class="line"></span><br><span class="line">                i=chr(ord(i)+<span class="number">13</span>)</span><br><span class="line">        a  +=i</span><br><span class="line">    <span class="keyword">return</span>  a</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">findNum</span><span class="params">(num,a)</span>:</span>  <span class="comment">#递归找寻符合条件的数字</span></span><br><span class="line">    <span class="keyword">if</span>  a&gt;=<span class="number">10</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  range  (<span class="number">0</span>,<span class="number">10</span>,<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span>  (num*<span class="number">10</span>+i)%(a+<span class="number">1</span>)==<span class="number">0</span>:</span><br><span class="line">            s=str(num)</span><br><span class="line">            <span class="keyword">if</span>  s  <span class="keyword">not</span>  <span class="keyword">in</span>  dic:</span><br><span class="line">                dic.append(s)</span><br><span class="line">            findNum(num*<span class="number">10</span>+i,a+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    findNum(<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] findNum is complete!'</span></span><br><span class="line">    count=<span class="number">0</span></span><br><span class="line">    fout=open(<span class="string">"tlcout.txt"</span>,<span class="string">"w"</span>)  <span class="comment">#创建一个新的"tlcout.tct"</span></span><br><span class="line">    <span class="keyword">for</span>  s  <span class="keyword">in</span>  dic:</span><br><span class="line">        s=base64.b64encode(s)</span><br><span class="line">        <span class="keyword">print</span>  <span class="string">'[*] base64 is:'</span>+s</span><br><span class="line">        s=rot(s)</span><br><span class="line">        <span class="keyword">print</span>  <span class="string">'[*] rot13 is:'</span>+s</span><br><span class="line">        process=pexpect.spawn(<span class="string">'./tlc'</span>)  <span class="comment">#用spawn执行'./tlc'</span></span><br><span class="line">        process.expect(<span class="string">'Please input key: '</span>)  <span class="comment">#等待程序直到输出'Please input key: '</span></span><br><span class="line">        process.sendline(s)  <span class="comment">#向程序发送一行数据：s(自动加回车换行)</span></span><br><span class="line">        process.expect(<span class="string">'\n'</span>)  <span class="comment">#等待程序输出回车换行('回车\n换行')</span></span><br><span class="line">        out=process.read()  <span class="comment">#读取程序的输出结果</span></span><br><span class="line">        <span class="keyword">print</span>  <span class="string">'[*] out is:'</span>+out</span><br><span class="line">        <span class="keyword">if</span>  <span class="string">'Text is:'</span>  <span class="keyword">in</span>  out:</span><br><span class="line">            fout.write(s+<span class="string">'\n'</span>+out[<span class="number">9</span>:]+<span class="string">'\n'</span>)  <span class="comment">#文件写操作</span></span><br><span class="line">            <span class="keyword">print</span>  <span class="string">'[*] fout.write is:'</span>+s+<span class="string">'\n[*] and:'</span>+out[<span class="number">8</span>:]</span><br><span class="line">        <span class="keyword">if</span>  count==<span class="number">200</span>:</span><br><span class="line">            <span class="keyword">print</span>  <span class="string">'[*] Now is\n%d\n'</span>%count</span><br><span class="line">        count+=<span class="number">1</span></span><br><span class="line">    fout.close()  <span class="comment">#文件关闭</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br><span class="line"><span class="comment">#ZmtkAwH0AmV5</span></span><br></pre></td></tr></table></figure>
+        <h3 id="Python-z3-solver"><a href="#Python-z3-solver" class="headerlink" title="Python z3-solver"></a>Python z3-solver</h3><p>Z3Py的使用方式比较简单，</p>
+<ol>
+<li>定义未知量</li>
+<li>添加约束条件<a id="more"></a></li>
+<li>然后求解<br>以ISCC2018逆向第二题为例，简单的写第一个代码</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  z3  <span class="keyword">import</span>  *</span><br><span class="line"><span class="comment">#定义4个int类型的变量</span></span><br><span class="line">x1  =  Int(<span class="string">'x1'</span>)</span><br><span class="line">x2  =  Int(<span class="string">'x2'</span>)</span><br><span class="line">x3  =  Int(<span class="string">'x3'</span>)</span><br><span class="line">x4  =  Int(<span class="string">'x4'</span>)</span><br><span class="line"><span class="comment">#创建一个通用求解器</span></span><br><span class="line">s  =  Solver()</span><br><span class="line"><span class="comment">#通过add函数添加约束条件</span></span><br><span class="line">s.add(  x2*x1-x4*x3  ==  <span class="number">0x24CDF2E7C953DA56</span>)</span><br><span class="line">s.add(  <span class="number">3</span>*x3+<span class="number">4</span>*x4-x2<span class="number">-2</span>*x1  ==  <span class="number">0x17B85F06</span>)</span><br><span class="line">s.add(  <span class="number">3</span>*x1*x4-x3*x2  ==  <span class="number">0x2E6E497E6415CF3E</span>)</span><br><span class="line">s.add(  <span class="number">27</span>*x2+x1<span class="number">-11</span>*x4  -  x3  ==  <span class="number">0x95AE13337</span>)</span><br><span class="line"><span class="comment">#check()解决声明的约束条件，sat表示找到某个合适的解，unsat表示没有解。这时我们称约束系统无解。</span></span><br><span class="line"><span class="keyword">print</span>  s.check()</span><br><span class="line"><span class="comment">#model()返回一个解的模型，也可能是一个特解</span></span><br><span class="line">m  =  s.model()</span><br><span class="line"><span class="keyword">print</span>  m</span><br><span class="line"><span class="keyword">print</span>  type(m)</span><br><span class="line"><span class="comment">#m.decls是一个list类型</span></span><br><span class="line"><span class="keyword">print</span>  m.decls()</span><br><span class="line"><span class="keyword">print</span>  type(m.decls())</span><br><span class="line"><span class="keyword">print</span>  <span class="string">"traversing model..."</span></span><br><span class="line"><span class="keyword">for</span>  d  <span class="keyword">in</span>  m.decls():</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">"%s = %s"</span>  %  (d,  m[d])</span><br></pre></td></tr></table></figure>
 
 
       
@@ -188,7 +189,7 @@
                 
                 <br>
                 <strong>本文链接：</strong>
-                http://igk-dls.github.io/2019/09/10/Pythonpexpect/
+                http://igk-dls.github.io/2019/09/10/Python-z3-solver/
                 <br>
                 <strong>版权声明：</strong>
                 本作品采用
@@ -293,7 +294,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/Pythonpexpect/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/Python-z3-solver/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -307,11 +308,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/PythonPIL简单编程/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Python-pwn使用方法/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          PythonPIL简单编程
+          Pythonpwn使用方法
         
       </div>
     </a>

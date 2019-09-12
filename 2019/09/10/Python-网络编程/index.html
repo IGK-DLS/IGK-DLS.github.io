@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://igk-dls.github.io">
-  <title>Python z3-solver | 怪咖的小屋</title>
+  <title>Python网络编程 | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Python z3-solverZ3Py的使用方式比较简单，  定义未知量 添加约束条件">
+  <meta name="description" content="Python网络编程使用python来模拟网络编程，小白级入门。">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python z3-solver">
-<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/Python z3-solver/index.html">
+<meta property="og:title" content="Python网络编程">
+<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/Python-网络编程/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
-<meta property="og:description" content="Python z3-solverZ3Py的使用方式比较简单，  定义未知量 添加约束条件">
+<meta property="og:description" content="Python网络编程使用python来模拟网络编程，小白级入门。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-10T11:00:46.285Z">
+<meta property="og:updated_time" content="2019-09-10T11:00:52.369Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python z3-solver">
-<meta name="twitter:description" content="Python z3-solverZ3Py的使用方式比较简单，  定义未知量 添加约束条件">
+<meta name="twitter:title" content="Python网络编程">
+<meta name="twitter:description" content="Python网络编程使用python来模拟网络编程，小白级入门。">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -149,20 +149,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Python z3-solver" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Python-网络编程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Python z3-solver
+      Python网络编程
     </h1>
   
 
         
                 <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
-<a href="/2019/09/10/Python z3-solver/" class="archive-article-date">
+<a href="/2019/09/10/Python-网络编程/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -170,13 +170,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Python-z3-solver"><a href="#Python-z3-solver" class="headerlink" title="Python z3-solver"></a>Python z3-solver</h3><p>Z3Py的使用方式比较简单，</p>
-<ol>
-<li>定义未知量</li>
-<li>添加约束条件<a id="more"></a></li>
-<li>然后求解<br>以ISCC2018逆向第二题为例，简单的写第一个代码</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  z3  <span class="keyword">import</span>  *</span><br><span class="line"><span class="comment">#定义4个int类型的变量</span></span><br><span class="line">x1  =  Int(<span class="string">'x1'</span>)</span><br><span class="line">x2  =  Int(<span class="string">'x2'</span>)</span><br><span class="line">x3  =  Int(<span class="string">'x3'</span>)</span><br><span class="line">x4  =  Int(<span class="string">'x4'</span>)</span><br><span class="line"><span class="comment">#创建一个通用求解器</span></span><br><span class="line">s  =  Solver()</span><br><span class="line"><span class="comment">#通过add函数添加约束条件</span></span><br><span class="line">s.add(  x2*x1-x4*x3  ==  <span class="number">0x24CDF2E7C953DA56</span>)</span><br><span class="line">s.add(  <span class="number">3</span>*x3+<span class="number">4</span>*x4-x2<span class="number">-2</span>*x1  ==  <span class="number">0x17B85F06</span>)</span><br><span class="line">s.add(  <span class="number">3</span>*x1*x4-x3*x2  ==  <span class="number">0x2E6E497E6415CF3E</span>)</span><br><span class="line">s.add(  <span class="number">27</span>*x2+x1<span class="number">-11</span>*x4  -  x3  ==  <span class="number">0x95AE13337</span>)</span><br><span class="line"><span class="comment">#check()解决声明的约束条件，sat表示找到某个合适的解，unsat表示没有解。这时我们称约束系统无解。</span></span><br><span class="line"><span class="keyword">print</span>  s.check()</span><br><span class="line"><span class="comment">#model()返回一个解的模型，也可能是一个特解</span></span><br><span class="line">m  =  s.model()</span><br><span class="line"><span class="keyword">print</span>  m</span><br><span class="line"><span class="keyword">print</span>  type(m)</span><br><span class="line"><span class="comment">#m.decls是一个list类型</span></span><br><span class="line"><span class="keyword">print</span>  m.decls()</span><br><span class="line"><span class="keyword">print</span>  type(m.decls())</span><br><span class="line"><span class="keyword">print</span>  <span class="string">"traversing model..."</span></span><br><span class="line"><span class="keyword">for</span>  d  <span class="keyword">in</span>  m.decls():</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">"%s = %s"</span>  %  (d,  m[d])</span><br></pre></td></tr></table></figure>
+        <h3 id="Python网络编程"><a href="#Python网络编程" class="headerlink" title="Python网络编程"></a>Python网络编程</h3><p>使用python来模拟网络编程，小白级入门。<a id="more"></a></p>
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket"><a href="#1-创建一个基于TCP连接的Socket" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket  <span class="comment">#导入socket库</span></span><br><span class="line"><span class="comment">#创建一个socket</span></span><br><span class="line"></span><br><span class="line">s  =  socket.socket（socket.AF_INET,socket.SOCK_STREAM）<span class="comment">#AF_INET指定使用IPv4协议，如果要用更先进的IPv6，就指定为AF_INET6。SOCK_STREAM指定使用面向流的TCP协议</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line"><span class="comment">#设置端口</span></span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#客户端建立连接需要主动，所以是主动connect</span></span><br><span class="line">s.connect((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"><span class="comment">#连接成功后发送数据</span></span><br><span class="line">s.send(<span class="string">'Hello,I\'m Client!'</span>)</span><br><span class="line"><span class="comment">#接受服务端发来的数据</span></span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)  <span class="comment">#设置最大值为1024个字节，超出部分放入缓冲区</span></span><br><span class="line"><span class="comment">#关闭连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-UDP编程"><a href="#2-UDP编程" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)<span class="comment">#创建Socket时，SOCK_DGRAM指定了这个Socket的类型是UDP</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#s.sendto需要发送的数据与给谁发</span></span><br><span class="line">s.sendto(<span class="string">b'Client'</span>,(host,port))</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a><strong>服务端</strong></h4><h5 id="1-创建一个基于TCP连接的Socket-1"><a href="#1-创建一个基于TCP连接的Socket-1" class="headerlink" title="1.创建一个基于TCP连接的Socket"></a><strong>1.创建一个基于TCP连接的Socket</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"><span class="keyword">import</span>  thread</span><br><span class="line">s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line"><span class="keyword">print</span>  host</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"><span class="comment">#服务端被动建立连接，所以需要指定该程序与哪个socket绑定，需要用bind</span></span><br><span class="line"></span><br><span class="line">s.bind((host,port))  <span class="comment">#(host,port)是一个元组turple</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设立最大连接数</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#接受一个新连接</span></span><br><span class="line">sock,addr=s.accept()</span><br><span class="line">sock.send(<span class="string">b'Welcome!'</span>)</span><br><span class="line">data  =  sock.recv(<span class="number">1024</span>)</span><br><span class="line"><span class="keyword">print</span>  data</span><br><span class="line">sock.send(<span class="string">b'I\'m Server!'</span>)</span><br><span class="line">sock.close()</span><br></pre></td></tr></table></figure>
+
+<p>测试服务器的客户端程序如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line">s  =  socket.socket(socket.AF_INET,  socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立连接:</span></span><br><span class="line"></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line">s.connect((host,  port))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收欢迎消息:</span></span><br><span class="line"></span><br><span class="line">print(s.recv(<span class="number">1024</span>).decode(<span class="string">'utf-8'</span>))</span><br><span class="line">s.send(<span class="string">b'I\'m testServer!'</span>)</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-UDP编程-1"><a href="#2-UDP编程-1" class="headerlink" title="2.UDP编程"></a><strong>2.UDP编程</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span><br><span class="line"><span class="comment">#绑定端口:</span></span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line">s.bind((host,port))</span><br><span class="line"><span class="keyword">print</span>  <span class="string">'Bind UDP on 55555'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#不需要建立连接，直接接收数据</span></span><br><span class="line"><span class="comment">#s.recvfrom()拿到发送的信息与谁发的(地址与端口)</span></span><br><span class="line">data,addr=s.recvfrom(<span class="number">1024</span>)</span><br><span class="line"><span class="keyword">print</span>  (<span class="string">'Received from %s:%s'</span>  %  addr)</span><br><span class="line"><span class="comment">#s.sendto需要发送的数据与给谁发</span></span><br><span class="line">s.sendto(<span class="string">b'Hello,%s'</span>  %  data,addr)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<p>测试服务器的客户端程序如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line">s  =  socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span><br><span class="line">host  =  socket.gethostname()</span><br><span class="line">port  =  <span class="number">55555</span></span><br><span class="line"></span><br><span class="line">s.sendto(<span class="string">b'testServer'</span>,(host,port))</span><br><span class="line"><span class="keyword">print</span>  s.recv(<span class="number">1024</span>)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
 
 
       
@@ -189,7 +196,7 @@
                 
                 <br>
                 <strong>本文链接：</strong>
-                http://igk-dls.github.io/2019/09/10/Python z3-solver/
+                http://igk-dls.github.io/2019/09/10/Python-网络编程/
                 <br>
                 <strong>版权声明：</strong>
                 本作品采用
@@ -294,7 +301,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/Python z3-solver/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/Python-网络编程/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -308,17 +315,17 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Python binascii模块/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/GIT游戏/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Python binascii模块
+          GIT游戏
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/Python 邮件编程/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Python-邮件编程/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Python 邮件编程</div>
       <i class="icon-circle-right"></i>
     </a>

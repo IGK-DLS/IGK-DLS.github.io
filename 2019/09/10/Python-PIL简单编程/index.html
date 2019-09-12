@@ -12,17 +12,17 @@
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PythonPIL简单编程">
-<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/PythonPIL简单编程/index.html">
+<meta property="og:url" content="http://igk-dls.github.io/2019/09/10/Python-PIL简单编程/index.html">
 <meta property="og:site_name" content="怪咖的小屋">
 <meta property="og:description" content="PythonPIL简单编程PIL(Python Image Library)是python的第三方图像处理库，但是由于其强大的功能与众多的使用人数，几乎已经被认为是python官方图像处理库了。其官方主页为:PIL。">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/PythonPIL简单编程/447d548b2e43651226ad793a7a9183ea.png">
-<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/PythonPIL简单编程/f790b2a5d4e50b4489da36665470bdc0.png">
-<meta property="og:updated_time" content="2019-09-10T10:59:38.623Z">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/Python-PIL简单编程/447d548b2e43651226ad793a7a9183ea.png">
+<meta property="og:image" content="http://igk-dls.github.io/2019/09/10/Python-PIL简单编程/f790b2a5d4e50b4489da36665470bdc0.png">
+<meta property="og:updated_time" content="2019-09-12T10:51:30.259Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PythonPIL简单编程">
 <meta name="twitter:description" content="PythonPIL简单编程PIL(Python Image Library)是python的第三方图像处理库，但是由于其强大的功能与众多的使用人数，几乎已经被认为是python官方图像处理库了。其官方主页为:PIL。">
-<meta name="twitter:image" content="http://igk-dls.github.io/2019/09/10/PythonPIL简单编程/447d548b2e43651226ad793a7a9183ea.png">
+<meta name="twitter:image" content="http://igk-dls.github.io/2019/09/10/Python-PIL简单编程/447d548b2e43651226ad793a7a9183ea.png">
   
     <link rel="alternative" href="/atom.xml" title="怪咖的小屋" type="application/atom+xml">
   
@@ -152,7 +152,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-PythonPIL简单编程" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Python-PIL简单编程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -165,7 +165,7 @@
 
         
                 <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
-<a href="/2019/09/10/PythonPIL简单编程/" class="archive-article-date">
+<a href="/2019/09/10/Python-PIL简单编程/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -178,12 +178,12 @@
 
 <h5 id="脚本如下"><a href="#脚本如下" class="headerlink" title="脚本如下:"></a><strong>脚本如下:</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  PIL  <span class="keyword">import</span>  Image  <span class="comment"># 此处import * 不对</span></span><br><span class="line"></span><br><span class="line">x  =  <span class="number">503</span></span><br><span class="line">y  =  <span class="number">122</span></span><br><span class="line"></span><br><span class="line">images  =  Image.new(<span class="string">'RGB'</span>,(x,y))  <span class="comment">#创建一个image对象，参数有'RGB',图片长宽，以及背景色，这道题给出了每个坐标的RGB，所以不需要设置背景色</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#images = Image.new('RGB',(x,y),'#ffffff')</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span>  open  (<span class="string">'bug.txt'</span>,<span class="string">'r'</span>)  <span class="keyword">as</span>  f:</span><br><span class="line">    <span class="keyword">for</span>  i  <span class="keyword">in</span>  range  (x):</span><br><span class="line">        <span class="keyword">for</span>  j  <span class="keyword">in</span>  range  (y):</span><br><span class="line">            n  =  f.readline()</span><br><span class="line">            rgb  =  n.split(<span class="string">','</span>)</span><br><span class="line"></span><br><span class="line">            images.putpixel((i,j),(int  (rgb[<span class="number">0</span>]),int  (rgb[<span class="number">1</span>]),int  (rgb[<span class="number">2</span>])))  <span class="comment">#绘图，images的putpixel方法需要坐标以及三原色</span></span><br><span class="line"></span><br><span class="line">images.show()  <span class="comment">#显示出来(不保存)</span></span><br><span class="line"><span class="comment">#images.save('bugkuctf.png') #(保存)</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="运行截图："><a href="#运行截图：" class="headerlink" title="运行截图："></a><strong>运行截图：</strong></h5><p><img src="/2019/09/10/PythonPIL简单编程/447d548b2e43651226ad793a7a9183ea.png" alt></p>
+<h5 id="运行截图："><a href="#运行截图：" class="headerlink" title="运行截图："></a><strong>运行截图：</strong></h5><p><img src="/2019/09/10/Python-PIL简单编程/447d548b2e43651226ad793a7a9183ea.png" alt></p>
 <h4 id="以实验吧-安全杂项-Paint-amp-Scan为例："><a href="#以实验吧-安全杂项-Paint-amp-Scan为例：" class="headerlink" title="以实验吧 安全杂项 Paint&amp;Scan为例："></a><strong>以实验吧 安全杂项 Paint&amp;Scan为例：</strong></h4><h5 id="该题数据类似：-1"><a href="#该题数据类似：-1" class="headerlink" title="该题数据类似："></a><strong>该题数据类似：</strong></h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//其给的是需要涂黑的坐标</span></span><br><span class="line">(<span class="number">95</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">96</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">97</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">98</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">99</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">154</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">155</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">156</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">157</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">158</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">159</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">160</span>,<span class="number">10</span>)</span><br><span class="line">(<span class="number">161</span>,<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
 
 <h5 id="脚本如下："><a href="#脚本如下：" class="headerlink" title="脚本如下："></a><strong>脚本如下：</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span>  PIL  <span class="keyword">import</span>  Image,ImageDraw</span><br><span class="line"></span><br><span class="line">images  =  Image.new(<span class="string">'RGB'</span>,(<span class="number">280</span>,<span class="number">280</span>),<span class="string">'#ffffff'</span>)</span><br><span class="line"><span class="comment">#imagesDraw = ImageDraw.Draw(images,'RGB') #新建imagesDraw对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span>  open(<span class="string">'qr.txt'</span>,<span class="string">'r'</span>)  <span class="keyword">as</span>  f:</span><br><span class="line">    <span class="keyword">for</span>  n  <span class="keyword">in</span>  f.readlines():</span><br><span class="line">        n  =  n[<span class="number">1</span>:<span class="number">-2</span>]</span><br><span class="line">        n  =  n.split(<span class="string">','</span>)</span><br><span class="line">        n[<span class="number">0</span>] =  int(n[<span class="number">0</span>])</span><br><span class="line">        n[<span class="number">1</span>] =  int(n[<span class="number">1</span>])</span><br><span class="line">        <span class="comment">#imagesDraw.point(tuple(n),'#000000') 在该坐标上涂黑，参数为：坐标元组，颜色</span></span><br><span class="line">        images.putpixel((n[<span class="number">0</span>],n[<span class="number">1</span>]),(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#images.save('solve.png')</span></span><br><span class="line">images.show()</span><br></pre></td></tr></table></figure>
 
-<h5 id="运行截图：-1"><a href="#运行截图：-1" class="headerlink" title="运行截图："></a><strong>运行截图：</strong></h5><p><img src="/2019/09/10/PythonPIL简单编程/f790b2a5d4e50b4489da36665470bdc0.png" alt="1535601662203.png"></p>
+<h5 id="运行截图：-1"><a href="#运行截图：-1" class="headerlink" title="运行截图："></a><strong>运行截图：</strong></h5><p><img src="/2019/09/10/Python-PIL简单编程/f790b2a5d4e50b4489da36665470bdc0.png" alt="1535601662203.png"></p>
 
       
 	  
@@ -195,7 +195,7 @@
                 
                 <br>
                 <strong>本文链接：</strong>
-                http://igk-dls.github.io/2019/09/10/PythonPIL简单编程/
+                http://igk-dls.github.io/2019/09/10/Python-PIL简单编程/
                 <br>
                 <strong>版权声明：</strong>
                 本作品采用
@@ -300,7 +300,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/PythonPIL简单编程/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://igk-dls.github.io/2019/09/10/Python-PIL简单编程/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -314,7 +314,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/10/PythonHash/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Python-Hash/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -324,8 +324,8 @@
     </a>
   
   
-    <a href="/2019/09/10/Pythonpexpect/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Pythonpexpect</div>
+    <a href="/2019/09/10/Python-binascii模块/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python binascii模块</div>
       <i class="icon-circle-right"></i>
     </a>
   
