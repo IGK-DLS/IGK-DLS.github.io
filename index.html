@@ -146,6 +146,87 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-a++与++a" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/12/a++与++a/">a++与++a</a>
+    </h1>
+  
+
+        
+        
+<a href="/2019/09/12/a++与++a/" class="archive-article-date">
+  	<time datetime="2019-09-12T08:45:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有好多人都用过自增，但却不明白为什么会变成那种结果。只知道 a++，表达式的值是a；++a，表达式的值是a+1。可为什么是这样，你确定你真的知道嘛？</p>
+        
+          <a class="article-more-a" href="/2019/09/12/a++与++a/#more">more >></a>
+        
+      
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c,自增,底层,汇编,调试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/12/a++与++a/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-HashMap源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -206,93 +287,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/10/HashMap源码分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Canary绕过(格式化字符串利用)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Canary绕过(格式化字符串利用)/">Canary绕过(格式化字符串利用)</a>
-    </h1>
-  
-
-        
-        
-<a href="/2019/09/10/Canary绕过(格式化字符串利用)/" class="archive-article-date">
-  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Canary绕过-格式化字符串利用"><a href="#Canary绕过-格式化字符串利用" class="headerlink" title="Canary绕过(格式化字符串利用)"></a>Canary绕过(格式化字符串利用)</h3><h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码:"></a><strong>漏洞代码:</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">getshell</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   setbuf(<span class="built_in">stdin</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stdout</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stderr</span>,  <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span>  i;</span><br><span class="line">   init();</span><br><span class="line">   <span class="keyword">char</span>  buf[<span class="number">100</span>];</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span>  i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">"%s"</span>,&amp;buf);</span><br><span class="line">      <span class="built_in">printf</span>(buf);  <span class="comment">//vul</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span>  <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a><strong>原理：</strong></h3><p>利用格式化字符串漏洞泄露出canary的值，利用main函数的ret拿到shell</p>
-        
-          <a class="article-more-a" href="/2019/09/10/Canary绕过(格式化字符串利用)/#more">more >></a>
-        
-      
-	  
-            
-              <div class="declare" hidden="hidden"></div>
-       
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">格式化字符串</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Canary绕过(格式化字符串利用)/">展开全文 >></a>
         </p>
       
 
@@ -412,87 +406,6 @@
 
 
   
-    <article id="post-Python binascii模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Python binascii模块/">Python binascii模块</a>
-    </h1>
-  
-
-        
-        
-<a href="/2019/09/10/Python binascii模块/" class="archive-article-date">
-  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Python-binascii模块"><a href="#Python-binascii模块" class="headerlink" title="Python binascii模块"></a>Python binascii模块</h3><p>在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便。</p>
-        
-          <a class="article-more-a" href="/2019/09/10/Python binascii模块/#more">more >></a>
-        
-      
-	  
-            
-              <div class="declare" hidden="hidden"></div>
-       
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Python binascii模块/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Python z3-solver" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -548,87 +461,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/10/Python z3-solver/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python 邮件编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Python 邮件编程/">Python 邮件编程</a>
-    </h1>
-  
-
-        
-        
-<a href="/2019/09/10/Python 邮件编程/" class="archive-article-date">
-  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Python-邮件编程"><a href="#Python-邮件编程" class="headerlink" title="Python 邮件编程"></a>Python 邮件编程</h3><p>应用python来实现邮件发送，在暑假期间玩了一下这个也是很爽的。qq没有把它们当作垃圾邮件，163…呵呵</p>
-        
-          <a class="article-more-a" href="/2019/09/10/Python 邮件编程/#more">more >></a>
-        
-      
-	  
-            
-              <div class="declare" hidden="hidden"></div>
-       
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Python 邮件编程/">展开全文 >></a>
         </p>
       
 
@@ -821,20 +653,20 @@
 
 
   
-    <article id="post-Pythonpexpect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python binascii模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Pythonpexpect/">Pythonpexpect</a>
+      <a class="article-title" href="/2019/09/10/Python binascii模块/">Python binascii模块</a>
     </h1>
   
 
         
         
-<a href="/2019/09/10/Pythonpexpect/" class="archive-article-date">
+<a href="/2019/09/10/Python binascii模块/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -842,13 +674,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Pythonpexpect"><a href="#Pythonpexpect" class="headerlink" title="Pythonpexpect"></a>Pythonpexpect</h3><p><strong>可以与程序进行交互</strong></p>
-<p>#pexpect 的使用说来说去，就是围绕3个关键命令做操作：</p>
-<p>#1. 首先用 spawn 来执行一个程序</p>
-<p>#2. 然后用 expect 来等待指定的关键字，这个关键字是被执行的程序打印到标准输出上面的</p>
-<p>#3. 最后当发现这个关键字以后，根据关键字用 send 方法来发送字符串给这个程序</p>
+        <h3 id="Python-binascii模块"><a href="#Python-binascii模块" class="headerlink" title="Python binascii模块"></a>Python binascii模块</h3><p>在网络编程中，经常会出现一种情况：想发二进制，却将字符串发了出去，这时候就应该使用这样一个模块，更加方便。</p>
         
-          <a class="article-more-a" href="/2019/09/10/Pythonpexpect/#more">more >></a>
+          <a class="article-more-a" href="/2019/09/10/Python binascii模块/#more">more >></a>
         
       
 	  
@@ -876,7 +704,173 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Pythonpexpect/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/Python binascii模块/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python 邮件编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/Python 邮件编程/">Python 邮件编程</a>
+    </h1>
+  
+
+        
+        
+<a href="/2019/09/10/Python 邮件编程/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Python-邮件编程"><a href="#Python-邮件编程" class="headerlink" title="Python 邮件编程"></a>Python 邮件编程</h3><p>应用python来实现邮件发送，在暑假期间玩了一下这个也是很爽的。qq没有把它们当作垃圾邮件，163…呵呵</p>
+        
+          <a class="article-more-a" href="/2019/09/10/Python 邮件编程/#more">more >></a>
+        
+      
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Python 邮件编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Pythonpwn使用方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/Pythonpwn使用方法/">Pythonpwn使用方法</a>
+    </h1>
+  
+
+        
+        
+<a href="/2019/09/10/Pythonpwn使用方法/" class="archive-article-date">
+  	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Pythonpwn使用方法"><a href="#Pythonpwn使用方法" class="headerlink" title="Pythonpwn使用方法"></a>Pythonpwn使用方法</h3><p>了解一下pwntools的一些常见用法。</p>
+        
+          <a class="article-more-a" href="/2019/09/10/Pythonpwn使用方法/#more">more >></a>
+        
+      
+	  
+            
+              <div class="declare" hidden="hidden"></div>
+       
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/Pythonpwn使用方法/">展开全文 >></a>
         </p>
       
 
@@ -1142,6 +1136,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c,自增,底层,汇编,调试</a>
               </li>
              
               <li class="article-tag-list-item">
