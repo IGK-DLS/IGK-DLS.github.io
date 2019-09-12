@@ -916,20 +916,20 @@
 
 
   
-    <article id="post-Canary绕过(格式化字符串利用)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-GIT游戏" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/Canary绕过(格式化字符串利用)/">Canary绕过(格式化字符串利用)</a>
+      <a class="article-title" href="/2019/09/10/GIT游戏/">GIT游戏</a>
     </h1>
   
 
         
         
-<a href="/2019/09/10/Canary绕过(格式化字符串利用)/" class="archive-article-date">
+<a href="/2019/09/10/GIT游戏/" class="archive-article-date">
   	<time datetime="2019-09-10T10:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
@@ -937,11 +937,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Canary绕过-格式化字符串利用"><a href="#Canary绕过-格式化字符串利用" class="headerlink" title="Canary绕过(格式化字符串利用)"></a>Canary绕过(格式化字符串利用)</h3><h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码:"></a><strong>漏洞代码:</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">getshell</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   setbuf(<span class="built_in">stdin</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stdout</span>,  <span class="literal">NULL</span>);</span><br><span class="line">   setbuf(<span class="built_in">stderr</span>,  <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span>  i;</span><br><span class="line">   init();</span><br><span class="line">   <span class="keyword">char</span>  buf[<span class="number">100</span>];</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span>  i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">"%s"</span>,&amp;buf);</span><br><span class="line">      <span class="built_in">printf</span>(buf);  <span class="comment">//vul</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span>  <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a><strong>原理：</strong></h3><p>利用格式化字符串漏洞泄露出canary的值，利用main函数的ret拿到shell</p>
+        <h3 id="GIT游戏"><a href="#GIT游戏" class="headerlink" title="GIT游戏"></a>GIT游戏</h3><p><a href="http://[https://learngitbranching.js.org/]" target="_blank" rel="noopener">学习网址 [https://learngitbranching.js.org/]</a></p>
+<ol>
+<li><p>git checkout -b bugFix 创建名为bugFix的分支并切换过去</p>
+</li>
+<li><p>git checkout -b foo o/master 创建一个foo分支，追踪o/master分支，并转到foo分支上</p></li></ol>
         
-          <a class="article-more-a" href="/2019/09/10/Canary绕过(格式化字符串利用)/#more">more >></a>
+          <a class="article-more-a" href="/2019/09/10/GIT游戏/#more">more >></a>
         
       
 	  
@@ -959,11 +961,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">格式化字符串</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		
 		</ul>
@@ -973,7 +971,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/Canary绕过(格式化字符串利用)/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/10/GIT游戏/">展开全文 >></a>
         </p>
       
 
@@ -1133,15 +1131,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">pwn</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">格式化字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
